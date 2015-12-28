@@ -111,9 +111,7 @@ public class PaperServiceImpl implements PaperService {
         List<GetMarkPapers.papersMarkInfo> papersMarkInfoList = new ArrayList<>();
         if ((teacher = teacherRepository.findOne(teacherId)) != null) {
             for (Paper paper : teacher.getPaperSet()) {
-                if(paper.getFlag()==null || paper.getFlag()==0) {//未评阅的试卷
                     papersMarkInfoList.add(new GetMarkPapers().new papersMarkInfo(paper.getPaperId(), paper.getPaperName()));
-                }
             }
             return new GetMarkPapers(teacher.getId(), teacher.getTeacherName(), papersMarkInfoList);
         }

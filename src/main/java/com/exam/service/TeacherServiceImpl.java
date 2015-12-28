@@ -152,7 +152,7 @@ public class TeacherServiceImpl implements TeacherService {
                     questionList.add(question);
                 }
                 try {
-                    Paper paper = new Paper(createPaper.getPaperName(), createPaper.getPaperStart(), createPaper.getPaperEnd(), 0, questionList, teacher, null);
+                    Paper paper = new Paper(createPaper.getPaperName(), createPaper.getPaperStart(), createPaper.getPaperEnd(), questionList, teacher, null);
                     teacher.getPaperSet().add(paperRepository.save(paper));
                     teacher.getQuestionSet().addAll(questionList);
                 } catch (ParseException e) {
