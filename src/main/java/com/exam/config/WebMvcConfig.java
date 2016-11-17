@@ -13,7 +13,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController(RequestUrls.LoginUrl).setViewName("login");
-//        registry.addViewController(RequestUrls.teacherIndex).setViewName("teacherIndex");
+        registry.addViewController(RequestUrls.exam).setViewName("exam");
 
     }
 }

@@ -19,17 +19,15 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = RequestUrls.toLoginUrl, method = RequestMethod.POST)
-//    @ResponseBody
+    @ResponseBody
     public String login(@RequestBody LoginRequest loginRequest) {
         System.out.println("登录。");
-//        if (loginRequest != null) {
-//            if (loginRequest.getUsername() != null && loginRequest.getPassword() != null &&loginRequest.getFlag()>0) {
-////                return loginService.login(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getFlag());
-//                return "select";
-//            }
-//        }
-//        return null;
-        return "exam";
+        if (loginRequest != null) {
+            if (loginRequest.getUsername() != null && loginRequest.getPassword() != null &&loginRequest.getFlag()>0) {
+                return loginService.login(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getFlag());
+            }
+        }
+        return null;
     }
 
 

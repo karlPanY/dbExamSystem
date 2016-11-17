@@ -42,16 +42,10 @@ $("#btn_submit").click(function (event) {
         data: JSON.stringify(data),
         success:function (data) {
             alert(data);
-            $(location).attr('href',data);
-            // window.navigate(data);
+            location.href=data;
         },
         error: function (XMLHttpRequest, status, errorThrown) {
             alert(status + " " + errorThrown);
         }
     })
 });
-// $("#form").ajaxSubmit({
-//     url: "/toLogin",
-//     type:"post",
-//     contentType: "application/json; charset=utf-8"
-// });
