@@ -1,0 +1,87 @@
+html,body{background:#ffffff;color:#505050;font-size:100%;height:100%;overflow:hidden;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-touch-callout:none;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0;}
+body,button,input,select,textarea{font:14px 'STKaiti','Helvetica Neue',Arial,'Liberation Sans',FreeSans,'Hiragino Sans GB',sans-serif\"Microsoft YaHei"\"微软雅黑";line-height:20px;}
+h1{font-size:24px;}
+h2{font-size:22px;}
+h3{font-size:18px;}
+@media only screen and (min-width:360px){
+	h1{font-size:28px;}
+	h2{font-size:26px;}
+	h3{font-size:22px;}
+	body,button,input,select,textarea{font-size:18px;line-height:26px;}
+}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+table{border-collapse:collapse;border-spacing:0;}
+th{text-align:inherit;}
+fieldset,img{border:none;}
+abbr,acronym{border:none;font-variant:normal;}
+del{text-decoration:line-through;}
+ol,ul{list-style:none;}
+li>a{display:inline-block;}
+caption,th{text-align:left;}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}
+sup{top:-0.5em;}
+sub{bottom:-0.25em;}
+ins,a,a:hover{text-decoration:none;}
+.clear{clear:both;display:block;font-size:0;height:0;line-height:0;overflow:hidden;}
+
+/* 布局 */
+.fl{float:left;	/* display: inline; */}
+.fr{float:right;	/* display: inline; */}
+.cb{clear:both;}
+.cl{clear:left;}
+.cr{clear:right;}
+.rel{position:relative;}
+.abs{position:absolute;}
+.tac{text-align:center;}
+.tal{text-align:left;}
+.tar{text-align:right;}
+
+/* 网格 */
+.grid{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.grid:before,.grid:after{display:table;content:"";line-height:0}
+.grid:after{clear:both}
+.grid>.grid{clear:none;float:left;margin:0!important}
+.wrap{float:left;width:100%}
+
+/* Flex布局 */
+.col{height:100%;display:-wekit-box; /*??*/display:flex;display:-weblit-flex;flex-direction:column;}
+.row{width:100%;height:auto;display:-wekit-box; /*??*/display:flex;display:-weblit-flex;margin:auto;flex-wrap:wrap;flex-direction:row;}
+
+/* flex: [ <'flex-grow'> <'flex-shrink'> <'flex-basis'> */
+.flex1{-webkit-box-flex:1;-webkit-flex:1;flex:1;}
+.flex2{-webkit-box-flex:2;-webkit-flex:2;flex:2;}
+.flex3{-webkit-box-flex:3;-webkit-flex:3;flex:3;}
+
+/* flex end */
+
+/*头尾*/
+header,footer{position:fixed;right:0;left:0;z-index:1;text-align:center;background:#CCCCCC;}
+header{top:0;height:44px;}
+footer{bottom:0;}
+
+/*宽度*/
+.w100p{width:100%}
+.w20p{width:20%;}
+
+/*边距*/
+.m5{margin:5px;}
+.p5{padding:5px;}
+.pt5{padding-top:5px;}
+
+/* 按钮 */
+.btn{display:inline-block;padding:3px 8px;margin-bottom:3px;margin-top:3px;font-size:14px;font-weight:normal;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid rgba(0,0,0,0);border-radius:4px;color:rgb(255,255,255);margin-right:10px;}
+.btn-default{color:rgb(51,51,51);background-color:rgb(255,255,255);border-color:rgb(204,204,204);}
+.btn-default:hover{box-shadow:inset 0px 0px 7px rgba(0,0,0,.1),inset 0 12px 2px rgba(255,255,255,.4);}
+.btn-primary{color:rgb(255,255,255);background-color:rgb(51,122,183);border-color:rgb(46,109,164);}
+.btn-info{background-color:rgb(91,192,222);border-color:rgb(70,184,218);}
+.btn-success{background-color:rgb(92,184,92);border-color:rgb(76,174,76);}
+.btn-danger{color:rgb(255,255,255);background-color:rgb(217,83,79);border-color:rgb(212,63,58);}
+.btn-danger:hover,.btn-danger:focus,.btn-danger.focus,.btn-danger:active,.btn-danger.active,.open>.dropdown-toggle.btn-danger{color:rgb(255,255,255);background-color:rgb(201,48,44);border-color:rgb(172,41,37);}
+.btn-primary:hover{color:rgb(255,255,255);background-color:rgb(40,96,144);border-color:rgb(32,77,116);}
+.btn-info:hover,.btn-info:focus,.btn-info.focus,.btn-info:active{background-color:rgb(49,176,213);border-color:rgb(38,154,188);}
+.btn-success:hover,.btn-success:focus,.btn-success.focus,.btn-success:active{background-color:rgb(68,157,68);border-color:rgb(57,132,57);}
+
+/* 放到后面 */
+.hide{display:none;}
+.block{display:block;}

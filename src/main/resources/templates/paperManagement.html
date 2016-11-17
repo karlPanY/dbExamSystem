@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>试题管理</title>
+    <link rel="stylesheet" type="text/css" href="css/com.css"/>
+    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
+    <link rel="stylesheet" type="text/css" href="css/paperManagement.css"/>
+</head>
+
+<body>
+    <div class="header">
+        <h1>教师管理系统<span>华南理工大学</span></h1>
+    </div>
+    <div class="wrapper">
+        <nav class="sideBar fl">
+            <ul class="mainNav">
+                <li class="mNli">
+                    <a href="classManagement.html">班级管理 </a>
+                </li>
+                <li class="mNli dropdown-toggle"><a href="showTable('#StuInfo')">试题管理</a> </li>
+                <li class="mNli dropdown-toggle">
+                    <a href="javascript:void(0)">考卷评阅</a>
+                    <ul class="subNav dropdown-menu hide" th:each="paper:${papers}">
+                        <li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>
+                    </ul>
+                </li>
+                <li class="mNli"><a href="detailGrade.html">详细成绩</a></li>
+            </ul>
+        </nav>
+        <div class="main">
+            <div class="panel" id="paperM">
+                <h4 class="title">试题管理</h4>
+                <nav>
+                    <ul class="rowNav">
+                        <li class="fl"> <a href="javascript:showPanel('#paperM')">试题信息</a></li>
+                        <!-- <li class="fl"><a href="#">上传试题</a></li> -->
+                        <li class="fl"><a href="javascript:subscribe()">发布试题</a>
+                        </li>
+                        <li class="fl"> <a href="javascript:refresh();">刷新</a></li>
+                    </ul>
+                </nav>
+                <table class="main-table" id="paperInfo">
+                    <caption>试题信息
+                        <button class="fr btn btn-danger btn_hide hide" id="btn_subPaper">发布</button>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="selectAll">
+                            </th>
+                            <th>序号</th>
+                            <th class="col2">试题编号</th>
+                            <th class="col2">预览</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="paper:${papersInfo}">
+                            <td class="subscribe">
+                                <input type="checkbox" th:name="${paper.no}">
+                            </td>
+                            <td th:text="${paperStat.count}">1</td>
+                            <td class="col2" th:text="${paper.name}">数据库考卷1</td>
+                            <td class="col2">
+                                <button class="btn btn-success btn-preview" th:onclick=" 'paperPreview('+${paper.no}+')'">预览</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel hide" id="paperPreview">
+                <h4 class="title">试题详情</h4>
+                <nav>
+                    <ul class="rowNav">
+                        <li class="fl"> <a href="javascript:showPanel('#paperM')">试题信息</a></li>
+                        <!-- <li class="fl"><a href="#">上传试题</a></li> -->
+                        <li class="fl"><a href="javascript:subscribe()">发布试题</a>
+                        </li>
+                        <li class="fl"> <a href="javascript:refresh();">刷新</a></li>
+                    </ul>
+                </nav>
+                <table class="main-table" id="tbl_preview">
+                    <caption class="title" id="pNo_pre">试题编号</caption>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th class="">题号</th>
+                            <th class="col3">题目</th>
+                            <th>答案</th>
+                            <th>分值</th>
+                            <th>修改</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- 利用js动态插入具体试题信息 -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                   
+                </h4>
+                </div>
+                <div class="modal-body">
+                    <p>题目&nbsp;
+                        <input type='text' name="qTitle">
+                    </p>
+                    <p>答案&nbsp;
+                        <input type='text' name="qAnswer">
+                    </p>
+                    <p>分值&nbsp;
+                        <input type='text' name="qScore">
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btn-cancle">取消
+                    </button>
+                    <button type="button" class=" btn btn-success" onclick="paperModify()">
+                        提交更改
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+        <script src="js/effects/jquery-2.2.3.js"></script>
+        <script src="js/effects/bootstrap.js"></script>
+        <script src="js/teacherJs.js"></script>
+        <script src="js/paperManagement.js"></script>
+    </div>
+</body>
+
+</html>

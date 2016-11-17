@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>详细分数</title>
+    <link rel="stylesheet" type="text/css" href="css/com.css"/>
+    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
+    <link rel="stylesheet" type="text/css" href="css/detailGrade.css"/>
+</head>
+<body>
+    <div class="header">
+        <h1><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h1>
+    </div>
+    <div class="wrapper">
+        <nav class="sideBar fl">
+            <ul class="mainNav">
+                 <li class="mNli">
+                    <a href="classManagement.html">班级管理 </a>
+                 </li>
+                 <li class="mNli"><a href="paperManagement.html">试题管理</a>
+                 </li>
+                 <li class="mNli dropdown-toggle">
+                     <a href="javascript:void(0)">考卷评阅</a>
+                     <ul class="subNav dropdown-menu hide" th:each="paper:${papers}">
+                         <li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>
+                     </ul>
+                </li>
+                <li class="mNli"><a href="detailGrade.html">详细成绩</a></li>
+            </ul>
+        </nav>
+        <div class="main">
+	         <div class="panel" id="gradeD">
+                <h4 class="title">详情成绩</h4>
+                <nav class="">
+                    <ul class="">             
+                        <li class="dropdown-toggle">
+                        <a href="javascript:void(0)">请选择试题</a>
+                            <ul class="subNav dropdown-menu hide" th:each="paperName:${papersName}">
+                                <li class="fl"><button type="" class="btn btn-info" th:text="${paperName}">试卷1</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <table class="main-table">
+                    <caption>
+                        <span class="title" style="width: 80px;"></span>
+                        <!-- <!-- 通过对成绩的判断 添加类.failed 来添加高亮样式 -->
+                        <button class="btn btn-default fr">不及格</button>
+                        <button class="btn btn-default fr">排序</button>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学生</th>
+                            <th>学号</th>
+                            <th>成绩</th>
+                            <th>排名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <!-- 通过js动态插入 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    <script src="js/effects/jquery-2.2.3.js"></script>
+    <script src="js/effects/bootstrap.js"></script>
+    <script src="js/teacherJs.js"></script>
+    <script src="js/detailGrade.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+button#btn_next{margin-right:21px;}
+
+/* 表格布局 */
+.table{display:table;}
+.form{width:100%;min-height:500px;border:#BBB;color:rgb(34,34,34);margin-top:39px;}
+.content{width:94%;min-height:10px;margin:30px auto;}
+.content>h3{background:#e6e6e6;letter-spacing:0px;padding:5px 12px;}
+.question{width:90%;display:table;border:1px solid rgb(153,153,153);padding:5px 15px;letter-spacing:0px;margin:10px auto;}
+.question>h4{letter-spacing:0;font-weight:700;}
+.question>h4>span{letter-spacing:0;margin-left:22px;}
+.question>div{margin:8px 19px;}
+.question>span{display:table-row;float:right;}
+.question input[type='text']{letter-spacing:0px;text-align:center;}
+
+/* 自定义 */
+.alert #btn_cancle{margin-right:69px;}
+
+.mNli:nth-of-type(3)>a {
+    background: rgb(217, 219, 224);
+    border-left: 2px solid #000;
+}

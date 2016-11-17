@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>改卷</title>
+    <link rel="stylesheet" type="text/css" href="css/com.css"/>
+    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
+    <link rel="stylesheet" type="text/css" href="css/paperMark.css"/>
+</head>
+
+<body>
+    <div class="header">
+        <h1><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h1>
+    </div>
+    <div class="wrapper">
+        <nav class="sideBar fl">
+            <ul class="mainNav">
+                <li class="mNli">
+                    <a href="classManagement.html">班级管理 </a>
+                </li>
+                <li class="mNli"><a href="paperManagement.html">试题管理</a>
+                </li>
+                <li class="mNli dropdown-toggle">
+                   <a href="javascript:void(0)">考卷评阅</a>
+                    <!--<ul class="subNav dropdown-menu hide" th:each="paper:${papers}">-->
+                        <!--<li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>-->
+                    <!--</ul>-->
+                </li>
+                <li class="mNli "><a href="detailGrade.html ">详细成绩</a></li>
+            </ul>
+        </nav>
+        <div class="main">
+             <div class="panel " id="paperS">
+                <h4 class="title ">考卷评阅</h4>
+                <nav>              
+                    <ul class="rowNav">                 
+                        <li class="fl "><a href="#填空题">填空题</a></li>
+                        <li class="fl "><a href="#简答题">简答题</a></li>
+                        <li class="fl "><a href="#分析题">分析题</a></li>  
+                    </ul>
+                </nav>
+                <button type="button" class="btn btn-success fr" id="btn_next">下一份</button>
+                <button type="button" class="btn btn-success fr" id="btn_before">确定评分</button>
+                <div class="form">
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <script src="js/effects/jquery-2.2.3.js "></script>
+        <script src="js/effects/bootstrap.js"></script>
+        <script src="js/teacherJs.js "></script>
+        <script src="js/paperMark.js "></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+* {
+    line-height: 1.2;
+    margin: 0;
+}
+html,body {
+    color: rgb(90, 120, 90);
+    display: table;
+    font-family: sans-serif;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.wrap{
+    vertical-align: middle;
+    margin: 10em auto;
+    padding: 70px;
+    text-align: center;
+    border-radius: 5px;
+    width: 180px;
+    height: 60px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 0px 14px rgba(0,0,0,.5);
+
+}
+select {
+    height: 24px;
+    display: inline;
+    float: right;
+    border: 1px solid rgba(136, 136, 136,.4);
+    box-shadow: 0px 0px 1px rgba(136,136,136,.5);
+}
+span {
+    text-shadow: 2px 1px rgb(255, 248, 220);
+    text-indent: -34px;
+    float: left;
+}
+button {
+    width: 100%;
+    font-size: 18px;
+    background:rgb(149,214,105);
+    border: none;
+    padding: 8px 18px;
+    margin-top: 30px;
+    box-shadow: 1px 1px 5px rgb(187, 184, 184);
+}
+button:hover {
+    cursor: pointer;
+    background: rgb(5, 162, 77);
+}
