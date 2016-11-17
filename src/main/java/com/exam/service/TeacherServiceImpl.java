@@ -11,8 +11,8 @@ import java.util.List;
 @Service("teacherService")
 public class TeacherServiceImpl implements TeacherService {
     @Override
-    public Long createPaper(String paperName, Long teacherId, List<Question> questions) {
-        
+    public Long createPaper(String paperName, Long teacherId, List<Question> questions) {// TODO: 2016/11/17 测试取出的teacher里的各个set项的值
+
         return null;
     }
 }
