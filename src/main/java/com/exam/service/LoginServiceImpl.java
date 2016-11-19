@@ -35,14 +35,14 @@ public class LoginServiceImpl implements LoginService {
             case 2:
                 Teacher teacher;
                 Long tid = Long.parseLong(userName);
-                if ( (teacher=teacherRepository.findByTeacherId(tid)) != null) {
+                if ( (teacher=teacherRepository.findOne(tid)) != null) {
                     return teacher.getPassword().equals(password) ? "teacherIndex": null;
                 }
                 break;
             case 3:
                 Student student;
                 Long sid = Long.parseLong(userName);
-                if ( (student=studentRepository.findByStudentId(sid)) != null) {
+                if ( (student=studentRepository.findOne(sid)) != null) {
                     return student.getPassword().equals(password) ? "exam" : null;
                 }
                 break;

@@ -10,12 +10,8 @@ import java.util.Set;
 @Entity
 public class Student implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "studentId")
     private Long id;
-
-    @Column(nullable = false, unique = true)
-    private Long studentId;
 
     @Column(nullable = false, length = 20)
     private String studentName;
@@ -23,9 +19,11 @@ public class Student implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "classId",referencedColumnName = "classId")
-    private StuClass stuClass;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name="ClassStudentSet",
+            joinColumns ={@JoinColumn(name = "studentId")},
+            inverseJoinColumns = {@JoinColumn(name="classId")})
+    private Set<StuClass> stuClass;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.student",cascade = CascadeType.ALL)
     private Set<PaperScore> paperScoreSet;
@@ -36,8 +34,8 @@ public class Student implements Serializable {
     public Student() {
     }
 
-    public Student(Long studentId, String studentName, String password,  StuClass stuClass, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
-        this.studentId = studentId;
+    public Student(Long id, String studentName, String password, Set<StuClass> stuClass, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
+        this.id = id;
         this.studentName = studentName;
         this.password = password;
         this.stuClass = stuClass;
@@ -45,11 +43,11 @@ public class Student implements Serializable {
         this.questionScoreSet = questionScoreSet;
     }
 
-    public StuClass getStuClass() {
+    public Set<StuClass> getStuClass() {
         return stuClass;
     }
 
-    public void setStuClass(StuClass stuClass) {
+    public void setStuClass(Set<StuClass> stuClass) {
         this.stuClass = stuClass;
     }
 
@@ -67,14 +65,6 @@ public class Student implements Serializable {
 
     public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
         this.questionScoreSet = questionScoreSet;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
     }
 
     public String getStudentName() {

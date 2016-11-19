@@ -1,7 +1,9 @@
 package com.exam.service;
 
 import com.exam.domain.Paper;
+import com.exam.domain.PaperScoreId;
 import com.exam.domain.dao.PaperRepository;
+import com.exam.domain.dao.PaperScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

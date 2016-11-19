@@ -10,12 +10,9 @@ import java.util.Set;
 @Entity
 public class Teacher implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "teacherId")
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private Long teacherId;
 
     @Column(nullable = false,unique = true)
     private String teacherName;
@@ -35,8 +32,8 @@ public class Teacher implements Serializable {
     public Teacher() {
     }
 
-    public Teacher(Long teacherId, String teacherName, String password, Set<Question> questionSet, Set<Paper> paperSet, Set<StuClass> classSet) {
-        this.teacherId = teacherId;
+    public Teacher(Long id, String teacherName, String password, Set<Question> questionSet, Set<Paper> paperSet, Set<StuClass> classSet) {
+        this.id = id;
         this.teacherName = teacherName;
         this.password = password;
         this.questionSet = questionSet;
@@ -48,9 +45,6 @@ public class Teacher implements Serializable {
         this.id = id;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
 
     public Set<StuClass> getClassSet() {
         return classSet;
@@ -64,9 +58,6 @@ public class Teacher implements Serializable {
         return id;
     }
 
-    public Long getTeacherId() {
-        return teacherId;
-    }
 
     public String getTeacherName() {
         return teacherName;
