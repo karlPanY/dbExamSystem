@@ -38,13 +38,11 @@ public class Question implements Serializable{
     public Question() {
     }
 
-    public Question(String type, String title, String answer, Float score, Paper paperOf, Set<QuestionScore> questionScoreSet) {
+    public Question(String type, String title, String answer, Float score) {
         this.type = type;
         this.title = title;
         this.answer = answer;
         this.score = score;
-        this.paperOf = paperOf;
-        this.questionScoreSet = questionScoreSet;
     }
 
     public Set<QuestionScore> getQuestionScoreSet() {

@@ -20,10 +20,9 @@ public class PaperScore implements Serializable{
     public PaperScore() {
     }
 
-    public PaperScore(PaperScoreId id, Float score, Set<QuestionScore> questionScoreSet) {
+    public PaperScore(PaperScoreId id, Float score) {
         this.id = id;
         this.score = score;
-        this.questionScoreSet = questionScoreSet;
     }
 
     public Set<QuestionScore> getQuestionScoreSet() {
