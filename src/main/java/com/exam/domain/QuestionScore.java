@@ -17,7 +17,7 @@ public class QuestionScore implements Serializable {
     private String answerStu;//学生的答案
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumns({@JoinColumn(name = "paperId", referencedColumnName = "paper_paper_id"),
+    @JoinColumns({@JoinColumn(name = "paperId", referencedColumnName = "paper_paper_id"),//TODO 这里不知道要不要加insertable和updateable的false
             @JoinColumn(name = "studentId", referencedColumnName = "student_student_id")})
     private PaperScore paperScore;
 
