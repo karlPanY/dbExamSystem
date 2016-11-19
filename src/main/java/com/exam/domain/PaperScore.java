@@ -2,6 +2,7 @@ package com.exam.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by NeilHY on 2016/11/14.
@@ -13,12 +14,24 @@ public class PaperScore implements Serializable{
 
     private Float score;//学生得分
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<QuestionScore> questionScoreSet;
+
     public PaperScore() {
     }
 
-    public PaperScore(PaperScoreId id, Float score) {
+    public PaperScore(PaperScoreId id, Float score, Set<QuestionScore> questionScoreSet) {
         this.id = id;
         this.score = score;
+        this.questionScoreSet = questionScoreSet;
+    }
+
+    public Set<QuestionScore> getQuestionScoreSet() {
+        return questionScoreSet;
+    }
+
+    public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
+        this.questionScoreSet = questionScoreSet;
     }
 
     public PaperScoreId getId() {

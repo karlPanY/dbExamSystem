@@ -1,7 +1,6 @@
 package com.exam.domain;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,13 +16,27 @@ public class QuestionScore implements Serializable {
 
     private String answerStu;//学生的答案
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns({@JoinColumn(name = "paperId", referencedColumnName = "paper_paper_id"),
+            @JoinColumn(name = "studentId", referencedColumnName = "student_student_id")})
+    private PaperScore paperScore;
+
     public QuestionScore() {
     }
 
-    public QuestionScore(QuestionScoreId id, Float scoreStu, String answerStu) {
+    public QuestionScore(QuestionScoreId id, Float scoreStu, String answerStu, PaperScore paperScore) {
         this.id = id;
         this.scoreStu = scoreStu;
         this.answerStu = answerStu;
+        this.paperScore = paperScore;
+    }
+
+    public PaperScore getPaperScore() {
+        return paperScore;
+    }
+
+    public void setPaperScore(PaperScore paperScore) {
+        this.paperScore = paperScore;
     }
 
     public QuestionScoreId getId() {
