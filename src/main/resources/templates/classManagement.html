@@ -1,127 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>班级管理</title>
-	  <link rel="stylesheet" type="text/css" href="css/com.css"/>
-      <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
-      <link rel="stylesheet" type="text/css" href="css/classManagement.css"/>
+    <title>班级管理</title>
+    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
+     <link rel="stylesheet" type="text/css" href="css/teacher.css">
+    <link rel="stylesheet" type="text/css" href="css/classManagement.css">
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
 </head>
-<body>
-    <div class="header">
-        <h1><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h1>
+
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" id="top">
+        <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
+        <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
     </div>
-    <div class="wrapper">
-        <nav class="sideBar fl">
-            <ul class="mainNav">
-                <li class="mNli">
-                    <a href="javascript:showTable('#StuInfo')">班级管理 </a>
-                </li>
-              
-                <li class="mNli"><a href="paperManagement.html">试题管理</a>
-                </li>
-               <li class="mNli dropdown-toggle">
-                   <a href="javascript:void(0)">考卷评阅</a>
-                   <ul class="subNav dropdown-menu hide" th:each="paper:${papers}">
-                       <li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>
-                   </ul>
-                </li>
-                <li class="mNli"><a href="detailGrade.html">详细成绩</a></li>
-            </ul>
-        </nav>
-        <div class="main">
-	       <div class="panel" id="classM">
-                <h4 class="title">班级管理</h4>
-                <nav>
-                    <ul class="rowNav"> 
-                      <li class="fl"><a href="javascript:showTable('#StuInfo')">班级信息</a></li>                 
-                       <li class="fl"><a href="javascript:showTable('#addStuInfo')">添加学生</a></li>
-                        <li class="fl"><a href="javascript:delStuInfo()">删除学生</a></li>
-                        <li class="fl"> <a href="javascript:refresh();">刷新</a></li>  
+      <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+                    <ul class="main_menu">
+                        <li><a href="classManagement.html"  class="active">班级信息</a> </li>
+                        <li><a href="paperManagement.html">试题管理</a> </li>
+                        <li> <a href="paperMark.html">考卷评阅</a></li>
+                        <li><a href="detailGrade.html" >详细成绩</a></li>
                     </ul>
-                </nav>
-                <table class="cl table main-table" id="StuInfo">
-                   <caption>班级信息<button class="fr btn btn-danger btn_hide hide" id="btn_delStu">删除</button></caption>
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type='checkbox' class='selectAll'/>
-                                </th>
-                                <th>序号</th>
-                                <th>姓名</th>
-                                <th>学号</th>
-                                <th>性别</th>
-                                <th>导师</th>
-                                <th>成绩</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="student:${studentsInfo}">
-                                <td>
-                                    <input type='checkbox' class='chk' th:name="${student.sno}"/>
-                                </td>
-                                <td th:text="${studentStat.count}">1</td>
-                                <td th:text="${student.sname}">某某某</td>
-                                <td th:text="${student.sno}">201430560243</td>
-                                <td th:text="${student.ssex}">女</td>
-                                <td th:text="${student.tname}">某导师</td>
-                                <td>
-                                    <a class="btn btn-info " href="javascript:void(0)" th:onclick="'getStuGrade('+${student.sno}+')'">详细</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                </table>
-                <table class="cl table hide" id="addStuInfo">
-                    <caption>请输入要新添的学生信息 - - </caption>
-                    <tbody>
-                        <tr>
-                            <td>姓名</td>
-                            <td><input type="text" autofocus="true" name="sname"></td>
-                        </tr>
-                        <tr>
-                            <td>学号</td>
-                            <td><input type="text" autofocus="true" pattern="[0-9]{12}" name="sno"></td>
-                        </tr>
-                        <tr>
-                            <td>性别</td>
-                            <td><label><input type="radio" name="ssex" value="女">女</label><lable><input type="radio" name="ssex" value="男">男</lable>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>导师</td>
-                            <td><input type="text" autofocus="true" name="tno"></td>
-                        </tr>
-                        <tr>
-                        <td></td>
-                        <td  class="btn btn-success" onclick="addStuInfo()">确定</td>
-                        </tr>                        
-                    </tbody>
-                </table>
-              
-                   
-                <table class="cl table hide table-striped" id="stuGradeDetail">
-                    <caption>学生信息 - -
-                        <span class="sname">学生姓名</span>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>试题</th>
-                            <th>成绩</th>
-                            <th>排名</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- 使用js插入 学生各科成绩-->
-                    </tbody>
-                </table>
-
-
+        </div>
+    <div data-options="region:'center',split:true" title="" id="center">
+        <div class="center-left">
+            <div class="easyui-accordion" data-options="fit:true,border:false">
+                <div title="选择班级" style="padding:10px;" id="class_list">
+                    <ul class="easyui-tree">
+                        <li><a href="javascript:void(0)" id="class_id1">网络工程</a></li>
+                        <li><a href="javascript:void(0)" id="class_id2">信息安全</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
+        <div class="center-right">           
+            <table class="easyui-datagrid" id="class_student_dg" data-options="rownumbers:true,singleSelect:true, method:'get',toolbar:toolbar">
+                <thead>
+                    <tr>
+                        <th data-options="field:'student_name',width:80,align:'center'">姓名</th>
+                        <th data-options="field:'student_id',width:120,align:'center'">学号</th>
+                        <th data-options="field:'class_name',width:80,align:'center'">班级</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-    <script src="js/effects/jquery-2.2.3.js"></script>
-    <script src="js/effects/bootstrap.js"></script>
-    <script src="js/teacherJs.js"></script>
+    <div data-options="region:'east',split:true,collapsed:true" title="学生成绩" id="east">
+        <p class="title"><strong>廖晓娟</strong>&nbsp;同学</p>
+        <table class="easyui-datagrid" id="student_grade_dg" data-options="rownumbers:true,singleSelect:true,method:'get'">
+            <thead>
+                <tr>
+                    <th data-options="field:'paper_name',width:80,align:'center'">试题</th>
+                    <th data-options="field:'grade',width:120,align:'center'">成绩</th>
+                    <th data-options="field:'rank',width:120,align:'center'">排名</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     <script src="js/classManagement.js"></script>
 </body>
+
 </html>

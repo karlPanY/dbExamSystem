@@ -1,72 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>详细分数</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css"/>
-    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
-    <link rel="stylesheet" type="text/css" href="css/detailGrade.css"/>
-</head>
-<body>
-    <div class="header">
-        <h1><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h1>
-    </div>
-    <div class="wrapper">
-        <nav class="sideBar fl">
-            <ul class="mainNav">
-                 <li class="mNli">
-                    <a href="classManagement.html">班级管理 </a>
-                 </li>
-                 <li class="mNli"><a href="paperManagement.html">试题管理</a>
-                 </li>
-                 <li class="mNli dropdown-toggle">
-                     <a href="javascript:void(0)">考卷评阅</a>
-                     <ul class="subNav dropdown-menu hide" th:each="paper:${papers}">
-                         <li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>
-                     </ul>
-                </li>
-                <li class="mNli"><a href="detailGrade.html">详细成绩</a></li>
-            </ul>
-        </nav>
-        <div class="main">
-	         <div class="panel" id="gradeD">
-                <h4 class="title">详情成绩</h4>
-                <nav class="">
-                    <ul class="">             
-                        <li class="dropdown-toggle">
-                        <a href="javascript:void(0)">请选择试题</a>
-                            <ul class="subNav dropdown-menu hide" th:each="paperName:${papersName}">
-                                <li class="fl"><button type="" class="btn btn-info" th:text="${paperName}">试卷1</button></li>
-                            </ul>
-                        </li>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>班级管理</title>
+        <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
+        <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
+        <link rel="stylesheet" type="text/css" href="css/teacher.css">
+        <link rel="stylesheet" type="text/css" href="css/detailGrade.css">
+        <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+        <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
+    </head>
+    <body class="easyui-layout">
+        <div data-options="region:'north',border:false" id="top">
+            <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
+            <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
+        </div>
+        <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+                    <ul class="main_menu">
+                        <li><a href="classManagement.html">班级信息</a> </li>
+                        <li><a href="paperManagement.html">试题管理</a> </li>
+                        <li> <a href="paperMark.html">考卷评阅</a></li>
+                        <li><a href="detailGrade.html" class="active">详细成绩</a></li>
                     </ul>
-                </nav>
-                <table class="main-table">
-                    <caption>
-                        <span class="title" style="width: 80px;"></span>
-                        <!-- <!-- 通过对成绩的判断 添加类.failed 来添加高亮样式 -->
-                        <button class="btn btn-default fr">不及格</button>
-                        <button class="btn btn-default fr">排序</button>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>学生</th>
-                            <th>学号</th>
-                            <th>成绩</th>
-                            <th>排名</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <!-- 通过js动态插入 -->
-                    </tbody>
+        </div>
+        <div data-options="region:'center',split:true" title="" id="center">
+            <div class="center-left">
+                <div class="easyui-accordion" data-options="fit:true,border:false">
+                    <div title="选择考卷" style="padding:10px;" id="paper_list">
+                        <ul class="easyui-tree">
+                            <li><a href="javascript:void(0)" id="paper_id1"></a></li>
+                            <li><a href="javascript:void(0)" id="paper_id2"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="center-right">
+                <table id="paper_grade_dg" class="easyui-datagrid"
+                    title="考卷成绩详情" iconCls="icon-save"
+                    sortName="grade" sortOrder="asc"
+                    rownumbers="true">                   
                 </table>
             </div>
         </div>
-      </div>
-    <script src="js/effects/jquery-2.2.3.js"></script>
-    <script src="js/effects/bootstrap.js"></script>
-    <script src="js/teacherJs.js"></script>
-    <script src="js/detailGrade.js"></script>
-</body>
+        <script src="js/detailGrade.js"></script>
+    </body>
 </html>

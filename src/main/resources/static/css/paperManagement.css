@@ -1,4 +1,17 @@
-.mNli:nth-of-type(2)>a {
-    background: rgb(217, 219, 224);
-    border-left: 2px solid #000;
-}
+#east{width: 210px;}
+
+#paper_detail_panel{width:100%;min-height:350px;padding:10px;background:#fafafa;}
+#calender{width:180px;height:180px;}
+#dd{min-width:600px;min-height:200px;top:50%;}
+#paper_detail_dd input[type="text"],#paper_detail_dd textarea{width:505px;text-indent:10px;padding:3px;margin:2px 5px;}
+#paper_dd{margin:30px auto;}
+
+/* 重写样式 */
+.datagrid-body .datagrid-cell.datagrid-cell-c3-paper_end,.datagrid-body .datagrid-cell.datagrid-cell-c3-paper_start{color:rgb(77,48,129);}
+.datagrid-body .datagrid-cell.datagrid-cell-c3-paper_status{color:red;}
+.window-shadow{background:transparent;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+
+/*toolbar样式*/
+a.l-btn.l-btn-small.l-btn-plain{border:1px solid rgb(211, 211, 211);border-radius:0;border-bottom:none;margin:auto 2px;padding:0px 4px;}
+a.l-btn.l-btn-small.l-btn-plain:hover{background:rgb(226, 226, 226);}
+span.l-btn-text{font-weight:600;color:rgb(87, 87, 101);}
