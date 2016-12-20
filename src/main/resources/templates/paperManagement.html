@@ -1,143 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>试题管理</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css"/>
-    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
-    <link rel="stylesheet" type="text/css" href="css/paperManagement.css"/>
+    <title>班级管理</title>
+    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/teacher.css">
+    <link rel="stylesheet" type="text/css" href="css/paperManagement.css">
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
 </head>
 
-<body>
-    <div class="header">
-        <h1>教师管理系统<span>华南理工大学</span></h1>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" id="top">
+        <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
+        <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
     </div>
-    <div class="wrapper">
-        <nav class="sideBar fl">
-            <ul class="mainNav">
-                <li class="mNli">
-                    <a href="classManagement.html">班级管理 </a>
-                </li>
-                <li class="mNli dropdown-toggle"><a href="showTable('#StuInfo')">试题管理</a> </li>
-                <li class="mNli dropdown-toggle">
-                    <a href="javascript:void(0)">考卷评阅</a>
-                    <ul class="subNav dropdown-menu hide" th:each="paper:${papers}">
-                        <li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>
+     <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+                    <ul class="main_menu">
+                        <li><a href="classManagement.html">班级信息</a> </li>
+                        <li><a href="paperManagement.html"  class="active">试题管理</a> </li>
+                        <li> <a href="paperMark.html">考卷评阅</a></li>
+                        <li><a href="detailGrade.html" >详细成绩</a></li>
                     </ul>
-                </li>
-                <li class="mNli"><a href="detailGrade.html">详细成绩</a></li>
-            </ul>
-        </nav>
-        <div class="main">
-            <div class="panel" id="paperM">
-                <h4 class="title">试题管理</h4>
-                <nav>
-                    <ul class="rowNav">
-                        <li class="fl"> <a href="javascript:showPanel('#paperM')">试题信息</a></li>
-                        <!-- <li class="fl"><a href="#">上传试题</a></li> -->
-                        <li class="fl"><a href="javascript:subscribe()">发布试题</a>
-                        </li>
-                        <li class="fl"> <a href="javascript:refresh();">刷新</a></li>
-                    </ul>
-                </nav>
-                <table class="main-table" id="paperInfo">
-                    <caption>试题信息
-                        <button class="fr btn btn-danger btn_hide hide" id="btn_subPaper">发布</button>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" class="selectAll">
-                            </th>
-                            <th>序号</th>
-                            <th class="col2">试题编号</th>
-                            <th class="col2">预览</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="paper:${papersInfo}">
-                            <td class="subscribe">
-                                <input type="checkbox" th:name="${paper.no}">
-                            </td>
-                            <td th:text="${paperStat.count}">1</td>
-                            <td class="col2" th:text="${paper.name}">数据库考卷1</td>
-                            <td class="col2">
-                                <button class="btn btn-success btn-preview" th:onclick=" 'paperPreview('+${paper.no}+')'">预览</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="panel hide" id="paperPreview">
-                <h4 class="title">试题详情</h4>
-                <nav>
-                    <ul class="rowNav">
-                        <li class="fl"> <a href="javascript:showPanel('#paperM')">试题信息</a></li>
-                        <!-- <li class="fl"><a href="#">上传试题</a></li> -->
-                        <li class="fl"><a href="javascript:subscribe()">发布试题</a>
-                        </li>
-                        <li class="fl"> <a href="javascript:refresh();">刷新</a></li>
-                    </ul>
-                </nav>
-                <table class="main-table" id="tbl_preview">
-                    <caption class="title" id="pNo_pre">试题编号</caption>
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th class="">题号</th>
-                            <th class="col3">题目</th>
-                            <th>答案</th>
-                            <th>分值</th>
-                            <th>修改</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <!-- 利用js动态插入具体试题信息 -->
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+    <div data-options="region:'east',split:true" title="日历" id="east">
+        <div id="calender" class="easyui-calendar"></div>
+    </div>
+    <div data-options="region:'center',split:true" title="" id="center">
+        <table class="easyui-datagrid" id="paper_dg" data-options="rownumbers:true,singleSelect:true, method:'get',toolbar:toolbar">
+            <thead>
+                <tr>
+                    <th data-options="field:'paper_name',width:150,align:'center'">试卷名</th>
+                    <th data-options="field:'paper_status',width:120,align:'center'">状态</th>
+                    <th data-options="field:'paper_start',width:180,align:'center'">开始时间</th>
+                    <th data-options="field:'paper_end',width:180,align:'center'">截止时间</th>
+                </tr>
+            </thead>
+        </table>
+        <!-- 试题题目修改信息框 -->
+        <div id="dd" class="easyui-dialog" title="信息填写框" data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:dd_buttons">
+            <table id="paper_detail_dd" class="dd">
+                <tbody>
+                    <tr>
+                        <td>试题编号</td>
+                        <td>
+                            <input type="text" name="question_id">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>试题题目</td>
+                        <td>
+                            <textarea name="question_title" cols="30" rows="5"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="choice">
+                        <td>选项A</td>
+                        <td>
+                            <textarea name="choice1" cols="30" rows="1"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="choice">
+                        <td>选项B</td>
+                        <td>
+                            <textarea name="choice2" cols="30" rows="1"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="choice">
+                        <td>选项C</td>
+                        <td>
+                            <textarea name="choice3" cols="30" rows="1"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="choice">
+                        <td>选项D</td>
+                        <td>
+                            <textarea name="choice4" cols="30" rows="1"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>参考答案</td>
+                        <td>
+                            <input type="text" name="question_answer">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>分值</td>
+                        <td>
+                            <input type="text"  name="question_score">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="dd" id="paper_dd">
+                <input id="paper_start_time" class="easyui-datetimebox" label="开始时间:" labelPosition="top">
+                <input id="paper_end_time" class="easyui-datetimebox" label="结束时间:" labelPosition="top">
             </div>
         </div>
-    </div>
-    <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                   
-                </h4>
-                </div>
-                <div class="modal-body">
-                    <p>题目&nbsp;
-                        <input type='text' name="qTitle">
-                    </p>
-                    <p>答案&nbsp;
-                        <input type='text' name="qAnswer">
-                    </p>
-                    <p>分值&nbsp;
-                        <input type='text' name="qScore">
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btn-cancle">取消
-                    </button>
-                    <button type="button" class=" btn btn-success" onclick="paperModify()">
-                        提交更改
-                    </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
+        <!-- 试题题目修改信息框 end-->
+        <div id="paper_detail_panel" class="easyui-panel" title="试题详情" data-options="iconCls:'icon-save',closable:true,collapsible:false,minimizable:false,maximizable:true,onBeforeClose:openPaperDg,closed:true">
+            <h3><strong></strong></h3>
+            <table class="easyui-datagrid" id="paper_detail_dg" data-options="rownumbers:true,singleSelect:true,method:'get',toolbar:toolbar2">
+                <thead>
+                    <tr>
+                        <th data-options="field:'question_type',width:80,align:'center'">试题类型</th>
+                        <th data-options="field:'question_title',width:600,align:'center'">试题题目</th>
+                        <th data-options="field:'question_id',width:80,align:'center'">试题编号</th>
+                        <th data-options="field:'question_answer',width:350,align:'center'">参考答案</th>
+                        <th data-options="field:'question_score',width:50,align:'center'">分值</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-        <!-- /.modal -->
-        <script src="js/effects/jquery-2.2.3.js"></script>
-        <script src="js/effects/bootstrap.js"></script>
-        <script src="js/teacherJs.js"></script>
-        <script src="js/paperManagement.js"></script>
     </div>
+    <!-- center end -->
+    <div id="msgTipBox">
+
+    </div>
+    <script src="js/paperManagement.js"></script>
 </body>
 
 </html>

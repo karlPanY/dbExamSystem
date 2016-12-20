@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员系统</title>
+    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="css/effect/icon.css" />
+    <link rel="stylesheet" type="text/css" href="css/admin.css" />
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
+</head>
+
+<body class="easyui-layout" id="ll">
+    <div data-options="region:'north',border:false" id="top">华南理工大学</div>
+    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+        <div class="easyui-accordion" data-options="fit:true,border:false">
+            <div title="班级管理" style="padding:10px;" id="class_list">
+                <button onclick="addClass()">添加班级</button>
+                <ul class="easyui-tree">
+                    <li>
+                        <a href="javascript:void(0)" id=""></a>
+                    </li>
+                </ul>
+            </div>
+            <div title="教师管理" style="padding:10px;">
+                <ul class="easyui-tree">
+                    <li><a href="javascript:openEast()">打开管理面板</a></li>
+                    <li><a href="javascript:closeEast()">关闭管理面板</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',split:true" title="班级信息" id="center">
+        <table id="student_dg" class="easyui-datagrid dg"></table>
+        <div class="easyui-dialog" id="addClass_dd" data-options="title:'添加班级',buttons:'#addClass_bb',modal:true,closed:true">
+            <form id="ff" method="post">
+                <div>
+                    <label for="add_class_id">新添班级编号:</label>
+                    <input class="easyui-validatebox" type="text" name="add_class_id" data-options="required:true" />
+                </div>
+                <div>
+                    <label for="add_class_name">新添班级名称:</label>
+                    <input class="easyui-validatebox" type="text" name="add_class_name" data-options="validType:'number',required:true" />
+                </div>
+                ...
+            </form>
+        </div>
+        <div id="addClass_bb">
+            <a id="save" href="javascript:void(0)" class="easyui-linkbutton">保存</a>
+            <a id="cancle" href="javascript:void(0)" class="easyui-linkbutton">取消</a>
+        </div>
+    </div>
+    <div data-options="region:'east',split:true,collapsed:true,title:'教师管理'" id="east">
+        <table id="teacher_dg" class="easyui-datagrid dg">
+        </table>
+    </div>
+    <div data-options="region:'south'" id="bottom">
+        Bottom region
+    </div>
+    <script src="js/data.js"></script>
+    <script src="js/teacher_dg.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/student_dg.js"></script>
+    <script src="js/datagrid.js"></script>
+</body>
+
+</html>

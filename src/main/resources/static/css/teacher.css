@@ -1,72 +1,55 @@
-* { letter-spacing: 5px; font-family: 'Hiragino Sans GB'; }
-html { font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif; background: url('../images/teacher_bg.jpg') no-repeat; background-size: cover; }
-body {  /* background: linear-gradient(45deg,rgba(0, 0, 0, .3),rgba(0, 0, 0, .2)); */
-background: linear-gradient(45deg, rgba(102, 125, 192, 0.3), rgba(228, 224, 252, .2)); }
-.header { width: 100%; height: 8.8%; color: #F4F6F8; }
-.header h1 { margin: 16px 37px; font-weight: bolder; }
-.header span { font-size: 14px; margin-left: 12px; vertical-align: super; }
-.wrapper { height: 85%; left: 0; right: 0; padding: 5px; border-radius: 5px; margin: auto 10px; }
-.sideBar { width: 12.5%; min-width: 161px; }
-.mainNav { width: 100%; padding: 0 8px; }
-.mainNav { min-height: 334px; }
-.mNli { background: rgba(255, 255, 255, 0.4); margin-bottom: 10px; border-radius: 5px; min-height: 33px; line-height: 33px; font-size: 1em; font-weight: 600; color: rgb(80, 80, 80); }
-.mNli>a, .subNav>li>a { width: 98%; display: inline-block }
-.mNli>a:before { content: ""; background: url(../images/paper.ico) no-repeat center; width: 21px; height: 21px; vertical-align: text-bottom; padding-right: 12px; display: inline-block; }
-.mNli>a:hover { background: rgb(217, 219, 224); border-left: 2px solid #000; }
-.subNav>li>a { text-indent: 61px; }
-ul.subNav.dropdown-menu { height: 115px; }
-ul.subNav.dropdown-menu li { font-size: 14px;    /* font-family: '仿宋体'; */ line-height: 15px; margin-top: 5px; margin-bottom: 5px; width: 100%; }
-.subNav li:hover { text-shadow: 1px 1px 1px 5 #000; }
-.main { height: 100%; margin-left: 186px; background: #ffffff; margin-bottom: 10px; overflow-y: scroll; border-radius: 2px; }
-.panel { padding: 12px; }
-.panel .title { font-family: 'Hiragino Sans GB'; font-size: 1.0em; font-weight: bold; margin-bottom: 20px; }
+html{font-size:16px;letter-spacing:1px;}
+body{font-size:0.8em;font-family:verdana,helvetica,arial,sans-serif;   color: rgb(49, 49, 49);}
+.wrapper{width:100%;height:100%;}
+#top{height:60px;background:#B3DFDA;padding:10px;overflow:hidden}
+#west{width:150px;padding:10px;}
+#east{width:400px;padding:10px;}
+#bottom{height:50px;background:#A9FACD;padding:10px;}
+#top p{float:right;margin-top:-30px;margin-right:40px;}
+.center-left{float:left;min-width:100px;width:20%;height:100%;border:1px solid rgb(149,184,231);}
+.center-right{float:left;width:78%;height:100%;}
+a,a:link,a:focus,a:visited{text-decoration:none;}
+ul.main_menu{list-style:none;background:rgb(207, 236, 235);margin:-10px;padding:0;padding-top:20px;text-align:center;height:100%;    /* width: 100%; */}
+li>a{display:inline-block;width:100%;font-size: 14px;color:rgb(39, 38, 38);transition: all 229ms ease-in;}
+li>a:hover{font-weight:700;color: rgb(67, 174, 168);}
+li{height:28px;line-height:28px;}
+a.active{background: rgb(144,191,225);font-weight:700; }
 
-/* 提醒框 */
-.alert { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; background: rgba(175, 170, 170, 0.44); outline: 0; }
-.close { position: absolute; top: -9px; right: 2px; font-size: 21px; font-weight: 700; line-height: 1; color: rgb(0, 0, 0); text-shadow: 0 1px 0 rgb(255, 255, 255); filter: alpha(opacity=20); opacity: .2; }
-a.close { position: absolute; top: 5px; }
-.alert-info { text-align: center; position: relative; width: 30%; min-height: 50px; line-height: 50px; margin: 10% auto; padding: 20px; background-color: rgb(255, 255, 255); -webkit-background-clip: padding-box; background-clip: padding-box; border: 1px solid rgb(153, 153, 153); border: 1px solid rgba(0, 0, 0, .2); border-radius: 6px; outline: 0; -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5); box-shadow: 0 3px 9px rgba(0, 0, 0, .5); }
-.alert-success { background: #D9EDF7; }
-.alert-danger { background: rgb(156, 62, 63); }
 
-/* 弹出模态框 */
-.modal { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; background: rgba(175, 170, 170, 0.44); outline: 0; }
-.modal-dialog { position: relative; width: 50%; margin: 15% auto; }
-.modal-content { position: relative; background-color: rgb(255, 255, 255); -webkit-background-clip: padding-box; background-clip: padding-box; border: 1px solid rgb(153, 153, 153); border: 1px solid rgba(0, 0, 0, .2); border-radius: 6px; outline: 0; -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5); box-shadow: 0 3px 9px rgba(0, 0, 0, .5); }
-.modal-header, .modal-body, .modal-footer { padding: 15px; border-bottom: 1px solid rgb(229, 229, 229); }
-.modal-footer { text-align: right; }
-.modal-body p { margin: 10px; }
-.modal-body input[type="text"] { letter-spacing: 0; text-indent: 7px; }
-button.close:before { content: "\00d7"; font-family: Arial, "Helvetica CY", "Nimbus Sans L", sans-serif !important; font-size: 27px; line-height: 35px; content: "\00d7"; text-align: center; display: block; width: 35px; top: 0; left: 0; position: absolute; }
-button.close { height: 35px; padding: 0; font-weight: 500; transition: color .2s; color: rgb(0, 0, 0); background: 0 0; border: 0; top: 0px; right: 31px; }
-table { margin: 30px 0; font-size: 1em;    /* color:rgb(51,51,137); */ letter-spacing: 0.2em; background: transparent; }
-table>caption { font-size: 12px; text-indent: 20px; }
-table>thead>tr>th, table>tbody>tr>td { width: 100px; text-align: center; }
-table>thead>tr>th.col2, table>tbody>tr>td.col2 { width: 280px; }
-table>thead>tr>th .col3, table>tbody>tr>td.col3 { width: 600px; }
-table>thead>tr>th:first-child, table>tbody>tr>td:first-child { width: 70px; }
-table > tbody > tr >td, table > thead > tr >th { height: 24px; line-height: 24px; padding-left: 15px; }
-table>thead>tr { border: 2px solid #edeae1; height: 32px; line-height: 32px; }
-table > tbody > tr { border-bottom: 1px solid #f0f0f0; }
-table > tbody > tr:hover { background-color: #cccccc; }
-.table-striped> tbody > tr:nth-child(2n+1) { background-color: rgb(249, 249, 249); }
 
-/* 班级管理 */
-table#StuInfo>thead>tr>th:nth-child(1), table#StuInfo>tbody>tr>td:nth-child(1), table#paperInfo>thead>tr>th:nth-child(1), table#paperInfo>tbody>tr>td:nth-child(1) { width: 40px; }
-table#StuInfo>thead>tr>th:nth-child(2), table#StuInfo>tbody>tr>td:nth-child(2), table#paperInfo>thead>tr>th:nth-child(2), table#paperInfo>tbody>tr>td:nth-child(2) { width: 60px; }
-.btn_getGrade { background: transparent; color: blue; outline: none; border: none; cursor: pointer; }
-table#addStuInfo>caption { background: rgb(217, 237, 247); }
-table#addStuInfo { border: 1px solid rgb(188, 232, 241); letter-spacing: 0; margin-left: 10%; border-collapse: separate; border-spacing: 10px; padding-left: 30px; padding-right: 42px; background: rgb(250, 250, 250); }
-table#addStuInfo> tbody > tr:hover { background: transparent; }
-table#addStuInfo>input { letter-spacing: 0; }
-table#addStuInfo>tbody>tr:nth-of-type(3)>td:nth-of-type(2) { text-align: left; }
-table#addStuInfo>tbody>tr>td>label { margin-right: 30%; }
-table#addStuInfo .btn { margin-left: 15px; }
-table#stuGradeDetail { width: 100%; max-width: 100%; margin: 20px; }
 
-/* 考卷评阅 */
+#msgTipBox{
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    z-index: 1;
+    width: 220px;
+    height:120px;
+    padding: 2em;
+    margin: -110px;
+    margin-top:-60px;
+    border: 1px solid silver;
+    border-radius: .5em;  font-size: 18px;
+    box-shadow: 0 .2em .5em rgba(0,0,0,.5),
+                0 0 0 100vmax rgba(0,0,0,.2);  text-align: center;
+}
+#msgTipBox .close{
+    position: absolute;
+    right: -7.5px;
+    top: -7.5px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    /* vertical-align: -webkit-baseline-middle; */
+    display: block;
+    font-weight: 800;
+    padding: 2px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0);
+font-size: 13px;
 
-/* 成绩详情 */
-.rowNav { position: relative; width: 100%; height: 32px; line-height: 32px; font-size: 14px; font-family: "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-weight: bold; text-align: center; color: #ccc; border-bottom: 2px solid rgb(242, 242, 255); }
-.rowNav>li { padding-left: 30px; margin-left: 10px; margin-right: 10px; border-top-left-radius: 4px; border-top-right-radius: 4px; background: rgb(224, 236, 249); }
-.rowNav>li:hover { border-bottom: 2px solid blue; }
+}
+#msgTipBox .close:hover {
+    background: rgba(128, 128, 128,.3);
+
+}

@@ -1,106 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <title>考试系统</title>
-        <link rel="stylesheet" href='css/normalize.css'/>
-        <link rel="stylesheet" href="css/effect/bootstrap.css"/>
-        <link rel="stylesheet" type="text/css" href="css/effect/mainStyle.css"/>
-    </head>
-        <!-- The scrollable area -->
-    <body data-spy="scroll" data-target="#nav_scroll" data-offset="50">
-            <!-- The navbar - The <a> elements are used to jump to a section in the scrollable area -->
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container-fluid">
-                    <div class="navbar-header" id="exam-nav-header">
-                        <a class="navbar-brand" href="#">考试系统</a>
-                    </div>
-                    <div class="pull-right"><div class="timer">考试时间：<span id="timer"></span></div>
-                </div>
-              </div>
-        </nav>
-        <div class="top">
-            <!-- <div class="left"><h6></h6></div> -->
-            <div class="left">
-                <h4>2016年计算机学院网络工程</h4>
-                <p>考试时间：9:00-11:00</p>
-                <p>答题时间：120分钟</p>
-                <p>考试类型：闭卷</p>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>考试系统</title>
+    <link rel="stylesheet" type="text/css" href="css/com.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/exam.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header" id="exam-nav-header">
+                <a class="navbar-brand" href="#">考试系统</a>
+            </div>
+            <div class="pull-right">
+                <div class="timer">考试时间：<span id="timer"></span></div>
             </div>
         </div>
-        <div class="container" id="exam_body">
-          <div class="row">
-             <div class="col-lg-9 col-md-9 col-sm-9">
-                    <h3>一、选择题</h3>
-                    <div class="content" id="type1"> 
-                      <div class="question">
-                        <div class="title"></div> 
-                        <div class="row radio">                           
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>
-                                        <input type="radio"  name='Q1' value="A"/>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>
-                                        <input type="radio" name='Q1' value="B"/>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>
-                                        <input type="radio"  name='Q1' value="C"/>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label>
-                                        <input type="radio"  name='Q1' value="D"/>
-                                    </label>
-                                </div>
-                          </div>
-                        </div>
-                    </div> 
-                    <h3>二、填空题</h3>
-                    <div class="content" id="type2">
-                       <div class="question">
-                        <div class="title"></div> 
-                        <div class="row">                           
-                            <textarea name="" rows="1"></textarea>
-                          </div>
-                        </div>
-                    </div>
-                    <h3>三、简答题</h3>
-                    <div class="content" id="type3">          
-                        <div class="question">
-                        <div class="title"></div> 
-                            <div class="row">                           
-                               <textarea name="" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row"><button class="btn btn-success" id="submit">提交</button></div>
-             </div>
-             <div class="col-lg-3 col-md-3 col-sm-3 main-nav">
-                <ul class="nav" id="sidebar" >
-                    <li class="active">
-                        <a href="#type1">一、选择题</a>
-                    </li>
-                    <li>
-                        <a href="#type2">二、填空题</a>
-                    </li>
-                    <li>
-                        <a href="#type3">三、简答题</a>
-                    </li>
-                    <li>
-                        <a href="#type4">四、论述题</a>
-                    </li>
-                </ul>
-             </div>
-            
-        </div>              
+    </nav>
+    <div class="wrapper">
+        <div class="sideBar">
+            <div id="student_info">
+                <p><b class="student_id" th:id="${student_id}" th:text="${student_name}">廖晓娟</b>&nbsp;同学，您好!</p>
+                <p>欢迎参加<b class="paper_id" th:id="${paper_id}" th:text="${paper_name}">数据库系统概论</b>考试</p>
+            </div>
+        </div>
+        <div class="main">
+            <div id="exam_body">
+                <h3>一、选择题</h3>
+                <div class="content" id="type1">
+                    <!-- 放置模板1 -->
+                </div>
+                <h3>二、填空题</h3>
+                <div class="content" id="type2">
+                </div>
+                <h3>三、简答题</h3>
+                <div class="content" id="type3">
+                </div>
+                <div class="row">
+                    <button class="btn btn-success" id="submit">提交</button>
+                </div>
+            </div>
+        </div>
     </div>
-     <script src="js/effects/jquery-2.2.3.js"></script>
-     <script src='js/effects/bootstrap.js'></script>
-     <script type="text/javascript" src="js/exam.js"></script>
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/template" id="template1">
+        <div class="question" id="{QUESTIONID}">
+            <div class="title">{QUESTIONTITLE}</div>
+            <div class="row radio">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="A" />{QUESIONCONTENT1}
+                    </label>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="B" />{QUESIONCONTENT2}
+                    </label>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="C" />{QUESIONCONTENT3}
+                    </label>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="D" />{QUESIONCONTENT4}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template2">
+        <div class="question">
+            <div class="title">{QUESIONTITLE}</div>
+            <div class="row">
+                <textarea name="{QUESTIONID}" rows="1"></textarea>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template3">
+        <div class="question">
+            <div class="title">{QUESTIONTITLE}</div>
+            <div class="row">
+                <textarea name="{QUESIONID}" rows="5"></textarea>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript" src="js/exam.js"></script>
 </body>
+
 </html>

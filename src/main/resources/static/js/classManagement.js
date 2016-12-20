@@ -1,83 +1,85 @@
+var toolbar = [{
+    text: '查看具体成绩',
+    iconCls: 'icon-search',
+    handler: getStuGrade
+}];
+var dd_buttons = [{
+    text: '确定'
+}, {
+    text: '取消'
+}];
 $(function() {
-    // 小图标动态添加
-    var rowNavs_li = $(".rowNav li");
-    var basicUrl = "../images/";
-    var icons = [basicUrl + '0_info.ico',
-        basicUrl + '1_add.ico',
-        basicUrl + '2_delete.ico',
-        basicUrl + '3_reload.ico'
-    ]
-    for (var i = 0, len = rowNavs_li.length; i < len; i++) {
-        $(rowNavs_li[i]).before().css("background", "url(" + icons[i] + ") no-repeat left center")
-    }
-    // 小图标动态添加 end
+    // 根据teacher_id请求所有班级信息
+    var teacher_id = $("#top strong").attr("id");
+    $.ajax({
+        url: '请求所有班级信息',
+        type: "post",
+        data: {
+            teacher_id: teacher_id
+        },
+        // 返回数据data=[{class_id:"",class_name:"网络工程"},{class_id:"",class_name:"信息安全"}];
+        success: function(data) {
+            var $ul = $("#class_list ul");
 
+            for (var i = 0; i < data.length; i++) {
+                var $template = $("#template_class_list")[0].innerHTML;
+                $template = $template.replace('{CLASSID}', data[i].class_id).replace('{CLASSNAME}', data[i].class_name);
+                $ul.append($template);
+            }
+        }
+    }); //ajax结束
 });
 
-function addStuInfo() {
-    var $tbl = $("#addStuInfo");
-    var sname = $tbl.find("input[name='sname']").val();
-    var sno = $tbl.find("input[name='sno']").val();
-    var ssex = $tbl.find("input[name='ssex']:checked").val();
-    var tno = $tbl.find("input[name='tno']").val();
-    $.post(url, {
-         sname: sname, sno: sno, ssex: ssex, tno: tno 
-    }, function(msg) {
-        if (msg.success) {
-            // 后台返回成功信息
-            alertMsg("success", "添加成功，请刷新");
-        } else {
-            alertMsg("error", "添加失败");
-        }
-    });
-}
-
-function delStuInfo() {
-
-    var $btn = $("#btn_delStu");
-    showTable("#StuInfo");
-    $btn.removeClass("hide");
-    $btn.bind("click", function() {
-        var $chk = $(".chk:checked");
-        var sNos = [];
-        $chk.each(function(item) {
-            sNos.push($(this).attr("name"));
-        });
-        $.post(url, {
-            sNos: sNos
-        }, function(msg) {
-            if (msg.success) {
-                alertMsg("success", "删除成功，请刷新页面");
-            } else {
-                alertMsg("error", "删除失败");
+$(function() {
+    // 根据class_id请求对应班级信息
+    $("#class_list a").bind("click", function() {
+        var class_id = $(this).attr("id");
+        // var data = {
+        //     'total': 2,
+        //     'rows':[{student_name: '廖晓娟',student_id: "201430560243", class_name: '网络工程'},
+        //  {student_name: '要利娇',student_id: "201430560241",class_name: '网络工程'}]
+        // };
+        $.ajax({
+            url: '请求班级学生信息',
+            type: "post",
+            data: {
+                class_id: class_id
+            },
+            success: function(data) {
+                $('#class_student_dg').datagrid('loadData', data);
             }
-        });
-        $("input[type='checkbox']").attr("checked", false);
+        }); // ajax end
     });
-}
+});
 
-function getStuGrade(stuSno) {
+var currentRow;
+$('#class_student_dg').datagrid({
+    onClickRow: function(index, row) {
+        currentRow = row;
+    }
+});
 
-    var url = null;
-    $.post(url, {
-        stuSno: stuSno
-    }, function(msg) {
-        if (msg.success) {
-            var $tbody = $("#stuGradeDetail").find("tbody");       
-            var $tr, $td0, $td1, $td2;
-            for (var i = 0; i < msg.stuGrades.length; i++) {
-                $tr = $("<tr></tr>");
-                $td0 = "<td>" + stuGrades[i].paperName + "</td>";
-                $td1 = "<td>" + stuGrades[i].grade + "</td>";
-                $td2 = "<td>" + stuGrades[i].rank + "</td>";
-                $tr.append($td0);
-                $tr.append($td1);
-                $tr.append($td2);
-                $tbody.append($tr);
-            }
-            showTable("#stuGradeDetail");
-        } else {
-            alertMsg("error", "发生不明错误");
+function getStuGrade() {
+    $("#east strong").html(currentRow.student_name);
+    var teacher_id = $("#top strong").attr("id");
+    var student_id = currentRow.student_id;
+    // 根据teacher_id，student_id请求学生成绩
+    // var data = {
+    //     'total': 3,
+    //     'rows':[{paper_name:"数据库1",grade:"97",rank:"3"},
+    // {paper_name:"数据库2",grade:"88",rank:"12"},
+    // {paper_name:"数据库3",grade:"85",rank:"12"}]
+    // };
+    $.ajax({
+        url: '获取学生考试成绩',
+        type: "post",
+        data: {
+            teacher_id: teacher_id,
+            student_id: student_id
+        },
+        success: function(data) {
+            $("#student_grade_dg").datagrid('loadData', data);
         }
-    });
-}
+    })
+};
+// To-do功能 修改学生成绩

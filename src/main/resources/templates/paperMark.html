@@ -1,55 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>改卷</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css"/>
-    <link rel="stylesheet" type="text/css" href="css/teacher.css"/>
-    <link rel="stylesheet" type="text/css" href="css/paperMark.css"/>
+    <title>班级管理</title>
+    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/teacher.css">
+    <link rel="stylesheet" type="text/css" href="css/paperMark.css">
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
 </head>
 
-<body>
-    <div class="header">
-        <h1><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h1>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" id="top">
+        <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
+        <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
     </div>
-    <div class="wrapper">
-        <nav class="sideBar fl">
-            <ul class="mainNav">
-                <li class="mNli">
-                    <a href="classManagement.html">班级管理 </a>
-                </li>
-                <li class="mNli"><a href="paperManagement.html">试题管理</a>
-                </li>
-                <li class="mNli dropdown-toggle">
-                   <a href="javascript:void(0)">考卷评阅</a>
-                    <!--<ul class="subNav dropdown-menu hide" th:each="paper:${papers}">-->
-                        <!--<li class="fl"><a href="@{'paperMark.html/'+(paperNo=${paper.paperNo})}" th:text="${paper.paperName}">试卷1</a></li>-->
-                    <!--</ul>-->
-                </li>
-                <li class="mNli "><a href="detailGrade.html ">详细成绩</a></li>
-            </ul>
-        </nav>
-        <div class="main">
-             <div class="panel " id="paperS">
-                <h4 class="title ">考卷评阅</h4>
-                <nav>              
-                    <ul class="rowNav">                 
-                        <li class="fl "><a href="#填空题">填空题</a></li>
-                        <li class="fl "><a href="#简答题">简答题</a></li>
-                        <li class="fl "><a href="#分析题">分析题</a></li>  
+    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+        <ul class="main_menu">
+            <li><a href="classManagement.html">班级信息</a> </li>
+            <li><a href="paperManagement.html">试题管理</a> </li>
+            <li> <a href="paperMark.html" class="active">考卷评阅</a></li>
+            <li><a href="detailGrade.html">详细成绩</a></li>
+        </ul>
+    </div>
+    <div data-options="region:'center',split:true" title="" id="center">
+        <div class="center-left">
+            <div class="easyui-accordion" data-options="fit:true,border:false">
+                <div title="选择未评阅的考卷" style="padding:10px;" id="paper_list">
+                    <ul class="easyui-tree">
+                        <script type="text/template" id="template_paper_list">
+                            <li><a href="javascript:void(0)" id="{PAPERID}">{PAPERNAME}</a></li>
+                        </script>
                     </ul>
-                </nav>
-                <button type="button" class="btn btn-success fr" id="btn_next">下一份</button>
-                <button type="button" class="btn btn-success fr" id="btn_before">确定评分</button>
-                <div class="form">
-
                 </div>
             </div>
-          </div>
         </div>
-        <script src="js/effects/jquery-2.2.3.js "></script>
-        <script src="js/effects/bootstrap.js"></script>
-        <script src="js/teacherJs.js "></script>
-        <script src="js/paperMark.js "></script>
+        <div class="center-right">
+            <div class="easyui-panel">
+                <div class="easyui-pagination" data-option="total:0,pageSize:0" id="pp"></div>
+                <div id="student_paper">
+                    <!-- template_info -->
+                    <!-- template_question -->
+                    <!-- template_question end-->
+                </div>
+                <span id="back-to-top"><a href="#student_id_paper"></a></span>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south',split:false" title="" id="bottom">
+    </div>
+    <script type="text/template" id="template_info">
+        <div class="info">
+            <span><strong>{STUDENTNAME}</strong>同学</span>
+            <div class="operation_div">
+                <p>总分：<span id="sum-score">{STUDENTSCORE}</span></p>
+                <button>确定打分?</button>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template_question">
+        <div class="question">
+            <div class="question_title">
+                <p>({QUESTIONSCORE}分){QUESTIONTITLE}
+                    <p>
+                        <input type="text" pattern=/\d{1,}/ id="{QUESTIONID}" size="3" data-max='{QUESTIONSCORE}'>
+                        <button data-target='#{QUESTIONID}' class="btn-score
+">打分</button>
+                        <button data-target='#{QUESTIONID}' class="btn-modify-score">修改</button>
+            </div>
+            <div class="question_answer">{QUESTIONANSWER}</div>
+        </div>
+    </script>
+    <script src="js/paperMark.js "></script>
 </body>
+
 </html>

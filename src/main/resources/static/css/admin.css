@@ -1,0 +1,41 @@
+html{font-size:16px;}
+body{font-size:0.8em;font-family:verdana,helvetica,arial,sans-serif;}
+.wrapper{width:100%;height:100%;}
+#top{height:60px;background:#F4F4F4;padding:10px;}
+#west{width:170px;}
+#center{height:100%;}
+#east{width:55%;min-width: 700px;}
+#bottom{height:50px;background:#A9FACD;padding:10px;background:#F4F4F4;}
+#teacher_dg{width:100%;height:85%;min-height:700px;}
+.accordion .accordion-header-selected{background:#9EC8D6;}
+.tree-node{padding:3px 7px;}
+.tree-node a,.tree-node a:hover,.tree-node a:focus{text-decoration:none;}
+.tree-node-selected{background:rgba(0,188,212,0.08);color:rgb(0,0,0);}
+.tree-node-selected a:link{text-decoration:none;}
+#class_list button{border:1px solid rgba(72,72,72,.4);width:100%;margin:auto;padding:5px;background:#BAEB6B;transition:all 500ms ease-in;box-shadow:inset -1px -1px 2px rgba(0,0,0,0.3)}
+#class_list button:hover{cursor:pointer;background:#55C45E;}
+#ff{width:140px;height:120px;color:rgb(68,68,68);font-family:"SimSun";font-size:15px;padding:20px 90px 30px 64px;}
+#ff label{font-weight:normal;display:block;margin:5px 0;font-size:14px;letter-spacing:2px;color:rgb(76,78,79);}
+#ff label::after{content:"";width:16px;height:16px;background:url(../css/effect/images/tree_icons.png);background-position-x:16px;background-position-y:16px;position:absolute;right:60px;margin-top:25px;vertical-align:middle;display:inline-block;}
+#ff label.ok::after{background-position-y:0px;}
+#ff input{border:none;max-width:140px;border-bottom:1px solid #888;padding:3px 5px;background:#fff;}
+
+/* 修改easyui.css */
+.panel.window{    /*     dialog */
+
+/*     background: #00D3B7; */}
+#addClass_bb .easyui-linkbutton{background:#00D3B7;padding:2px;width:44px;color:#fff;border:1px solid #ccc;border-radius:5px;}
+#addClass_bb .easyui-linkbutton:nth-of-type(1){background:#55c45e;}
+#addClass_bb .easyui-linkbutton:nth-of-type(1):hover{background:#2aaa57;}
+#addClass_bb .easyui-linkbutton:nth-of-type(2){background:#e2393b;}
+#addClass_bb .easyui-linkbutton:nth-of-type(2):hover{background:#d12b35;}
+.datagrid-btable tr{}
+.datagrid-cell-c3-action button,.datagrid-cell-c4-action button{box-shadow:none;border:1px solid #aaa;border-radius:3px;padding:1px 8px;transition:all 100ms linear;}
+.datagrid-cell-c3-action button:nth-of-type(1),.datagrid-cell-c4-action button:nth-of-type(1){background:#53BDD0;}
+.datagrid-cell-c3-action button:nth-of-type(2),.datagrid-cell-c4-action button:nth-of-type(2){background:#A8F62A;}
+.datagrid-cell-c3-action button:nth-of-type(3),.datagrid-cell-c4-action button:nth-of-type(3){background:#E8E230;}
+.datagrid-cell-c3-action button:nth-of-type(4),.datagrid-cell-c4-action button:nth-of-type(4){background:#E83A30;}
+.datagrid-cell-c3-action button:nth-of-type(1):hover,.datagrid-cell-c4-action button:nth-of-type(1):hover{background:#06DFF9E6;}
+.datagrid-cell-c3-action button:nth-of-type(2):hover,.datagrid-cell-c4-action button:nth-of-type(2):hover{background:#47B145}
+.datagrid-cell-c3-action button:nth-of-type(3):hover,.datagrid-cell-c4-action button:nth-of-type(3):hover{background:#F9F109;}
+.datagrid-cell-c3-action button:nth-of-type(4):hover,.datagrid-cell-c4-action button:nth-of-type(4):hover{background:#F22418;}

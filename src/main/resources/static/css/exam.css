@@ -1,0 +1,43 @@
+html{font-size: 16px;}
+body{font: 0.8em 'Microsoft Yahei',Arial;}
+.timer { margin-top: 5px; min-height: 38px; line-height: 38px; color: rgb(119, 119, 119); min-width: 200px; }
+.wrapper { height:100%; left: 0; right: 0; margin: 51px 0;background: url('../images/top.jpg'); background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover;  }
+.sideBar {height: 100%; width: 17.5%; min-width: 161px;right: 0; margin: 0;position: fixed;}
+.main { height: 100%;width:80%;float: left; background: #ffffff;overflow-y: scroll; margin:0;border-radius: 2px; }
+
+
+/* 手机布局 */
+@media screen and (max-width:767px) {
+	body { font-size: 12px; }
+	#exam-nav-header { float: left; width: 30%; }
+	.top .left, .top .right { float: none; width: 100%; padding: 0 30px; text-align: left; font-size: 0.8em; }
+	#sidebar { display: none; }
+	.main-content { width: 90%; font-size: 12px; }
+}
+
+/* 手机横屏 */
+@media screen and (min-width:480px) and (max-width:767px) {
+	.main-nav { display: block; font-size: 10px; }
+}
+
+#student_info{margin-top: 40px;}
+/* 试卷主体 */
+#exam_body h3 { font-size: 1.2em; padding: 0.5em; border-bottom: 2px solid rgb(210, 232, 246); background: #dec; }
+#exam_body { border: 1px solid rgb(204, 204, 204);
+    margin: 40px 20px;
+    /* border-radius: 3px; */
+    padding: 30px;
+    text-indent: 20px;}
+
+/* 未确定 */
+#exam_body label, #exam_body textarea { text-indent: 20px; }
+#exam_body>div .row { margin-left: 2px; }
+.alert { top: 0; left: 0; background: rgba(59, 59, 56, .3); width: 100%; height: 100%; position: absolute; }
+.alert-content { padding: 80px 0; position: absolute; top: 150px; border: 1px solid rgba(0, 0, 0, 0); border-radius: 4px; left: 50%; width: 300px; height: 200px; text-align: center; margin-left: -150px; background: rgb(255, 255, 255); font-size: 1.5em; }
+.close { margin-top: -75px; margin-right: 7px; }
+.question textarea { margin: 10px 44px; width: 77%; }
+
+
+
+
+

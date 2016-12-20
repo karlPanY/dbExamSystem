@@ -1,26 +1,32 @@
-$("input[type='text']").keyup(function(){
-    var pattern=/\d{12}/;
-    if(pattern.test($(this).val())){
-        $(this).siblings(".icon2").css("display","inline-block");
-        $(this).siblings(".icon1").css("display","none");
+var handle1=function() {
+    var pattern = /\d{12}/;
+    if (pattern.test($(this).val())) {
+        $(this).siblings(".icon2").css("display", "inline-block");
+        $(this).siblings(".icon1").css("display", "none");
     }
-    if($(this).val()===""||!pattern.test($(this).val())){
-        $(this).siblings(".icon2").css("display","none");
-        $(this).siblings(".icon1").css("display","inline-block");
+    if ($(this).val() === "" || !pattern.test($(this).val())) {
+        $(this).siblings(".icon2").css("display", "none");
+        $(this).siblings(".icon1").css("display", "inline-block");
     }
-});
+};
+var handle2=function() {
+    var pattern = /[0-9a-zA-Z]{6,}/;
+    if (pattern.test($(this).val())) {
+        $(this).siblings(".icon2").css("display", "inline-block");
+        $(this).siblings(".icon1").css("display", "none");
+    }
+    if ($(this).val() === "" || !pattern.test($(this).val())) {
+        $(this).siblings(".icon2").css("display", "none");
+        $(this).siblings(".icon1").css("display", "inline-block");
+    }
+};
 
-$("input[type='password']").keyup(function(){
-    var pattern=/[0-9a-zA-Z]{6,}/;
-    if(pattern.test($(this).val())){
-        $(this).siblings(".icon2").css("display","inline-block");
-        $(this).siblings(".icon1").css("display","none");
-    }
-    if($(this).val()===""||!pattern.test($(this).val())){
-        $(this).siblings(".icon2").css("display","none");
-        $(this).siblings(".icon1").css("display","inline-block");
-    }
-});
+$("input[type='text']").bind("keyup",handle1);
+$("input[type='text']").bind("change",handle1);
+
+$("input[type='password']").bind("keyup",handle2);
+$("input[type='password']").bind("change",handle2);
+
 $("#btn_submit").click(function (event) {
     event.preventDefault();
     var data = new Object();

@@ -1,10 +1,8 @@
-.mNli:nth-of-type(4)>a{
-    background: rgb(217,219,224);
-    border-left: 2px solid #000;
+#student_grade_dg {
+    width: 700px;
+    height: 250px;
 }
-#gradeD ul li a {
-    text-indent: 5px;
-    background: rgba(160, 186, 184,.3);
-    border-radius: 4px;
-    padding: 3px;
+
+#paper_list a.active {
+    background: rgb(242, 251, 242);
 }
