@@ -18,7 +18,9 @@
             <div title="班级管理" style="padding:10px;" id="class_list">
                 <button onclick="addClass()">添加班级</button>
                 <ul class="easyui-tree">
-                    <li><a href="javascript:void(0)" id=""></a></li>
+                    <li>
+                        <a href="javascript:void(0)" id=""></a>
+                    </li>
                 </ul>
             </div>
             <div title="教师管理" style="padding:10px;">
@@ -33,16 +35,16 @@
         <table id="student_dg" class="easyui-datagrid dg"></table>
         <div class="easyui-dialog" id="addClass_dd" data-options="title:'添加班级',buttons:'#addClass_bb',modal:true,closed:true">
             <form id="ff" method="post">
-    <div>
-        <label for="add_class_id">新添班级编号:</label>
-        <input class="easyui-validatebox" type="text" name="add_class_id" data-options="required:true" />
-    </div>
-    <div>
-        <label for="add_class_name">新添班级名称:</label>
-        <input class="easyui-validatebox" type="text" name="add_class_name" data-options="validType:'number',required:true" />
-    </div>
-    ...
-</form>
+                <div>
+                    <label for="add_class_id">新添班级编号:</label>
+                    <input class="easyui-validatebox" type="text" name="add_class_id" data-options="required:true" />
+                </div>
+                <div>
+                    <label for="add_class_name">新添班级名称:</label>
+                    <input class="easyui-validatebox" type="text" name="add_class_name" data-options="validType:'number',required:true" />
+                </div>
+                ...
+            </form>
         </div>
         <div id="addClass_bb">
             <a id="save" href="javascript:void(0)" class="easyui-linkbutton">保存</a>

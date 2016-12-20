@@ -14,3 +14,42 @@ li>a{display:inline-block;width:100%;font-size: 14px;color:rgb(39, 38, 38);trans
 li>a:hover{font-weight:700;color: rgb(67, 174, 168);}
 li{height:28px;line-height:28px;}
 a.active{background: rgb(144,191,225);font-weight:700; }
+
+
+
+
+#msgTipBox{
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    z-index: 1;
+    width: 220px;
+    height:120px;
+    padding: 2em;
+    margin: -110px;
+    margin-top:-60px;
+    border: 1px solid silver;
+    border-radius: .5em;  font-size: 18px;
+    box-shadow: 0 .2em .5em rgba(0,0,0,.5),
+                0 0 0 100vmax rgba(0,0,0,.2);  text-align: center;
+}
+#msgTipBox .close{
+    position: absolute;
+    right: -7.5px;
+    top: -7.5px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    /* vertical-align: -webkit-baseline-middle; */
+    display: block;
+    font-weight: 800;
+    padding: 2px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0);
+font-size: 13px;
+
+}
+#msgTipBox .close:hover {
+    background: rgba(128, 128, 128,.3);
+
+}

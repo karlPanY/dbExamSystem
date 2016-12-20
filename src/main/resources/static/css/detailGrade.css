@@ -1,2 +1,8 @@
+#student_grade_dg {
+    width: 700px;
+    height: 250px;
+}
 
-#student_grade_dg{width:700px;height:250px;}
+#paper_list a.active {
+    background: rgb(242, 251, 242);
+}

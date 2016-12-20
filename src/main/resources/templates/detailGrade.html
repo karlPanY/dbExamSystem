@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>班级管理</title>
-        <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
-        <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
-        <link rel="stylesheet" type="text/css" href="css/teacher.css">
-        <link rel="stylesheet" type="text/css" href="css/detailGrade.css">
-        <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
-        <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
-    </head>
-    <body class="easyui-layout">
-        <div data-options="region:'north',border:false" id="top">
-            <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
-            <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
-        </div>
-        <div data-options="region:'west',split:true,title:'信息管理'" id="west">
-                    <ul class="main_menu">
-                        <li><a href="classManagement.html">班级信息</a> </li>
-                        <li><a href="paperManagement.html">试题管理</a> </li>
-                        <li> <a href="paperMark.html">考卷评阅</a></li>
-                        <li><a href="detailGrade.html" class="active">详细成绩</a></li>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>班级管理</title>
+    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/teacher.css">
+    <link rel="stylesheet" type="text/css" href="css/detailGrade.css">
+    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
+</head>
+
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" id="top">
+        <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
+        <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
+    </div>
+    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+        <ul class="main_menu">
+            <li><a href="classManagement.html">班级信息</a> </li>
+            <li><a href="paperManagement.html">试题管理</a> </li>
+            <li> <a href="paperMark.html">考卷评阅</a></li>
+            <li><a href="detailGrade.html" class="active">详细成绩</a></li>
+        </ul>
+    </div>
+    <div data-options="region:'center',split:true" title="" id="center">
+        <div class="center-left">
+            <div class="easyui-accordion" data-options="fit:true,border:false">
+                <div title="选择考卷" style="padding:10px;" id="paper_list">
+                    <ul class="easyui-tree">
+                        <script type="text/template" id="template_paper_list">
+                            <li><a href="javascript:void(0)" id="{PAPERID}">{PAPERNAME}</a></li>
+                        </script>
                     </ul>
-        </div>
-        <div data-options="region:'center',split:true" title="" id="center">
-            <div class="center-left">
-                <div class="easyui-accordion" data-options="fit:true,border:false">
-                    <div title="选择考卷" style="padding:10px;" id="paper_list">
-                        <ul class="easyui-tree">
-                            <li><a href="javascript:void(0)" id="paper_id1"></a></li>
-                            <li><a href="javascript:void(0)" id="paper_id2"></a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-            <div class="center-right">
-                <table id="paper_grade_dg" class="easyui-datagrid"
-                    title="考卷成绩详情" iconCls="icon-save"
-                    sortName="grade" sortOrder="asc"
-                    rownumbers="true">                   
-                </table>
-            </div>
         </div>
-        <script src="js/detailGrade.js"></script>
-    </body>
+        <div class="center-right">
+            <table id="paper_grade_dg" class="easyui-datagrid" title="考卷成绩详情" iconCls="icon-save" sortName="grade" sortOrder="asc" rownumbers="true">
+            </table>
+        </div>
+    </div>
+    <script src="js/detailGrade.js"></script>
+</body>
+
 </html>

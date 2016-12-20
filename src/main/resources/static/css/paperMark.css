@@ -1,72 +1,148 @@
-
 /* 重写样式 */
-.datagrid-row-selected{background:rgb(237,236,233);color:rgb(0,0,0);}
-.pagination{
-        border-bottom: 1px solid rgb(149, 184, 231)
+
+.datagrid-row-selected {
+    background: rgb(237, 236, 233);
+    color: rgb(0, 0, 0);
 }
-.student_paper{
-    padding:10px 15px;
+
+.pagination {
+    border-bottom: 1px solid rgb(149, 184, 231)
 }
-.student_paper{
+
+.student_paper {
+    padding: 10px 15px;
+}
+
+.student_paper {
     position: relative;
     height: 100%;
-    overflow-x:hidden;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
-.info{
-    height: 32px;width:90%;
-    margin:10px auto;
-    color:#333;
+
+.info {
+    height: 32px;
+    width: 90%;
+    margin: 10px auto;
+    color: #333;
     text-shadow: 1px 1px 3px #fff;
 }
-.info span:nth-of-type(1){
+
+.info span:nth-of-type(1) {
     float: left;
 }
-.info span:nth-of-type(2){
-   float: right;
-}
-.btn_mark{
+
+.operation_div {
     float: right;
-    background: rgba(222,12,0,0.8);
+    display: flex;
+    align-items: center;
+}
+
+.operation_div button {
+    margin-top: -3px;
+    padding: 3px 5px;
+    border: 1px solid rgb(102, 102, 153);
+    border-radius: 3px;
+    background: rgba(255, 87, 34, 0.59);
+}
+
+.operation_div button:hover {
+    background: rgba(255, 87, 34, 0.85)
+}
+
+span#sum-score {
+    min-width: 34px;
+    padding: 3px;
+    border: 1px solid rgb(102, 102, 153);
+    margin: -4px 5px;
+    color: rgba(244, 54, 54, 0.97);
+    font-weight: 800;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn_mark {
+    transition: all 221ms;
+    float: right;
+    background: rgba(222, 12, 0, 0.8);
     border-radius: 4px;
     padding: 4px 8px;
     box-shadow: none;
-    border:1px solid #666;
+    border: 1px solid #666;
 }
-.question{
-    border:1px solid #666;
+
+button.btn_mark:hover {
+    cursor: pointer;
+    background: rgb(244, 67, 54);
+    color: rgb(255, 255, 255);
+}
+
+.question {
+    border: 1px solid #666;
     width: 95%;
-    margin:8px auto;
+    margin: 8px auto;
     box-shadow: 1px 1px 3px #fff;
-    background: linear-gradient(45deg,#fff,#ddd);
+    background: linear-gradient(45deg, #fff, #ddd);
 }
-.question_title{
+
+.question p {
+    width: calc(100% - 120px);
+}
+
+.question span {
+    height: 30px;
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 0;
+}
+
+.question span>input {
+    text-indent: 5px;
+}
+
+.question_title {
+    display: flex;
+    position: relative;
     width: 95%;
     min-height: 28px;
-    margin:0px auto 5px;
-    border-bottom:1px dotted #666;
+    margin: 0px auto 5px;
+    border-bottom: 1px dotted rgb(102, 102, 102);
+    padding: 3px 8px 0;
+    align-items: center;
+}
+
+.question_answer {
+    width: 95%;
+    min-height: 150px;
+    margin: 0px auto 5px;
     padding: 3px 8px;
 }
-.question_answer{
-    width: 95%;
-    min-height:150px;
-    margin:0px auto 5px;
-     padding: 3px 8px;
+
+input.question_score {
+    margin-left: 8px;
 }
-.back_to_top{
-    width:50px;
-    height: 50px;
+
+#back-to-top {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #999;
     transition: all 300ms linear;
     position: absolute;
     right: 40px;
-    bottom:40px;
+    bottom: 40px;
     text-align: center;
+    /*display: none;*/
 }
-.back_to_top:hover{
+
+#back-to-top:hover {
     background: #333;
 }
-.back_to_top>a{
-    color: #fff;
+
+#back-to-top>a {
+    width: 100%;
+    background: url(../images/back-to-top.png) center center;
+    background-size: cover;
+    height: 100%;
+    display: inline-block;
 }

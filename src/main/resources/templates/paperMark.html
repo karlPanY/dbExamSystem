@@ -30,12 +30,9 @@
             <div class="easyui-accordion" data-options="fit:true,border:false">
                 <div title="选择未评阅的考卷" style="padding:10px;" id="paper_list">
                     <ul class="easyui-tree">
-                        <li>
-                            <a href="javascript:void(0)" id="paper_id1"></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" id="paper_id2"></a>
-                        </li>
+                        <script type="text/template" id="template_paper_list">
+                            <li><a href="javascript:void(0)" id="{PAPERID}">{PAPERNAME}</a></li>
+                        </script>
                     </ul>
                 </div>
             </div>
@@ -43,32 +40,39 @@
         <div class="center-right">
             <div class="easyui-panel">
                 <div class="easyui-pagination" data-option="total:0,pageSize:0" id="pp"></div>
-                <div id="student_id_paper">
-                    <div class="info"><span><strong>xxx</strong></span>同学<span>
-                        <input type="text" class="mark_score" width="100" pattern=/\d{1,}/ required="true">
-                        <button id="student_id" class="btn_mark">确定评分</button></span>
-                    </div>
-                    <div class="question" id="question_id1">
-                        <div class="question_title"></div>
-                        <div class="question_answer"></div>
-                    </div>
-                      <div class="question" id="question_id2">
-                        <div class="question_title"></div>
-                        <div class="question_answer"></div>
-                    </div>
-                      <div class="question" id="question_id3">
-                        <div class="question_title"></div>
-                        <div class="question_answer"></div>
-                    </div>
-                      <div class="question" id="question_id4">
-                        <div class="question_title"></div>
-                        <div class="question_answer"></div>
-                    </div>
-                    <span class="back_to_top"><a href="#student_id_paper" >↑</a></span>
+                <div id="student_paper">
+                    <!-- template_info -->
+                    <!-- template_question -->
+                    <!-- template_question end-->
                 </div>
+                <span id="back-to-top"><a href="#student_id_paper"></a></span>
             </div>
         </div>
     </div>
+    <div data-options="region:'south',split:false" title="" id="bottom">
+    </div>
+    <script type="text/template" id="template_info">
+        <div class="info">
+            <span><strong>{STUDENTNAME}</strong>同学</span>
+            <div class="operation_div">
+                <p>总分：<span id="sum-score">{STUDENTSCORE}</span></p>
+                <button>确定打分?</button>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template_question">
+        <div class="question">
+            <div class="question_title">
+                <p>({QUESTIONSCORE}分){QUESTIONTITLE}
+                    <p>
+                        <input type="text" pattern=/\d{1,}/ id="{QUESTIONID}" size="3" data-max='{QUESTIONSCORE}'>
+                        <button data-target='#{QUESTIONID}' class="btn-score
+">打分</button>
+                        <button data-target='#{QUESTIONID}' class="btn-modify-score">修改</button>
+            </div>
+            <div class="question_answer">{QUESTIONANSWER}</div>
+        </div>
+    </script>
     <script src="js/paperMark.js "></script>
 </body>
 

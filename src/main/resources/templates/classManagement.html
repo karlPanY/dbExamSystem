@@ -6,7 +6,7 @@
     <title>班级管理</title>
     <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
     <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
-     <link rel="stylesheet" type="text/css" href="css/teacher.css">
+    <link rel="stylesheet" type="text/css" href="css/teacher.css">
     <link rel="stylesheet" type="text/css" href="css/classManagement.css">
     <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
     <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
@@ -17,26 +17,27 @@
         <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
         <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
     </div>
-      <div data-options="region:'west',split:true,title:'信息管理'" id="west">
-                    <ul class="main_menu">
-                        <li><a href="classManagement.html"  class="active">班级信息</a> </li>
-                        <li><a href="paperManagement.html">试题管理</a> </li>
-                        <li> <a href="paperMark.html">考卷评阅</a></li>
-                        <li><a href="detailGrade.html" >详细成绩</a></li>
-                    </ul>
-        </div>
+    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
+        <ul class="main_menu">
+            <li><a href="classManagement.html" class="active">班级信息</a> </li>
+            <li><a href="paperManagement.html">试题管理</a> </li>
+            <li> <a href="paperMark.html">考卷评阅</a></li>
+            <li><a href="detailGrade.html">详细成绩</a></li>
+        </ul>
+    </div>
     <div data-options="region:'center',split:true" title="" id="center">
         <div class="center-left">
             <div class="easyui-accordion" data-options="fit:true,border:false">
                 <div title="选择班级" style="padding:10px;" id="class_list">
                     <ul class="easyui-tree">
-                        <li><a href="javascript:void(0)" id="class_id1">网络工程</a></li>
-                        <li><a href="javascript:void(0)" id="class_id2">信息安全</a></li>
+                        <script type="text/template" id="template_class_list">
+                            <li><a href="javascript:void(0)" id="{CLASSID}">{CLASSNAME}</a></li>
+                        </script>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="center-right">           
+        <div class="center-right">
             <table class="easyui-datagrid" id="class_student_dg" data-options="rownumbers:true,singleSelect:true, method:'get',toolbar:toolbar">
                 <thead>
                     <tr>
