@@ -21,7 +21,6 @@ public class LoginController {
     @RequestMapping(value = RequestUrls.toLoginUrl, method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginRequest loginRequest) {
-        System.out.println("登录。");
         if (loginRequest != null) {
             if (loginRequest.getUsername() != null && loginRequest.getPassword() != null &&loginRequest.getFlag()>0) {
                 return loginService.login(loginRequest.getUsername(), loginRequest.getPassword(), loginRequest.getFlag());

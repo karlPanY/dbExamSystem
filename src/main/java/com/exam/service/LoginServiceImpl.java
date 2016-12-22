@@ -8,6 +8,8 @@ import com.exam.domain.dao.StudentRepository;
 import com.exam.domain.dao.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by NeilHY on 2016/11/15.
@@ -29,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
             case 1:
                 Admin admin;
                 if( (admin=adminRepository.findByAdminName(userName)) != null){
-                    return admin.getPassword().equals(password) ? "adminPage" : null;
+                    return admin.getPassword().equals(password) ? "admin" : null;
                 }
                 break;
             case 2:

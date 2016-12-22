@@ -32,7 +32,7 @@ $("#btn_submit").click(function (event) {
     var data = new Object();
     data.username = $('#username').val();
     data.password = $('#password').val();
-    data.flag=1;
+    data.flag=$('input:radio:checked').val();
     if(data.username == "") {
         layer.tips('用户名不能为空','#username');
         return;
@@ -47,7 +47,7 @@ $("#btn_submit").click(function (event) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success:function (data) {
-            alert(data);
+            // alert(data.valueOf());
             location.href=data;
         },
         error: function (XMLHttpRequest, status, errorThrown) {
