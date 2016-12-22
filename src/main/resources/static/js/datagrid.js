@@ -46,10 +46,6 @@ function saverow(target) {
         }
         row['new'] = newAppend;
         if (/\d{6,}/.test(RowId) && /\S{1,}/.test(RowName)) {
-            //将修改数据row传送给后台 形式：
-            // {"student_id":"201430560243","student_name":"廖晓娟","password":"123456","new":true}
-            // {"student_id":"201430560243","student_name":"廖晓娟","password":"234567","new":false}
-            //注意：若id重复要返回信息 提示无法添加；
             $.ajax({
                 url: url,
                 type: 'post',
@@ -61,6 +57,9 @@ function saverow(target) {
                     } else {
                         $.messager.alert('Warning', '请检查新添成员是否已经存在');
                     }
+                },
+                error: function() {
+
                 }
             }); //ajax end
         } else {
@@ -112,6 +111,10 @@ function deleterow(target) {
                     } else {
                         $.messager.alert('Warning', '删除失败');
                     }
+                },
+                error: function() {
+                    //test
+                    console.log('测试删除数据：' + row);
                 }
             }); //ajax结束
 
@@ -156,7 +159,10 @@ function deleteSelected(_dg) {
                     } else {
                         $.messager.alert('Warning', '删除第<b> ' + index + ' </b>条数据失败');
                     }
-
+                },
+                error: function() {
+                    //test
+                    console.log('删除数据：' + deleterow);
                 }
             }); //end ajax
         }

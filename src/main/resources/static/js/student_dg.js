@@ -6,7 +6,7 @@ $(function() {
         var class_name = $(this).html();
         $.ajax({
             url: null,
-            type: "post",
+            type: "get",
             data: {
                 class_id: class_id
             },
@@ -16,6 +16,7 @@ $(function() {
         }); // ajax end
     });
 });
+
 $(function() {
     $('#student_dg').datagrid({
         title: '学生信息管理',
