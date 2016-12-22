@@ -15,7 +15,7 @@
 <body class="easyui-layout">
     <div data-options="region:'north',border:false" id="top">
         <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
-        <p><strong th:text="${teacher.name}" th:id="${teacher.id}">董守玲</strong>&nbsp;教师，您好！</p>
+        <p id="teacher_info"><strong id="{TEACHERID}">{TEACHERNAME}</strong>&nbsp;教师，您好！</p>
     </div>
     <div data-options="region:'west',split:true,title:'信息管理'" id="west">
         <ul class="main_menu">
