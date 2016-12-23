@@ -11,6 +11,7 @@ var dd_buttons = [{
 $(function() {
 
     init();
+    // getStuGrade();
     // 绑定事件，根据class_id请求对应班级信息
     $("#class_list a").bind("click", function() {
         var class_id = $(this).attr("id");
@@ -22,13 +23,13 @@ $(function() {
 
 function init() {
     $.ajax({
-        url: '页面初始化后请求所有班级信息',
+        url: '/getAllClasses',
         type: "get",
         success: function(result) {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result[0])
                 .replace('{TEACHERNAME}', result[1]);
-            $('#teacher_info').html($temp)
+            $('#teacher_info').html($temp);
             var data = result[2];
             var $ul = $("#class_list ul");
             for (var i = 0; i < data.length; i++) {
@@ -44,7 +45,7 @@ function init() {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result[0])
                 .replace('{TEACHERNAME}', result[1]);
-            $('#teacher_info').html($temp)
+            $('#teacher_info').html($temp);
             var data = result[2];
             var $ul = $("#class_list ul");
             for (var i = 0; i < data.length; i++) {
@@ -55,8 +56,6 @@ function init() {
         }
     }); //ajax结束
 }
-
-
 
 
 var currentRow;
@@ -71,11 +70,8 @@ function getClassStu(classId) {
 
 
     $.ajax({
-        url: '请求班级学生信息',
+        url: '/getClassStu/'+classId,
         type: "get",
-        data: {
-            class_id: classId
-        },
         success: function(data) {
             $('#class_student_dg').datagrid('loadData', data);
         },
@@ -97,14 +93,12 @@ function getStuGrade() {
     var teacher_id = $("#top strong").attr("id");
     var student_id = currentRow.student_id;
     // 根据teacher_id，student_id请求学生成绩
-
+    // var teacher_id=100;
+    // var student_id=201430561000;
+    alert('开始！！！'+student_id);
     $.ajax({
-        url: '获取学生考试成绩',
-        type: "post",
-        data: {
-            teacher_id: teacher_id,
-            student_id: student_id
-        },
+        url: '/getStuGrade/'+teacher_id+"/"+student_id,
+        type: "get",
         success: function(data) {
             $("#student_grade_dg").datagrid('loadData', data);
         },

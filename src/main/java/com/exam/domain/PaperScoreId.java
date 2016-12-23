@@ -1,9 +1,6 @@
 package com.exam.domain;
 
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -13,9 +10,11 @@ import java.io.Serializable;
 @Embeddable
 public class PaperScoreId implements Serializable {
     @ManyToOne
+    @JoinColumn(referencedColumnName = "paperId")
     private Paper paper;
 
     @ManyToOne
+    @JoinColumn(referencedColumnName = "studentId")
     private Student student;
 
     public PaperScoreId() {

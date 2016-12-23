@@ -1,16 +1,14 @@
 package com.exam.service;
 
 import com.exam.domain.*;
-import com.exam.domain.dao.PaperRepository;
-import com.exam.domain.dao.QuestionRepository;
-import com.exam.domain.dao.TeacherRepository;
+import com.exam.domain.dao.*;
+import com.exam.web.response.GetClassStudents;
+import com.exam.web.response.GetClassesResponse;
+import com.exam.web.response.GetStuGradeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by NeilHY on 2016/11/17.
@@ -25,6 +23,15 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private PaperScoreRepository paperScoreRepository;
 
     @Override
     public Long createPaper(String paperName, Long teacherId, List<Question> questions) {// TODO: 2016/11/17 测试取出的teacher里的各个set项的值
@@ -53,23 +60,73 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Set<StuClass> getClassList(Long teacherId) {
+    public GetClassesResponse getClassList(Long teacherId) {
+        Teacher teacher;
+        if ((teacher=teacherRepository.findOne(teacherId)) != null) {
+            return new GetClassesResponse(teacher);
+        }
         return null;
     }
 
     @Override
-    public Set<Student> getClassStudent(Long classId) {
+    public GetClassStudents getClassStudent(Long classId) {
+        StuClass stuClass;
+        if ((stuClass = classRepository.findOne(classId)) != null) {
+            return new GetClassStudents(stuClass.getStudentSet().size(), stuClass.getStudentSet());
+        }
         return null;
     }
 
     @Override
-    public Set<PaperScore> getClassGrade(long StuclassId, long Paperid) {
+    public Set<PaperScore> getClassGrade(Long StuclassId, Long Paperid) {
         return null;
     }
 
     @Override
-    public Set<PaperScore> getStudentGrade(long StudentId) {
+    public GetStuGradeResponse getStudentGrade(Long StudentId) {
+        System.out.println("开始！！！！！！！！！！！！");
+        Student student;
+        if ((student = studentRepository.findOne(StudentId)) != null) {
+            if (!getStuGrades(student.getPaperScoreSet(),student).isEmpty()) {
+                return new GetStuGradeResponse(student.getPaperScoreSet().size(), getStuGrades(student.getPaperScoreSet(),student));
+            }
+        }
         return null;
+    }
+
+    private List<GetStuGradeResponse.StudentGrade> getStuGrades(Set<PaperScore> paperScores,Student student){
+        Iterator iterator=paperScores.iterator();
+        List<GetStuGradeResponse.StudentGrade> studentGradeList = new ArrayList<>();
+        GetStuGradeResponse.StudentGrade studentGrade;
+        while (iterator.hasNext()) {
+            PaperScore paperScore= (PaperScore) iterator.next();
+            //获得在该考试中的排名：在所有该考试的成绩中排名
+            //TODO 这样能不能获得该考试的id 和 考试的名字
+            Paper paper=paperScore.getId().getPaper();
+            Long paperId = paper.getPaperId();
+            String paperName = paper.getPaperName();
+            PaperScoreId paperScoreId = new PaperScoreId(paper, student);
+            System.out.println("获得考试的id:"+ paperId+ "  获得考试的名字："+paperScore.getId().getPaper().getPaperName());
+            System.out.println("获得该考试的所有记录："+paperScoreRepository.findOne(paperScoreId));
+
+            int rank = getRank(paperScore.getScore(), paperScoreRepository.getAllPaperScoreByPaperId(paperId));
+
+            System.out.println("获得考试的排名："+rank);
+
+//            studentGrade = new GetStuGradeResponse().new StudentGrade(paperName,paperScore.getScore(),rank);
+//            studentGradeList.add(studentGrade);
+        }
+        return studentGradeList;
+    }
+
+    private int getRank(Float grade,List<PaperScore> allStuGrades){
+        int rank=1;
+        for (PaperScore paperScore : allStuGrades) {
+            if (grade < paperScore.getScore()) {
+                rank++;
+            }
+        }
+        return rank;
     }
 
     @Override

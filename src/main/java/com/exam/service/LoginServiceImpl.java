@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by NeilHY on 2016/11/15.
  */
@@ -26,26 +28,38 @@ public class LoginServiceImpl implements LoginService {
     private TeacherRepository teacherRepository;
 
     @Override
-    public String login(String userName, String password, int flag) {
+    public String login(String userName, String password, int flag, HttpSession session) {
         switch (flag) {
             case 1:
                 Admin admin;
                 if( (admin=adminRepository.findByAdminName(userName)) != null){
-                    return admin.getPassword().equals(password) ? "admin" : null;
+                    if (admin.getPassword().equals(password)) {
+                        session.setAttribute("id",admin.getAdminId());
+                        return "admin";
+                    }
+                    return null;
                 }
                 break;
             case 2:
                 Teacher teacher;
                 Long tid = Long.parseLong(userName);
                 if ( (teacher=teacherRepository.findOne(tid)) != null) {
-                    return teacher.getPassword().equals(password) ? "teacherIndex": null;
+                    if(teacher.getPassword().equals(password)){
+                        session.setAttribute("id",teacher.getId());
+                        return "teacherIndex";
+                    }
+                    return null;
                 }
                 break;
             case 3:
                 Student student;
                 Long sid = Long.parseLong(userName);
                 if ( (student=studentRepository.findOne(sid)) != null) {
-                    return student.getPassword().equals(password) ? "exam" : null;
+                    if (student.getPassword().equals(password)) {
+                        session.setAttribute("id",student.getId());
+                        return "select";
+                    }
+                    return  null;
                 }
                 break;
         }

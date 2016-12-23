@@ -25,6 +25,7 @@ public class PaperScore implements Serializable{
         this.score = score;
     }
 
+
     public Set<QuestionScore> getQuestionScoreSet() {
         return questionScoreSet;
     }

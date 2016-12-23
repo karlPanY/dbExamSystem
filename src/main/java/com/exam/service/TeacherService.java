@@ -1,6 +1,9 @@
 package com.exam.service;
 
 import com.exam.domain.*;
+import com.exam.web.response.GetClassStudents;
+import com.exam.web.response.GetClassesResponse;
+import com.exam.web.response.GetStuGradeResponse;
 
 import java.util.Date;
 import java.util.List;
@@ -14,13 +17,13 @@ public interface TeacherService {
 
     Long publishPaper(Long paperId, Date beginTime, Date endTime);//发布试卷
 
-    Set<StuClass> getClassList(Long teacherId);//获得老师授课的班级
+    GetClassesResponse getClassList(Long teacherId);//获得老师授课的班级
 
-    Set<Student> getClassStudent(Long classId);//获得某班级具体学生信息
+    GetClassStudents getClassStudent(Long classId);//获得某班级具体学生信息
 
-    Set<PaperScore> getClassGrade(long StuclassId, long Paperid);//获得某班级某试卷的全班成绩
+    Set<PaperScore> getClassGrade(Long StuclassId, Long Paperid);//获得某班级某试卷的全班成绩
 
-    Set<PaperScore> getStudentGrade(long StudentId);//获得某学生的所有试卷成绩
+    GetStuGradeResponse getStudentGrade(Long StudentId);//获得某学生的所有试卷成绩
 
     PaperScore getStudentPaperGrade(Long StudentId,Long PaperId);//获得某学生某试卷成绩
 

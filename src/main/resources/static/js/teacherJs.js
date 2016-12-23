@@ -16,7 +16,7 @@ $(function(){
     $(".mainNav").find(".dropdown-toggle").click(function() {
          $(this).parent().find(".dropdown-menu").slideToggle(300);
      });
-})
+});
 function refresh() {
     window.location.reload();
 }
@@ -40,7 +40,7 @@ $(function(){
         $('.alert').alert()
 
     });
-})
+});
 
 function showPanel(panel_id){
     $(".panel").addClass("hide");
