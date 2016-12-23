@@ -72,9 +72,18 @@ public class TeacherServiceImpl implements TeacherService {
     public GetClassStudents getClassStudent(Long classId) {
         StuClass stuClass;
         if ((stuClass = classRepository.findOne(classId)) != null) {
-            return new GetClassStudents(stuClass.getStudentSet().size(), stuClass.getStudentSet());
+            return new GetClassStudents(stuClass.getStudentSet().size(), getStuInfo(stuClass.getStudentSet(),stuClass.getClassName()));
         }
         return null;
+    }
+
+    private List<GetClassStudents.StuInfo> getStuInfo(Set<Student> students,String className) {
+        List<GetClassStudents.StuInfo> stuInfoList = new ArrayList<>();
+        for (Student student : students) {
+            GetClassStudents.StuInfo info = new GetClassStudents().new StuInfo(student.getStudentName(), student.getId(), className);
+            stuInfoList.add(info);
+        }
+        return stuInfoList;
     }
 
     @Override
@@ -84,7 +93,6 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public GetStuGradeResponse getStudentGrade(Long StudentId) {
-        System.out.println("开始！！！！！！！！！！！！");
         Student student;
         if ((student = studentRepository.findOne(StudentId)) != null) {
             if (!getStuGrades(student.getPaperScoreSet(),student).isEmpty()) {
@@ -101,20 +109,14 @@ public class TeacherServiceImpl implements TeacherService {
         while (iterator.hasNext()) {
             PaperScore paperScore= (PaperScore) iterator.next();
             //获得在该考试中的排名：在所有该考试的成绩中排名
-            //TODO 这样能不能获得该考试的id 和 考试的名字
             Paper paper=paperScore.getId().getPaper();
             Long paperId = paper.getPaperId();
             String paperName = paper.getPaperName();
-            PaperScoreId paperScoreId = new PaperScoreId(paper, student);
-            System.out.println("获得考试的id:"+ paperId+ "  获得考试的名字："+paperScore.getId().getPaper().getPaperName());
-            System.out.println("获得该考试的所有记录："+paperScoreRepository.findOne(paperScoreId));
 
             int rank = getRank(paperScore.getScore(), paperScoreRepository.getAllPaperScoreByPaperId(paperId));
 
-            System.out.println("获得考试的排名："+rank);
-
-//            studentGrade = new GetStuGradeResponse().new StudentGrade(paperName,paperScore.getScore(),rank);
-//            studentGradeList.add(studentGrade);
+            studentGrade = new GetStuGradeResponse().new StudentGrade(paperName,paperScore.getScore(),rank);
+            studentGradeList.add(studentGrade);
         }
         return studentGradeList;
     }

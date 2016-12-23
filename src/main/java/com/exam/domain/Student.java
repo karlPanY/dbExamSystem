@@ -19,11 +19,9 @@ public class Student implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name="ClassStudentSet",
-            joinColumns ={@JoinColumn(name = "studentId")},
-            inverseJoinColumns = {@JoinColumn(name="classId")})
-    private Set<StuClass> stuClass;
+    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "classId",referencedColumnName = "classId")
+    private StuClass stuClass;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.student",cascade = CascadeType.ALL)
     private Set<PaperScore> paperScoreSet;
@@ -34,7 +32,7 @@ public class Student implements Serializable {
     public Student() {
     }
 
-    public Student(Long id, String studentName, String password, Set<StuClass> stuClass, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
+    public Student(Long id, String studentName, String password, StuClass stuClass, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
         this.id = id;
         this.studentName = studentName;
         this.password = password;
@@ -43,11 +41,11 @@ public class Student implements Serializable {
         this.questionScoreSet = questionScoreSet;
     }
 
-    public Set<StuClass> getStuClass() {
+    public StuClass getStuClass() {
         return stuClass;
     }
 
-    public void setStuClass(Set<StuClass> stuClass) {
+    public void setStuClass(StuClass stuClass) {
         this.stuClass = stuClass;
     }
 

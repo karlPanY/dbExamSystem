@@ -1,7 +1,6 @@
 package com.exam.web.response;
 
-import com.exam.domain.Student;
-
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,14 +8,53 @@ import java.util.Set;
  */
 public class GetClassStudents {
     private Integer total;
-    private Set<Student> rows;
+    private List<StuInfo> rows;
 
     public GetClassStudents() {
     }
 
-    public GetClassStudents(Integer total, Set<Student> rows) {
+    public GetClassStudents(Integer total, List<StuInfo> rows) {
         this.total = total;
         this.rows = rows;
+    }
+
+    public class StuInfo{
+        private String studentName;
+        private Long studentId;
+        private String className;
+
+        public StuInfo() {
+        }
+
+        public StuInfo(String studentName, Long studentId, String className) {
+            this.studentName = studentName;
+            this.studentId = studentId;
+            this.className = className;
+        }
+
+        public String getStudentName() {
+            return studentName;
+        }
+
+        public void setStudentName(String studentName) {
+            this.studentName = studentName;
+        }
+
+        public Long getStudentId() {
+            return studentId;
+        }
+
+        public void setStudentId(Long studentId) {
+            this.studentId = studentId;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        public void setClassName(String className) {
+            this.className = className;
+        }
     }
 
     public Integer getTotal() {
@@ -27,11 +65,11 @@ public class GetClassStudents {
         this.total = total;
     }
 
-    public Set<Student> getRows() {
+    public List<StuInfo> getRows() {
         return rows;
     }
 
-    public void setRows(Set<Student> rows) {
+    public void setRows(List<StuInfo> rows) {
         this.rows = rows;
     }
 }

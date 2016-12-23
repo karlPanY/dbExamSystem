@@ -10,11 +10,9 @@ import java.io.Serializable;
 @Embeddable
 public class PaperScoreId implements Serializable {
     @ManyToOne
-    @JoinColumn(referencedColumnName = "paperId")
     private Paper paper;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "studentId")
     private Student student;
 
     public PaperScoreId() {

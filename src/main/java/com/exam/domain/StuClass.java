@@ -20,10 +20,7 @@ public class StuClass implements Serializable {
     @JoinColumn(name = "teacherId",referencedColumnName = "teacherId")
     private Teacher teacher;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE,CascadeType.MERGE})
-    @JoinTable(name="ClassStudentSet",
-            joinColumns ={@JoinColumn(name = "classId")},
-            inverseJoinColumns = {@JoinColumn(name="studentId")})
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE,CascadeType.MERGE})
     private Set<Student> studentSet;
 
     public StuClass() {

@@ -11,6 +11,7 @@ var dd_buttons = [{
 $(function() {
 
     init();
+    getClassStu(1);
     // getStuGrade();
     // 绑定事件，根据class_id请求对应班级信息
     $("#class_list a").bind("click", function() {
@@ -95,7 +96,7 @@ function getStuGrade() {
     // 根据teacher_id，student_id请求学生成绩
     // var teacher_id=100;
     // var student_id=201430561000;
-    alert('开始！！！'+student_id);
+    // alert('开始！！！'+student_id);
     $.ajax({
         url: '/getStuGrade/'+teacher_id+"/"+student_id,
         type: "get",
