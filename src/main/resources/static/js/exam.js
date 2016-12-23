@@ -1,16 +1,26 @@
 $(function() {
 
-    var paperId = $(".paper_id").attr("id");
     $.ajax({
         url: null,
-        type: "post",
-        data: { paper_id: paperId },
-        success: function(data) {
-            // data是个数组，每一项包括了问题id,类型和问题
+        type: "get",
+        success: function(result) {
+
+            // result=['paperId','paperName','学生id','学生名','试卷内容'];
+            // 试卷内容data是个数组，每一项包括了问题id,类型和问题
             // data[i][0]=qusetionid;
             // data[i][1]=qusetionType;
             // 比如：选择题 type1;填空题 2 type2
             // data[i][2]=question内容
+
+            var $template = $('#student_info')[0].innerHTML.trim();
+            $template = $template.replace('{PAPERID}', result[0])
+                .replace('{PAPERNAME}', result[1]).
+            replace('{STUDENTID}', result[2]).
+            replace('{STUDENTNAME}', result[3]);
+            $('#student_info').html($template);
+
+            var data = result[4];
+            // data
             for (var i = 0; i < data.length; i++) {
                 insert(data[i]);
             }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>考试系统</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css"/>
-    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/com.css">
+    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/exam.css" />
 </head>
 
@@ -24,8 +24,8 @@
     <div class="wrapper">
         <div class="sideBar">
             <div id="student_info">
-                <p><b class="student_id" th:id="${stu_id}" th:text="${stu_name.id}">廖晓娟</b>&nbsp;同学，您好!</p>
-                <p>欢迎参加<b class="paper_id" th:id="${paper_id}" th:text="${paper_name}">数据库系统概论</b>考试</p>
+                <p><b class="student_id" id="{STUDENTID}">{STUDENTNAME}</b>&nbsp;同学，您好!</p>
+                <p>欢迎参加<b class="paper_id" id="{PAPERID}">{PAPERNAME}</b>考试</p>
             </div>
         </div>
         <div class="main">
