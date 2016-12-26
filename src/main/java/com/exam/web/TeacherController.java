@@ -1,6 +1,7 @@
 package com.exam.web;
 
 import com.exam.service.TeacherService;
+import com.exam.web.response.GetAllPapers;
 import com.exam.web.response.GetClassStudents;
 import com.exam.web.response.GetClassesResponse;
 import com.exam.web.response.GetStuGradeResponse;
@@ -54,4 +55,5 @@ public class TeacherController {
         }
         return null;
     }
+
 }

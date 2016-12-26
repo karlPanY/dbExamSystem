@@ -38,8 +38,8 @@ public class TeacherServiceImpl implements TeacherService {
         // TODO: 2016/11/17 测试能不能直接save paper，而不用先save各个题目，最后再放进paper里。
         Teacher teacher;
         if ((teacher = teacherRepository.findOne(teacherId)) != null) {
-            Paper paper = new Paper(paperName, null, null, questions, teacher, null, null);
-            paper=paperRepository.save(paper);
+//            Paper paper = new Paper(paperName, null, null, questions, teacher, null, null);
+//            paper=paperRepository.save(paper);
             /*
             Iterator<Question> ite = questions.iterator();
             while(ite.hasNext())
@@ -49,7 +49,7 @@ public class TeacherServiceImpl implements TeacherService {
                 questionRepository.save(q);
             }
             我感觉没那么智能  还是这样一个个插入吧*/
-            return paper.getPaperId();
+//            return paper.getPaperId();
         }
         return null;
     }

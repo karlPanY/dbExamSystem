@@ -33,17 +33,14 @@ $(function() {
 
     init();
 
-
-
 });
 
 function init() {
     var paperStatus;
     var paperEnd;
     $.ajax({
-        url: '请求所有试题信息url',
+        url: '/getAllPapers',
         type: "get",
-        data: null,
         success: function(result) {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result[0])
@@ -144,17 +141,15 @@ $('#paper_detail_dg').datagrid({
 // 查看试题
 function previewPaper() {
     if (currentRow === undefined) {
-        msgTipBox("请选择一份试题")
+        msgTipBox("请选择一份试题");
     } else {
         var paper_name = currentRow.paper_name;
-        //根据试题名称请求试题内容
-        openPanel();
+        var paper_id=1;//测试
+        //根据试题 id 请求试题内容
+       // openPanel();
         $.ajax({
-            url: '根据试题名称请求试题内容url',
-            type: "post",
-            data: {
-                paper_name: paper_name
-            },
+            url: '/getPaperContent/'+paper_id,
+            type: "get",
             success: function(data) {
                 $('#paper_detail_dg').datagrid('loadData', data);
             },
@@ -178,7 +173,7 @@ function previewPaper() {
                 };
                 $('#paper_detail_dg').datagrid('loadData', data);
             }
-        })
+        });
 
     }
 }
@@ -201,15 +196,21 @@ function subscribePaper() {
                 msgTipBox("时间不能为空");
             } else {
                 var postdata = {
-      paper_name: paperName,
+      paper_id: paperName,
       paper_start: paperStart,
       paper_end: paperEnd
   };
-
+            //TODO 根据试题id 发布试题
+                var postdata = {
+                    paper_id: 4,
+                    paper_start: "2016-9-9 10:00:00",
+                    paper_end: "2016-9-9 23:59:59"
+                };
                 $.ajax({
-                    url: '根据试题名称 发布试题',
+                    url: '/setPaperTime',
                     type: "post",
-                    data:postdata,
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify(postdata),
                     success: function(msg) {
                         data["paper_status"] = "发布中";
                         if (msg.success) {
@@ -294,11 +295,30 @@ function modifyQuestion() {
                 row['question_title'] += $item.val() + "#";
             });
 
-            var postdata = { 'paper_name': paper_name, 'question': row }
+
+            var questionList=[
+                {
+                    question_id:3,
+                    question_answer:"",
+                    question_score:4,
+                    question_title:"testing11",
+                    type:"填空题"
+                },
+                {
+                    question_id:5,
+                    question_answer:"D",
+                    question_score:4,
+                    question_title:"testing12",
+                    type:"选择题"
+                }
+            ]
+            ;
+            var postdata = { questionList: questionList };
             $.ajax({
-                url: "修改试题url",
+                url: "/changeQuestions",
                 type: "post",
-                data: postdata,
+                data: JSON.stringify(postdata),
+                contentType: "application/json; charset=utf-8",
                 success: function(msg) {
                     if (msg.success) {
                         $('#dd').dialog({

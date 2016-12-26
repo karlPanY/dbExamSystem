@@ -2,6 +2,8 @@ package com.exam.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class Paper implements Serializable {
 
     @Column(nullable = false)
     private String paperName;
+
     private Date paperStart;//试卷开始时间
 
     private Date paperEnd;//试卷结束时间
@@ -38,10 +41,10 @@ public class Paper implements Serializable {
     public Paper() {
     }
 
-    public Paper(String paperName, Date paperStart, Date paperEnd, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
+    public Paper(String paperName, String paperStart, String paperEnd, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) throws ParseException {
         this.paperName = paperName;
-        this.paperStart = paperStart;
-        this.paperEnd = paperEnd;
+        this.paperStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperStart);
+        this.paperEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperEnd);
         this.questions = questions;
         this.teacherOf = teacherOf;
         this.paperScoreSet = paperScoreSet;

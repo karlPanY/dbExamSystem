@@ -16,6 +16,11 @@ public class RequestUrls {
     public static final String getClassStu = "/getClassStu/{class_id}";
     public static final String getStuGrade= "/getStuGrade/{teacher_id}/{student_id}";
 
+    public static final String getAllPapers= "/getAllPapers";
+    public static final String getPaperContent= "/getPaperContent/{paper_id}";
+    public static final String setPaperTime= "/setPaperTime";
+    public static final String changeQuestions= "/changeQuestions";
+
 
     public static final String admin = "/admin";
 
