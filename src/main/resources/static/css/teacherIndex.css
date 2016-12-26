@@ -50,10 +50,9 @@ span.glyphicon {
 
 
 
-aside.left-panel {
-    width: 230px;
+.sidebar{
     background-color: rgb(27,169,233);
-    width: 230px;
+    padding: 0;
     position: fixed;
     height: 100%;
     top: 50px;
@@ -129,7 +128,7 @@ li.mouse>div {
 
 .navigation>ul>li>a {
     display: block;
-    padding: 15px 52px;
+    padding: 15px 20%;
     font-size: 16px;
     color:#fff ;
     text-decoration: none;
@@ -143,8 +142,7 @@ li.mouse>div {
 
 
 div.main {
-    margin-left: 230px;
-    height: 90vh;
+    height: 88vh;
     position: relative;
     overflow: hidden;
 }

@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="dbSystem">
-    <meta name="author" content="kasmine">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="dbSystem" />
+    <meta name="author" content="kasmine" />
     <!-- <link rel="icon" href="../../favicon.ico"> -->
     <title>管理员系统</title>
     <!-- Bootstrap core CSS -->
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,11 +26,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">华南理工大学</a>
+                <a class="navbar-brand" href="#"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">平台介绍</a></li>
                     <li><a href="#">退出</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
@@ -42,24 +41,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">信息管理</a></li>
-                    <li> <a id="dLabel" data-target="#" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">班级管理<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="class_list">
-                            <script type="text/template" id="classListTemplate">
-                                <li>
-                                    <a href="javascript:void(0)" onclick="openPanel('.class_panel')" id="{CLASSID}">{CLASSNAME}</a>
+                <nav class="navigation">
+                    <ul class="">
+                        <li class="active"><a href="#"><i></i>信息管理</a></li>
+                        <li> <a id="dLabel" data-target="#" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i></i>班级管理<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="class_list">
+                                <script type="text/template" id="classListTemplate">
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="openPanel('.class_panel')" id="{CLASSID}">{CLASSNAME}</a>
+                                    </li>
+                                </script>
+                                <li class="last">
+                                    <button data-toggle="modal" data-target="#addClassModal" class="btn btn-success">添加班级</button>
                                 </li>
-                            </script>
-                        </ul>
-                    </li>
-                    <li><a href="javascript:void(0)" onclick="openPanel('.teacher_panel')">教师管理</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <button data-toggle="modal" data-target="#addClassModal" class="btn btn-success">添加班级</button>
-                    </li>
-                </ul>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0)" onclick="openPanel('.teacher_panel')"><i></i>教师管理</a></li>
+                    </ul>
+                </nav>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main class_panel">
                 <h1 class="page-header">班级信息管理</h1>
@@ -170,7 +169,7 @@
                 <input class="form-control input-sm" type="text" name="password" value="{PASSWORD}" disabled="" size='12'>
             </td>
             <td>
-                <input class="form-control input-sm" type="text" name="class_name" value="{CLASSNAME}" disabled="" size='12'>
+                <input class="form-control input-sm" type="" name="class_name" value="{CLASSNAME}" disabled="" size='12'>
             </td>
             <td>
                 <button disabled="true" onclick="saverow(this)" class="btn btn-success btn-sm">Save</button>

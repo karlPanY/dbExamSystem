@@ -15,3 +15,7 @@
 a.l-btn.l-btn-small.l-btn-plain{border:1px solid rgb(211, 211, 211);border-radius:0;border-bottom:none;margin:auto 2px;padding:0px 4px;}
 a.l-btn.l-btn-small.l-btn-plain:hover{background:rgb(226, 226, 226);}
 span.l-btn-text{font-weight:600;color:rgb(87, 87, 101);}
+
+.datagrid-cell.datagrid-cell-c3-paper_id {
+    display: none;
+}
