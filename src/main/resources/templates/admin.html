@@ -2,67 +2,210 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="dbSystem">
+    <meta name="author" content="kasmine">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
     <title>管理员系统</title>
-    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="css/effect/icon.css" />
-    <link rel="stylesheet" type="text/css" href="css/admin.css" />
-    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
-    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="css/effect/bootstrap.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
+    <!-- Custom styles for this template -->
+    <link href="css/admin.css" rel="stylesheet" />
 </head>
 
-<body class="easyui-layout" id="ll">
-    <div data-options="region:'north',border:false" id="top">华南理工大学</div>
-    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
-        <div class="easyui-accordion" data-options="fit:true,border:false">
-            <div title="班级管理" style="padding:10px;" id="class_list">
-                <button onclick="addClass()">添加班级</button>
-                <ul class="easyui-tree">
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">华南理工大学</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">平台介绍</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">信息管理</a></li>
+                    <li> <a id="dLabel" data-target="#" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">班级管理<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="class_list">
+                            <script type="text/template" id="classListTemplate">
+                                <li>
+                                    <a href="javascript:void(0)" onclick="openPanel('.class_panel')" id="{CLASSID}">{CLASSNAME}</a>
+                                </li>
+                            </script>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)" onclick="openPanel('.teacher_panel')">教师管理</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
                     <li>
-                        <a href="javascript:void(0)" id=""></a>
+                        <button data-toggle="modal" data-target="#addClassModal" class="btn btn-success">添加班级</button>
                     </li>
                 </ul>
             </div>
-            <div title="教师管理" style="padding:10px;">
-                <ul class="easyui-tree">
-                    <li><a href="javascript:openEast()">打开管理面板</a></li>
-                    <li><a href="javascript:closeEast()">关闭管理面板</a></li>
-                </ul>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main class_panel">
+                <h1 class="page-header">班级信息管理</h1>
+                <p>
+                    <button class="btn btn-success btn-sm" onclick="append('#student_dg')">添加</button>
+                    <button class="btn btn-success btn-sm" onclick="selectAll('#student_dg')">全选</button>
+                    <button class="btn btn-success btn-sm" onclick="diselectAll('#student_dg')">全不选</button>
+                    <button class="btn btn-success btn-sm" onclick="deleteSelected('#student_dg')">删除所选行</button>
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed" id="student_dg">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>学号</th>
+                                <th>姓名</th>
+                                <th>密码</th>
+                                <th>所属班级</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main teacher_panel hide">
+                <h1 class="page-header">教师信息管理</h1>
+                <p>
+                    <button class="btn btn-success btn-sm" onclick="append('#teacher_dg')">添加</button>
+                    <button class="btn btn-success btn-sm" onclick="selectAll('#teacher_dg')">全选</button>
+                    <button class="btn btn-success btn-sm" onclick="diselectAll('#teacher_dg')">全不选</button>
+                    <button class="btn btn-success btn-sm" onclick="deleteSelected('#teacher_dg')">删除所选行</button>
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed" id='teacher_dg'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>职工号</th>
+                                <th>姓名</th>
+                                <th>密码</th>
+                                <th>所属班级</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <div data-options="region:'center',split:true" title="班级信息" id="center">
-        <table id="student_dg" class="easyui-datagrid dg"></table>
-        <div class="easyui-dialog" id="addClass_dd" data-options="title:'添加班级',buttons:'#addClass_bb',modal:true,closed:true">
-            <form id="ff" method="post">
-                <div>
-                    <label for="add_class_id">新添班级编号:</label>
-                    <input class="easyui-validatebox" type="text" name="add_class_id" data-options="required:true" />
+    <div class="modal fade" id="addClassModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">添加班级</h4>
                 </div>
-                <div>
-                    <label for="add_class_name">新添班级名称:</label>
-                    <input class="easyui-validatebox" type="text" name="add_class_name" data-options="validType:'number',required:true" />
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="add_class_name">班级名称:</label>
+                            <input class="form-control" type="text" name="add_class_name" data-options="required:true" />
+                        </div>
+                        <div class="form-group">
+                            <label for="add_class_teacher">班主任姓名:</label>
+                            <input class="form-control" type="text" name="add_class_teacher" data-options="required:true" />
+                        </div>
+                    </form>
                 </div>
-                ...
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="btn_addClass">确认添加</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
-        <div id="addClass_bb">
-            <a id="save" href="javascript:void(0)" class="easyui-linkbutton">保存</a>
-            <a id="cancle" href="javascript:void(0)" class="easyui-linkbutton">取消</a>
-        </div>
+        <!-- /.modal-dialog -->
     </div>
-    <div data-options="region:'east',split:true,collapsed:true,title:'教师管理'" id="east">
-        <table id="teacher_dg" class="easyui-datagrid dg">
-        </table>
+    <!-- /.modal -->
+    <div id="alertBox">
+        <script type="text/template" id="alert-template">
+            <div class="alert alert-{ALERTTYPE} alert-dismissible fade in" role="alert">
+                <div>
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4>{ALERTTITLE}</h4>
+                    <p>{ALERTMSG}</p>
+                </div>
+            </div>
+        </script>
     </div>
-    <div data-options="region:'south'" id="bottom">
-        Bottom region
-    </div>
-    <script src="js/data.js"></script>
-    <script src="js/teacher_dg.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/student_dg.js"></script>
-    <script src="js/datagrid.js"></script>
+    <script src="js/effects/jquery-2.2.3.js"></script>
+    <script src="js/effects/bootstrap.js"></script>
+    <script type="text/template" id="student_dg_template">
+        <tr>
+            <td>
+                <input type="checkbox" name="">
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="student_id" value="{ID}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="student_name" value="{NAME}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="password" value="{PASSWORD}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="class_name" value="{CLASSNAME}" disabled="" size='12'>
+            </td>
+            <td>
+                <button disabled="true" onclick="saverow(this)" class="btn btn-success btn-sm">Save</button>
+                <button disabled="true" onclick="cancelrow(this)" class="btn btn-success btn-sm">Cancel</button>
+                <button onclick="editrow(this)" class="btn btn-success btn-sm">Edit</button>
+                <button onclick="deleterow(this)" class="btn btn-success btn-sm">Delete</button>
+            </td>
+        </tr>
+    </script>
+    <script type="text/template" id="teacher_dg_template">
+        <tr>
+            <td>
+                <input class="" type="checkbox" name="">
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="teacher_id" value="{ID}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="teacher_name" value="{NAME}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="password" value="{PASSWORD}" disabled="" size='12'>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="text" name="class_name" value="{CLASSNAME}" disabled="" size='12'>
+            </td>
+            <td>
+                <button disabled="true" onclick="saverow(this)" class="btn btn-success btn-sm">Save</button>
+                <button disabled="true" onclick="cancelrow(this)" class="btn btn-success btn-sm">Cancel</button>
+                <button onclick="editrow(this)" class="btn btn-success btn-sm">Edit</button>
+                <button onclick="deleterow(this)" class="btn btn-success btn-sm">Delete</button>
+            </td>
+        </tr>
+    </script>
+    <script type="text/javascript" src='js/admin.js '></script>
 </body>
 
 </html>

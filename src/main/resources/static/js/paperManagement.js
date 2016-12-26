@@ -43,10 +43,10 @@ function init() {
         type: "get",
         success: function(result) {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result[0])
-                .replace('{TEACHERNAME}', result[1]);
+            $temp = $temp.replace('{TEACHERID}', result["teacherId"])
+                .replace('{TEACHERNAME}', result["teacherName"]);
             $('#teacher_info').html($temp)
-            var data = result[2];
+            var data = { "total": result['data'].length, 'rows': result['data'] };
             data.rows.forEach(function(item) {
                 paperStatus = item["paper_status"];
                 paperEnd = item["paper_end"];
@@ -63,31 +63,31 @@ function init() {
         },
         error: function() {
             //test
-            var data = {
-                'total': 2,
-                'rows': [{
-                    paper_name: '数据库试题1',
-                    paper_start: "11/17/2016 23:30:18",
-                    paper_end: '11/17/2016 23:30:18',
-                    paper_status: "1" //已发布
-                }, {
-                    paper_name: '数据库试题2',
-                    paper_start: "12/19/2016 23:30:18",
-                    paper_end: '12/22/2016 23:30:18',
-                    paper_status: "1" //已发布
-                }, {
-                    paper_name: '数据库试题3',
-                    paper_start: "",
-                    paper_end: "",
-                    paper_status: "0" //未发布
-                }]
-            };
-            var result = ['登录教师id', '登录教师名', data];
+            var data = [{
+                paper_id: 1,
+                paper_name: '数据库试题1',
+                paper_start: "11/17/2016 23:30:18",
+                paper_end: '11/17/2016 23:30:18',
+                paper_status: "1" //已发布
+            }, {
+                paper_id: 2,
+                paper_name: '数据库试题2',
+                paper_start: "12/27/2016 16:30:18",
+                paper_end: '12/27/2016 23:30:18',
+                paper_status: "1" //已发布
+            }, {
+                paper_id: 3,
+                paper_name: '数据库试题3',
+                paper_start: "",
+                paper_end: "",
+                paper_status: "0" //未发布
+            }];
+            var result = { "teacherId": 100, "teacherName": '教师100', "data": data };
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result[0])
-                .replace('{TEACHERNAME}', result[1]);
+            $temp = $temp.replace('{TEACHERID}', result["teacherId"])
+                .replace('{TEACHERNAME}', result["teacherName"]);
             $('#teacher_info').html($temp)
-            var data = result[2];
+            var data = { "total": result['data'].length, 'rows': result['data'] };
             data.rows.forEach(function(item) {
                 paperStatus = item["paper_status"];
                 paperEnd = item["paper_end"];
@@ -143,21 +143,21 @@ function previewPaper() {
     if (currentRow === undefined) {
         msgTipBox("请选择一份试题");
     } else {
-        var paper_name = currentRow.paper_name;
-        var paper_id=1;//测试
+        var paper_id = currentRow.paper_id; //测试
         //根据试题 id 请求试题内容
-       // openPanel();
+        openPanel();
         $.ajax({
-            url: '/getPaperContent/'+paper_id,
+            url: '/getPaperContent/' + paper_id,
             type: "get",
-            success: function(data) {
+            success: function(result) {
+                var data = { 'total': result['total'], 'rows': result['questionInfoList'] };
                 $('#paper_detail_dg').datagrid('loadData', data);
             },
             error: function() {
                 //test
-                var data = {
+                var result = {
                     'total': 2,
-                    'rows': [{
+                    'questionInfoList': [{
                         question_type: "选择题",
                         question_title: '1、数据库（DB），数据库系统（DBS）和数据库管理系统（DBMS）之间的关系是（   　）。#A.　DBS包括DB和DBMS#B.　DBMS包括DB和DBS  #C.　DB包括DBS和DBMS  # D.　DBS就是DB，也就是DBMS',
                         question_id: "0001",
@@ -171,6 +171,7 @@ function previewPaper() {
                         question_answer: "空值"
                     }]
                 };
+                var data = { 'total': result['total'], 'rows': result['questionInfoList'] };
                 $('#paper_detail_dg').datagrid('loadData', data);
             }
         });
@@ -196,11 +197,11 @@ function subscribePaper() {
                 msgTipBox("时间不能为空");
             } else {
                 var postdata = {
-      paper_id: paperName,
-      paper_start: paperStart,
-      paper_end: paperEnd
-  };
-            //TODO 根据试题id 发布试题
+                    paper_id: paperName,
+                    paper_start: paperStart,
+                    paper_end: paperEnd
+                };
+                //TODO 根据试题id 发布试题
                 var postdata = {
                     paper_id: 4,
                     paper_start: "2016-9-9 10:00:00",
@@ -210,7 +211,7 @@ function subscribePaper() {
                     url: '/setPaperTime',
                     type: "post",
                     contentType: "application/json; charset=utf-8",
-                    data:JSON.stringify(postdata),
+                    data: JSON.stringify(postdata),
                     success: function(msg) {
                         data["paper_status"] = "发布中";
                         if (msg.success) {
@@ -296,23 +297,19 @@ function modifyQuestion() {
             });
 
 
-            var questionList=[
-                {
-                    question_id:3,
-                    question_answer:"",
-                    question_score:4,
-                    question_title:"testing11",
-                    type:"填空题"
-                },
-                {
-                    question_id:5,
-                    question_answer:"D",
-                    question_score:4,
-                    question_title:"testing12",
-                    type:"选择题"
-                }
-            ]
-            ;
+            var questionList = [{
+                question_id: 3,
+                question_answer: "",
+                question_score: 4,
+                question_title: "testing11",
+                type: "填空题"
+            }, {
+                question_id: 5,
+                question_answer: "D",
+                question_score: 4,
+                question_title: "testing12",
+                type: "选择题"
+            }];
             var postdata = { questionList: questionList };
             $.ajax({
                 url: "/changeQuestions",
