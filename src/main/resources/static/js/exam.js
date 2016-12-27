@@ -1,18 +1,19 @@
 $(function() {
 
     $.ajax({
-        url: null,
+        url: "/student/getPaper",
         type: "get",
+        dataType: 'json',
         success: function(result) {
 
             var $template = $('#student_info')[0].innerHTML.trim();
-            $template = $template.replace('{PAPERID}', result[0])
-                .replace('{PAPERNAME}', result[1]).
-            replace('{STUDENTID}', result[2]).
-            replace('{STUDENTNAME}', result[3]);
+            $template = $template.replace('{PAPERID}', result["paper_id"])
+                .replace('{PAPERNAME}', result["paper_name"]).
+            replace('{STUDENTID}', result["student_id"]).
+            replace('{STUDENTNAME}', result["student_name"]);
             $('#student_info').html($template);
 
-            var datas = result[4];
+            var datas = result["datas"];
             // data
             for (var i = 0; i < datas.length; i++) {
                 insertType(datas[i]);
@@ -60,8 +61,8 @@ $(function() {
 // 插入题目
 function insertType(data) {
 
-    var questionid = data[0];
-    var questiontype = data[1];
+    var questionid = data["question_id"];
+    var questiontype = data["question_type"];
     var questiontypeId, questiontypeIndex = 1;
     switch (questiontype) {
         case "选择题":
@@ -84,7 +85,7 @@ function insertType(data) {
             questiontypeId = null;
             break;
     }
-    var questiontitle = data[2];
+    var questiontitle = data["quesiton_title"];
     var template = $("#template" + questiontypeIndex)[0].innerHTML.trim();
 
     if (questiontype == '选择题') {
@@ -123,7 +124,7 @@ function submitPaper() {
     postdata = JSON.stringify(postdata);
     $.ajax({
         type: "post",
-        url: null,
+        url: "/student/upload",
         data: postdata,
         contentType: "application/json;charset=utf-8",
         success: function(data) {

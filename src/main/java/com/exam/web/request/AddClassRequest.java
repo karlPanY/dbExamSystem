@@ -16,19 +16,20 @@ public class AddClassRequest {
     public AddClassRequest() {
     }
 
-    public AddClassRequest(String class_teacher, String class_name) {
+
+    public long getClass_teacher() {
+        return class_teacher;
+    }
+
+    public void setClass_teacher(long class_teacher) {
+        this.class_teacher = class_teacher;
+    }
+
+    public AddClassRequest(long class_teacher, String class_name) {
         this.class_teacher = class_teacher;
         this.class_name = class_name;
     }
 
-    public String getClass_teacher() {
-        return class_teacher;
-    }
-
-    public void setClass_teacher(String class_teacher) {
-        this.class_teacher = class_teacher;
-    }
-
-    private String class_teacher;
+    private long class_teacher;
     private String class_name;
 }

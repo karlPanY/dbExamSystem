@@ -66,4 +66,19 @@ public class StudentServiceImpl implements StudentService {
         else
             return false;
     }
+
+    @Override
+    public Student getStudent(long id) {
+        return studentRepository.findOne(id);
+    }
+
+    @Override
+    public Question getQuestion(long question_id) {
+        return  questionRepository.findOne(question_id);
+    }
+
+    @Override
+    public void saveAnswer(PaperScore paperScore) {
+        paperScoreRepository.save(paperScore);
+    }
 }

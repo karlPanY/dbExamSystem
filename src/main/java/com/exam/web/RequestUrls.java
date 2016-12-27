@@ -46,4 +46,6 @@ public class RequestUrls {
     public static final String adminDeleteStudent="/admin/deleteStudent";
     public static final String adminDeleteTeacher="/admin/deleteTeacher";
 
+    public static final String studentGetPaper="/student/getPaper";
+    public static final String studentUpload = "/student/upload";
 }
