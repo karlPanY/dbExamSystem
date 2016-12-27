@@ -34,4 +34,16 @@ public class RequestUrls {
     public static final String select = "/select";
     public static final String toExam = "/toExam/{paperId}";
 
+
+    public static  final String adminInit = "/admin/init";
+    public static final String addClass = "/admin/addClass";
+    public static final String adminGetClassStu = "/admin/getClassStu";
+    public static final String adminGetTea = "/admin/getTeacher";
+
+    public static final String adminAddStudent = "/admin/addStudent";
+    public static final String adminAddTeacher = "/admin/addTeacher";
+
+    public static final String adminDeleteStudent="/admin/deleteStudent";
+    public static final String adminDeleteTeacher="/admin/deleteTeacher";
+
 }

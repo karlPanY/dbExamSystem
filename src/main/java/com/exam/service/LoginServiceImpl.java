@@ -32,11 +32,13 @@ public class LoginServiceImpl implements LoginService {
         switch (flag) {
             case 1:
                 Admin admin;
-                if( (admin=adminRepository.findByAdminName(userName)) != null){
+                Long aid = Long.parseLong(userName);
+                if( (admin=adminRepository.findOne(aid)) != null){
                     if (admin.getPassword().equals(password)) {
                         session.setAttribute("id",admin.getAdminId());
                         return "admin";
                     }
+
                     return null;
                 }
                 break;
