@@ -24,3 +24,8 @@ paperMark
 1 页面加载完毕发起请求init()
 2 根据paper_id 获取第index份答卷信息
 并且该为先用paperid请求studentidList，然后再根据paperid和studentid请求指定试题
+
+---------------------------------12.27. -----------------------------------------
+hy 完成了：
+detailGrade
+所有

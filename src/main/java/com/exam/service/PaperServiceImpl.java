@@ -176,7 +176,7 @@ public class PaperServiceImpl implements PaperService {
 
     private Float getSelectScore(String selectAnswer){//求选择题和判断题的分数
         Float selectScore=0f;
-        String[] singleItem=selectAnswer.split("\\$");//3#爱国主义$
+        String[] singleItem=selectAnswer.split("\\$");//3#A$
         for (String str : singleItem) {
             if(!str.equals("") && str.contains("#")){
                 String[] idAndAnswer = str.split("#");
@@ -193,25 +193,60 @@ public class PaperServiceImpl implements PaperService {
 
     }
 
-
     @Override
-    public Question createtQeustion(String type, String title, String answer, Float score) {
-        return new Question(type,title,answer,score);
+    public String setStudentNoneSelectScore(Long paperId, Long studentId, Float score) {
+        PaperScore paperScore;
+        if ((paperScore = paperScoreRepository.getExactPaperScore(paperId, studentId)) != null) {
+            paperScore.setQestionScore(score);
+            paperScore.setScore(score+(paperScore.getSelectScore()==null?0:paperScore.getSelectScore()));
+            return paperScoreRepository.save(paperScore)!=null?"true":"false";
+        }
+        return "false";
     }
 
     @Override
-    public Float updateAndGetScore(Long paperId, Long studentId) {
+    public GetAllMarkedPapersInfo getAllMarkedPapersInfo(Long teacherId) {
+        Teacher teacher;
+        if ((teacher = teacherRepository.findOne(teacherId)) != null) {
+            Set<Paper> paperSet=teacher.getPaperSet();
+            if (paperSet != null && paperSet.size()>0) {
+                List<GetAllMarkedPapersInfo.paperInfo> paperInfoList = new ArrayList<>();
+                for (Paper paper : paperSet) {
+                    List<PaperScore> paperScoreList = paperScoreRepository.getAllPaperScoreByPaperId(paper.getPaperId());
+                    if (paperScoreList != null && paperScoreList.size() > 0) {
+                        for (PaperScore paperScore : paperScoreList) {
+                            if (paperScore.getScore() != null && paperScore.getScore() > 0) {
+                                paperInfoList.add(new GetAllMarkedPapersInfo().new paperInfo(paper.getPaperId(), paper.getPaperName()));
+                                break;
+                            }
+                        }
+                    }
+                }
+                return new GetAllMarkedPapersInfo(teacherId, teacher.getTeacherName(), paperInfoList);
+            }
+        }
         return null;
     }
 
     @Override
-    public Set<Paper> getPapersOfTeacher(Long teacherId) {
+    public GetStudentScoreByPaperId getStudentScoreByPaperId(Long paperId) {
+        List<PaperScore> paperScoreList;
+        if ((paperScoreList = paperScoreRepository.getAllPaperScoreByPaperId(paperId)) != null) {
+            List<GetStudentScoreByPaperId.studentInfo> studentInfoList = new ArrayList<>();
+            for (PaperScore paperScore : paperScoreList) {
+                int rank;
+                if (paperScore.getScore() != null && paperScore.getScore()!=0) {
+                    rank= TeacherServiceImpl.getRank(paperScore.getScore(), paperScoreList);
+                }else{
+                    rank=paperScoreList.size();
+                }
+                Student student;
+                if ((student = studentRepository.findOne(paperScore.getId().getStudent().getId())) != null) {
+                    studentInfoList.add(new GetStudentScoreByPaperId().new studentInfo(student.getStudentName(), student.getId(), paperScore.getScore(), rank));
+                }
+            }
+            return new GetStudentScoreByPaperId(studentInfoList.size(), studentInfoList);
+        }
         return null;
     }
-
-    @Override
-    public Float setQuestionScore(Long questionScoreId, Float score) {
-        return null;
-    }
-
 }
