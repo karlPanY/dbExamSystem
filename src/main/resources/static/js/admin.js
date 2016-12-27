@@ -1,4 +1,5 @@
 var editIndex = undefined;
+var currentClass = null;
 var flag = 0;
 var originData;
 var newAppend = false;
@@ -12,7 +13,6 @@ function endEditing() {
 
 $(function() {
     init();
-<<<<<<< HEAD
     $('#btn_addClass').bind('click', function() {
         var data = {};
         data.class_teacher = $("input[name='add_class_teacher']").val();
@@ -21,50 +21,32 @@ $(function() {
         addClass(data);
     });
     $("#class_list a").bind("click", function(event) {
+        $('#class_list a').removeClass('active');
+        $(event.target).addClass('active');
         getClass(event.target);
     });
-});
-
-=======
-    $("#addClass_bb #cancle").bind("click", function() {
-        $("#addClass_dd").dialog("close");
-    });
-    $("#addClass_bb #save").bind("click", function() {
-        $.messager.progress(); // display the progress bar
-        var data = {};
-        data.class_id = $("input[name='add_class_id']").val();
-        data.class_name = $("input[name='add_class_name']").val();
-        addClass(JSON.stringify(data));
+    $('.mainLnk').bind('click', function(event) {
+        $('.mainLnk').removeClass('active');
+        $(event.target).addClass('active');
     });
 });
 
-function init() {
->>>>>>> 1e767d697b987a0ab790861200fb42403f9670aa
 
 function init() {
     // / 请求初始化班级数据 不需要参数
     $.ajax({
-        url: null,
+        url: "/admin/init",
         type: "get",
         dataType: 'json',
         success: function(data) {
-<<<<<<< HEAD
-            var $ul = $("ul#class_list");
+            var $ul = $("ul#class_list .last");
             var classes = data;
-=======
-            var $ul = $("#class_list ul");
-            var $li = $("#class_list li:nth-of-type(1)").clone();
-            $ul.find("li").remove();
-            //形式看data.js
-            var classes = data[0];
-            var teacheres = data[1];
->>>>>>> 1e767d697b987a0ab790861200fb42403f9670aa
             for (var i = 0; i < classes.length; i++) {
                 var $template = $('#classListTemplate')[0].innerHTML;
                 var className = classes[i].class_name;
                 var classId = classes[i].class_id;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                $ul.append($template);
+                $ul.before($template);
             }
         },
         error: function() {
@@ -77,16 +59,15 @@ function init() {
                 class_name: "信息安全"
             }];
 
-            var $ul = $("ul#class_list");
+            var $ul = $("ul#class_list .last");
             var classes = data;
             for (var i = 0; i < classes.length; i++) {
                 var $template = $('#classListTemplate')[0].innerHTML;
                 var className = classes[i].class_name;
                 var classId = classes[i].class_id;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                $ul.append($template);
+                $ul.before($template);
             }
-<<<<<<< HEAD
         }
     });
 }
@@ -95,10 +76,10 @@ function addClass(classInfo) {
 
     var postdata = JSON.stringify(classInfo);
     $.ajax({
-        url: "新增班级请求路径",
+        url: "/admin/addClass",
         type: "post",
         data: postdata,
-        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
         success: function(msg) {
             var status = msg.success;
             var classId = msg.class_id;
@@ -107,8 +88,8 @@ function addClass(classInfo) {
                 alertMsg('info', "添加班级成功");
                 var $template = $('#classListTemplate')[0].innerHTML;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                var $ul = $("ul#class_list");
-                $ul.append($template);
+                var $ul = $("ul#class_list .last");
+                $ul.before($template);
                 setTimeout(function() {
                     $('.alert').alert('close');
                 }, 500);
@@ -126,8 +107,8 @@ function addClass(classInfo) {
             var className = classInfo.class_name;
             var $template = $('#classListTemplate')[0].innerHTML;
             $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-            var $ul = $("ul#class_list");
-            $ul.append($template);
+            var $ul = $("ul#class_list .last");
+            $ul.before($template);
         }
     }); //ajax end
 }
@@ -135,11 +116,13 @@ function addClass(classInfo) {
 function getClass(target) {
 
     editIndex = undefined;
-    var class_id = $(target).attr("id");
+    var classId = $(target).attr("id");
+
     $.ajax({
-        url: null,
+        url: "/admin/getClassStu",
         type: "get",
-        data: { class_id: class_id },
+        data: { 'class_id': classId },
+        dataType: 'json',
         success: function(data) {
             datagrid('#student_dg', 'loadData', data['rows'][0]);
             for (var i = 1, len = data['rows'].length; i < len; i++) {
@@ -147,7 +130,7 @@ function getClass(target) {
             }
         },
         error: function() {
-            console.log('测试请求班级id：' + class_id);
+            console.log('测试请求班级id：' + classId);
             var data = {
                 'total': 2,
                 'rows': [{
@@ -173,7 +156,7 @@ function getClass(target) {
 function getTeacher() {
     editIndex = undefined;
     $.ajax({
-        url: null,
+        url: "/admin/getTeacher",
         type: "get",
         success: function(data) {
             datagrid('#teacher_dg', 'loadData', data['rows'][0]);
@@ -184,20 +167,6 @@ function getTeacher() {
         },
         error: function() {
             var data = {
-=======
-            $('#teacher_dg').datagrid('loadData', teacheres);
-        },
-        error: function() {
-            //test
-            var classes = [{
-                class_id: "class_id1",
-                class_name: "网络工程"
-            }, {
-                class_id: "class_id2",
-                class_name: "信息安全"
-            }];
-            var teacheres = {
->>>>>>> 1e767d697b987a0ab790861200fb42403f9670aa
                 'total': 2,
                 'rows': [{
                     teacher_name: '董守玲',
@@ -211,7 +180,6 @@ function getTeacher() {
                     class_name: '网络工程'
                 }]
             };
-<<<<<<< HEAD
             datagrid('#teacher_dg', 'loadData', data['rows'][0]);
             for (var i = 1, len = data['rows'].length; i < len; i++) {
                 datagrid('#teacher_dg', 'appendData', data['rows'][i]);
@@ -229,7 +197,6 @@ function openPanel(type) {
         getTeacher();
     }
 }
-
 
 
 // ========datagrid=======
@@ -286,7 +253,10 @@ function append(dgId) {
         editIndex = $(dgId).find('tbody').find('tr').length + 1;
         var $template = $($(dgId + '_template').html());
         $(dgId).find('tbody').append($template);
-        console.log([$(dgId).find('tbody'), $template])
+
+        var currentClassName = $("#class_list").find('a.active').html();
+        $(dgId).find('tbody tr:nth-of-type(' + editIndex + ')').find("input[name='class_name']").val(currentClassName);
+
         var $inputs = $(dgId).find('tbody tr:nth-of-type(' + editIndex + ')').find('input:text');
         for (var i = 0, len = $inputs.length; i < len; i++) {
             $inputs[i].value = '';
@@ -310,24 +280,28 @@ function saverow(target) {
         var _dg = $(target).closest('table').attr("id");
 
         var row = datagrid('#' + _dg, 'getRows', editIndex);
+        var currentClassId = $("#class_list").find('a.active').attr('id');
+        row['news'] = newAppend;
+        row['class_id'] = currentClassId;
         var postdata = JSON.stringify(row);
 
         var RowId, RowName, url;
         if (_dg == "student_dg") {
             RowId = row.student_id;
             RowName = row.student_name;
-            url = "添加/更新学生请求路径";
+            url = "/admin/addStudent";
         } else {
             RowId = row.teacher_id;
             RowName = row.teacher_name;
-            url = "添加/更新教师请求路径";
+            url = "/admin/addTeacher";
         }
-        row['new'] = newAppend;
+
         if (/\d{6,}/.test(RowId) && /\S{1,}/.test(RowName)) {
             $.ajax({
                 url: url,
                 type: 'post',
                 data: postdata,
+                contentType: "application/json; charset=utf-8",
                 success: function(msg) {
                     if (msg.success) {
                         var inputs = $(target).closest('tr').find('input:text');
@@ -354,7 +328,7 @@ function saverow(target) {
                     $(target).closest('td').find('button:nth-child(4)').get(0).disabled = false;
                     newAppend = false;
                     editIndex = undefined;
-                    console.log(postdata)
+                    console.log('here 提交新添数据' + postdata);
                 }
             }); //ajax end
         } else {
@@ -397,13 +371,13 @@ function cancelrow(target) {
 
 function editrow(target) {
     var _flag = $(target).closest('table').attr("id") == "student_dg" ? 0 : 1;
-    console.log('edit: ' + [_flag, flag]);
+
     if (endEditing()) {
         $(target).closest('td').find('button:nth-child(2)').get(0).disabled = false;
         $(target).closest('td').find('button:nth-child(1)').get(0).disabled = false;
         editIndex = getRowIndex(target);
         var inputs = $(target).closest('tr').find('input:text');
-        for (var i = 0, len = inputs.length; i < len; i++) {
+        for (var i = 1, len = inputs.length; i < len; i++) {
             inputs[i].disabled = false;
         }
     } else {
@@ -455,53 +429,6 @@ function deleterow(target) {
             console.log('测试删除数据：' + postdata);
         }
     }); //ajax结束
-=======
-            var data = [classes, teacheres];
-            var $ul = $("#class_list ul");
-            var $li = $("#class_list li:nth-of-type(1)").clone();
-            $ul.find("li").remove();
-            var classes = data[0];
-            var teacheres = data[1];
-            for (var i = 0; i < classes.length; i++) {
-                if (i !== 0) {
-                    var $li = $("#class_list li:nth-of-type(1)").clone();
-                }
-                $li.find('a').attr("id", classes[i].class_id);
-                $li.find('a').html(classes[i].class_name);
-                $ul.append($li);
-            }
-            $('#teacher_dg').datagrid('loadData', teacheres);
-        }
-    });
-}
-
-function addClass(classInfo) {
-    $.ajax({
-        url: "新增班级请求路径",
-        type: "post",
-        data: classInfo,
-        dataType: 'json',
-        success: function(msg) {
-            $.messager.progress("close");
-            if (msg.success) {
-                $.messager.alert('info', "添加班级成功");
-                $("#addClass_dd").dialog("close");
-                var $li = $("#class_list li:nth-of-type(1)").clone();
-                $li.find('a').attr("id", data.class_id);
-                var $ul = $("#class_list ul");
-                $li.find('a').html(data.class_name);
-                $ul.append($li);
-            } else {
-                $.messager.alert('Warning', "添加班级失败，请检查该班级是否存在");
-            }
-        },
-        error: function() {
-            //test
-            $.messager.progress("close");
-        }
-    }); //ajax end
-}
->>>>>>> 1e767d697b987a0ab790861200fb42403f9670aa
 
 }
 
@@ -521,7 +448,6 @@ function deleteSelected(dgId) {
     }
 }
 
-<<<<<<< HEAD
 function alertMsg(
     title, msg) {
     var $template = $('#alert-template')[0].innerHTML;
@@ -529,10 +455,4 @@ function alertMsg(
     if (title == 'Warning') { type = 'danger' } else if (title == 'Info') { type = 'warning' };
     $template = $template.replace('{ALERTTYPE}', type).replace('{ALERTTITLE}', title).replace('{ALERTMSG}', msg);
     $('#alertBox').append($template);
-=======
-function addIcons(ele) {
-    if (ele.val() !== "") {
-        ele.parent().find('label').addClass("ok");
-    };
->>>>>>> 1e767d697b987a0ab790861200fb42403f9670aa
 }

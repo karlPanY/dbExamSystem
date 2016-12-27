@@ -137,14 +137,9 @@ span.glyphicon {
     font-weight: 400;
     outline: none !important;
 }
-.navigation>ul>li>a:hover,.navigation>ul>li>a:active,.navigation>ul>li>a:visited{
+.navigation>ul>li>a:hover,.navigation>ul>li>a.active,.navigation>ul>li>a:active,.navigation>ul>li>a:visited{
     background: rgba(85, 136, 170, 0.35);
 }
-
-
-
-
-
 
 
 .btn-success {
@@ -168,10 +163,6 @@ span.glyphicon {
     }
 }
 
-.main .page-header {
-    margin-top: 0;
-}
-
 ul#class_list {
     position: relative;
     float: none;
@@ -181,7 +172,55 @@ ul#class_list {
     background: rgba(210, 215, 214, 0.31);
 }
 
+.guide-content {
+    display: flex;
+    font-size: 16px;
+    padding: 40px 110px;
+    height: calc(100% - 60px);
+}
+div.guide-content{
+    float: left;
+}
+.friendly_lnk{
+    align-items: center;
+}
 
+
+.guide-content p {
+    margin: 25px;
+}
+.guide-content li{
+    flex:1;list-style: none;
+    text-align: center;
+    position: relative;
+}
+
+.guide-content li img {
+    width: 90%;
+    height: 220px;
+}
+.guide-content img:hover {
+    box-shadow: 7px 7px 7px -7px #000, -7px -7px 7px -7px #000;
+}
+
+span.glyphicon {
+    color: rgb(0, 0, 255);
+}
+
+.carousel {
+    height: 100%;
+    display: flex;
+}
+.carousel .item{
+    height:80%;
+}
+.main_panel .page-header{
+    margin:40px 10% 20px;
+}
+
+a.left.carousel-control, a.right.carousel-control {
+    background: none;
+}
 
 /*
  * alertBox
@@ -224,4 +263,12 @@ ul#class_list {
 
 .alert p {
     text-align: center;
+}
+@media screen and (max-width: 1024px){
+    td>button.btn {
+        padding: 0.2em 0.4em;
+    }
+    .navigation>ul>li>a {
+        padding: 13px 7%;
+    }
 }
