@@ -33,7 +33,7 @@ public class RequestUrls {
     public static final String exam = "/exam";
     public static final String select = "/select";
     public static final String toExam = "/toExam/{paperId}";
-
+    public static final String getSelectPapers = "/getSelectPapers";
 
     public static  final String adminInit = "/admin/init";
     public static final String addClass = "/admin/addClass";

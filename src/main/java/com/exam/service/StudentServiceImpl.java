@@ -5,9 +5,13 @@ import com.exam.domain.dao.PaperRepository;
 import com.exam.domain.dao.PaperScoreRepository;
 import com.exam.domain.dao.QuestionRepository;
 import com.exam.domain.dao.StudentRepository;
+import com.exam.web.response.GetAllMarkedPapersInfo;
+import com.exam.web.response.GetSelectPapersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +39,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Set<Long> getAvilablePaper(Long StudentId) {
+    public GetSelectPapersResponse getSelectPapers(Long studentId) {
+        Student student;
+        if ((student = studentRepository.findOne(studentId)) != null) {
+            Teacher teacher=student.getStuClass().getTeacher();
+            Set<Paper> paperSet;
+            if ((paperSet = teacher.getPaperSet()) != null) {
+                List<GetSelectPapersResponse.papersSelectInfo> papersSelectInfoList = new ArrayList<>();
+                for (Paper paper : paperSet) {
+                    if (paper.getPaperStart() != null && paper.getPaperEnd() != null) {
+                        papersSelectInfoList.add(new GetSelectPapersResponse().new papersSelectInfo(paper.getPaperId(), paper.getPaperName(),
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getPaperStart()), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getPaperEnd())));
+                    }
+                }
+                return new GetSelectPapersResponse(studentId, student.getStudentName(), papersSelectInfoList);
+            }
+        }
         return null;
     }
 
