@@ -278,6 +278,7 @@ function saverow(target) {
 
         var row = datagrid('#' + _dg, 'getRows', editIndex);
         row['news'] = newAppend;
+        row['class_id'] = currentClassId;
         var postdata = JSON.stringify(row);
 
         var RowId, RowName, url;
