@@ -114,6 +114,7 @@ function openPaperDg() {
     openDg("#paper_dg")
 }
 
+
 function openPanel() {
     $('#paper_detail_panel').panel('open');
     $("#paper_detail_panel").find("strong").html(currentRow.paper_name)
