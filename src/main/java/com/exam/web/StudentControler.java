@@ -1,6 +1,5 @@
 package com.exam.web;
 
-import com.exam.domain.Paper;
 import com.exam.service.StudentService;
 import com.exam.web.response.GetSelectPapersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,10 @@ public class StudentControler {
 
     @RequestMapping(value = RequestUrls.toExam,method = RequestMethod.GET)
     @ResponseBody
-    public Paper startExam(@PathVariable Long paperId) {
+    public String startExam(@PathVariable Long paperId,HttpSession session) {
         if (paperId != 0) {
-            return studentService.getPaper(paperId);
+            session.setAttribute("paperId",paperId);
+            return "exam";
         }
         return null;
     }
@@ -38,4 +38,6 @@ public class StudentControler {
         }
         return null;
     }
+
+
 }

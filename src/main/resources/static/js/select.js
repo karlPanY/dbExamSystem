@@ -18,13 +18,21 @@ $(function() {
                 var $template = $('#paperInfoTempalte')[0].innerHTML;
                 var paperId = paperInfoList[i].paper_id;
                 var paperName = paperInfoList[i]["paper_name"];
-                var paperStart = dapaperInfoListta[i].paper_start;
+                var paperStart = paperInfoList[i].paper_start;
                 var paperEnd = paperInfoList[i].paper_end;
-
-                $template = $template.replace("{PAPERINDEX}", i + 1).replace("{PAPERID}", paperId).replace("{PAPERNAME}", paperName).replace("{PAPERSTART}", paperStart).replace("{PAPEREND}", paperEnd),
-                    $panelBody.append($template);
+                var paperStatus, paperHide;
+                if (new Date(paperStart).getTime() - Date.now() < 0) {
+                    paperStatus = "考试开始...";
+                    paperHide = '';
+                } else {
+                    paperStatus = "等待考试...";
+                    paperHide = 'btn-hide';
+                }
+                $template = $template.replace("{PAPERINDEX}", i + 1).replace("{PAPERID}", paperId).replace("{PAPERNAME}", paperName).replace("{PAPERSTART}", paperStart).replace("{PAPEREND}", paperEnd).replace("{PAPERSTATUS}", paperStatus).replace("{BTNHIDE}", paperHide);
+                $panelBody.append($template);
             }
             $panelBody.find('.paper-info:nth-of-type(1)').addClass('active');
+            bindBtn();
         },
         error: function() {
 
@@ -55,8 +63,13 @@ $(function() {
                 $panelBody.append($template);
             }
             $panelBody.find('.paper-info:nth-of-type(1)').addClass('active');
+            bindBtn();
         }
     }); //ajax结束
+
+});
+
+function bindBtn() {
 
 
     $(".next-btn").bind("click", function() {
@@ -83,7 +96,7 @@ $(function() {
         var $currentPaper = $('.paper-info.active');
         var prevPaper = $currentPaper.prev('.paper-info:not(.active)')[0];
 
-        if (prevPaper != undefined) {
+        if (prevPaper != null) {
             $(prevPaper).addClass('active');
             $currentPaper.removeClass('active');
         }
@@ -102,10 +115,15 @@ $(function() {
         console.log('测试数据：' + [paperId, studentId]);
         //加到url中
         $.ajax({
-            url: null,
+            url: "/toExam/"+paperId,
             type: "get",
-            data: null
+            success:function (data) {
+                // alert(data.valueOf());
+                location.href=data;
+            },
+            error: function (XMLHttpRequest, status, errorThrown) {
+                alert(status + " " + errorThrown);
+            }
         })
     })
-
-});
+}

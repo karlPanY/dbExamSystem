@@ -54,7 +54,8 @@ public class PaperServiceImpl implements PaperService {
         Paper paper;
         if ((paper = paperRepository.findOne(paperId)) != null) {
             List<GetPaperContent.QuestionInfo> questionInfoList = new ArrayList<>();
-            for (Question question : paper.getQuestions()) {
+            Set<Question> questionSet = new HashSet<>(paper.getQuestions());
+            for (Question question : questionSet) {
                 questionInfoList.add(new GetPaperContent().new QuestionInfo(question.getQuestionId(),question.getType(),question.getTitle(),question.getScore(),question.getAnswer()));
             }
             return new GetPaperContent(questionInfoList.size(), questionInfoList);
