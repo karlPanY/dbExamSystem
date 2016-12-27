@@ -1,9 +1,41 @@
 *{line-height:1.2;margin:0;}
-
+/*nav*/
+/*重写boostrap*/
+.navbar-fixed-top {
+    background: rgb(12,126,217);
+    /* border-bottom: 1px solid rgb(179, 179, 179); */
+    top: 0;
+    color: rgb(38, 38, 38);
+    border-width: 0 0 1px;
+    padding: 3px 43px;
+}
+.navbar-brand {
+    background: url(../images/SCUT.png) no-repeat left center;
+    background-size: cover;
+    width: 200px;
+}
+.panel-info {
+    margin-top: -15%;
+    border-color: rgb(188, 232, 241);
+    box-shadow:0px 0px 5px rgba(0,0,0,0.4);
+}
+.panel-body {
+    padding: 15px;
+    border: 1px solid rgb(188, 232, 241);
+    border-top: none;
+}
 /* global */
 html,button,input,select,textarea{color:#585858}
 html{color:#000;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-size:16px;}
 body,button,input,select,textarea{font:0.8em 'Microsoft Yahei',Arial;}
+html,body{
+    font: 0.8em 'Microsoft Yahei',Arial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
 a{text-decoration:none;color:#333;outline:0}
 a:hover{color:#004bc6;text-decoration:underline}
 .red-text,a.red-text{color:#F03}
@@ -12,14 +44,30 @@ a:hover{color:#004bc6;text-decoration:underline}
 .blue-text,a.blue-text{color:#0CC}
 .green-text,a.green-text{color:rgb(0,153,0);}
 b{margin-left:5px;margin-right:5px;}
-.log-panel{box-shadow:0px 0px 5px rgba(0,0,0,0.4);position:absolute;left:50%;top:50%;margin-top:-155px;margin-left:-185px;z-index:9;width:370px;height:172px;}
-.log-inner{width:370px;height:172px;position:absolute;z-index:10;line-height:1.8;}
-.log-test p{margin:8px 12px;}
-.paper-time{font-size:0.8em;}
-.log-panel{border:1px solid rgb(149,184,231);}
-.student-info{padding:10px 5px;background-color:rgb(224,236,255);background:-webkit-linear-gradient(top,rgb(239,245,255) 0,rgb(224,236,255) 100%);background:-moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);background:-o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);background:linear-gradient(to bottom,rgb(239,245,255) 0,rgb(224,236,255) 100%);}
-.student-info a{margin-left:16px;}
-.paper-info{padding:10px 5px;}
-.hide{display:none;}
-input[type="button"]{float:right;margin:3px;}
-.ok-btn,.prev-btn{display:none;}
+div.paper-info{
+    margin-top: -12px;
+    line-height: 33px;
+    font-size: 15px;
+    display: none;
+}
+div.paper-info.active{
+    display: block;
+}
+div.paper-info b{
+    margin-left: 0px;
+}
+input.btn.btn-sm.prev-btn.pull-right {
+    margin-right: 8px;
+}
+.btn-hide{
+    display: none;
+}
+
+/*.log-panel{box-shadow:0px 0px 5px rgba(0,0,0,0.4);position:absolute;left:50%;top:50%;margin-top:-155px;margin-left:-185px;z-index:9;}*/
+
+/*.paper-time{font-size:0.8em;}*/
+/*.paper-info{padding:10px 5px;}*/
+/*.hide{display:none;}*/
+/*input[type="button"]{float:right;margin:3px;}*/
+/*.ok-btn,.prev-btn{display:none;}*/
+
