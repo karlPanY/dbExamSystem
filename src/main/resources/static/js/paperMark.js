@@ -1,100 +1,129 @@
-var currentPaper = null; //全局变量
+var currentPaperId = null; //全局变量
 $(function() {
     //初始化
     init();
+    //getAnswerPaperByStuId();
     // 请求对应试题 学生答卷
     $("#paper_list a").bind("click", function() {
         $("#paper_list a").removeClass('active');
         $(this).addClass('active');
         var paper_id = $(this).attr("id");
-        currentPaper = paper_id;
+        currentPaperId = paper_id;
         // 获取试题
-        getAnswerPaper(currentPaper, 1);
-    });
-    $('#pp').pagination({
-        onSelectPage: function(pageNumber, pageSize) {
-            $(this).pagination('loading');
-            getAnswerPaper(currentPaper, pageNumber);
-            $(this).pagination('loaded');
-        }
+        getstudentidList(currentPaperId);
     });
 
 });
 
 function init() {
+    // / 请求初始话paper数据 不需要参数
     $.ajax({
-        url: null,
+        url: "/getMarkPapers",
         type: "get",
-        data: null,
         success: function(result) {
+            // var result = ['登录教师id', '登录教师名', 'paperList内容'];
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result[0])
-                .replace('{TEACHERNAME}', result[1]);
+            $temp = $temp.replace('{TEACHERID}', result.teacherId)
+                .replace('{TEACHERNAME}', result.teacherName);
             $('#teacher_info').html($temp);
-            var data = result[2];
-            var $ul = $("#paper_list ul");
-            $ul.find("li").remove();
-            for (var i = 0; i < data.length; i++) {
-                var $template = $("#template_paper_list")[0].innerHTML.trim();
-                $template = $template.replace('{PAPERID}', data[i]['paper_id'])
-                    .replace('{PAPERNAME}', data[i]['paper_name']);
+
+            var $ul = $("ul#paper_list");
+            $ul.html('');
+            var paperList = result.papersMarkInfoList;
+            for (var i = 0; i < paperList.length; i++) {
+                var $template = $('#paperListTemplate')[0].innerHTML;
+                var paperName = paperList[i]['paper_name'];
+                var paperId = paperList[i]['paper_id'];
+                $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
         },
         error: function() {
             //test
-            var result = ['登录教师id', '登录教师名', data];
-            var data = [{
+            var paperList = [{
                 paper_id: "paper_id1",
                 paper_name: "数据库试题1"
             }, {
                 paper_id: "paper_id2",
                 paper_name: "数据库试题2"
             }];
+            var result = ['登录教师id', '登录教师名', paperList];
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result[0])
                 .replace('{TEACHERNAME}', result[1]);
             $('#teacher_info').html($temp);
-            var data = result[2];
-            var $ul = $("#paper_list ul");
-            $ul.find("li").remove();
-            for (var i = 0; i < data.length; i++) {
-                var $template = $("#template_paper_list")[0].innerHTML.trim();
-                $template = $template.replace('{PAPERID}', data[i]['paper_id'])
-                    .replace('{PAPERNAME}', data[i]['paper_name']);
+            paperList = result[2];
+
+            var $ul = $("ul#paper_list");
+            for (var i = 0; i < paperList.length; i++) {
+                var $template = $('#paperListTemplate')[0].innerHTML;
+                var paperName = paperList[i].paper_name;
+                var paperId = paperList[i].paper_id;
+                $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
         }
-    }); // ajax end
+    });
 }
 
 
-// 根据paper_id 和pageNumber 发起请求 第pageNumber份试卷 (包括学生id 学生姓名 学生答案 学生成绩-判断是否已经评分)
-function getAnswerPaper(paper_id, index) {
+function getstudentidList(paperId) {
+    console.log(paperId);
     $.ajax({
-        url: '根据paper_id,请求第index份试题',
-        data: { 'paper_id': paper_id, 'index': index },
-        type: 'post',
+        url: "/getstudentIdListForMark/" + paperId,
+        type: 'get',
+        success: function(result) {
+            var studentidList = result["student_id_list"];
+            var $ul = $("ul#studentidList");
+            $ul.html('');
+            for (var i = 0; i < studentidList.length; i++) {
+                var $template = $('#stuListTemplate')[0].innerHTML;
+                var studentId = studentidList[i]["student_id"];
+                var studentName = studentidList[i]["student_name"];
+                $template = $template.replace('{STUDENTID}', studentId).replace('{STUDENTNAME}', studentName);
+                $ul.append($template);
+            }
+        },
+        error: function() {
+            var studentidList = [
+                { "student_id": 102430560243, "student_name": "小白" }, { "student_id": 102430560241, "student_name": "小黑" }, { "student_id": 102430560247, "student_name": "小红" }
+            ];
+            var $ul = $("ul#studentidList");
+            $ul.html('');
+            for (var i = 0; i < studentidList.length; i++) {
+                var $template = $('#stuListTemplate')[0].innerHTML;
+                var studentId = studentidList[i]["student_id"];
+                var studentName = studentidList[i]["student_name"];
+                $template = $template.replace('{STUDENTID}', studentId).replace('{STUDENTNAME}', studentName);
+                $ul.append($template);
+            }
+        }
+    })
+
+}
+
+
+function getAnswerPaperByStuId(target) {
+    var studentId = $(event.target).attr('id');
+    $('a.studentItem').removeClass('active');
+    $(event.target).addClass('active');
+    console.log([currentPaperId, studentId]);
+    currentPaperId=1;
+    studentId=201430561000;
+    $.ajax({
+        url: '/getMarkingPaper/' + currentPaperId + '/' + studentId,
+        type: 'get',
         success: function(result) {
             var num = result[0];
             var data = result[1];
-            if (num > 0) {
-                $('#pp').pagination({
-                    total: num, //代表该份试题参与学生人数
-                    pageList: [1],
-                    pageSize: 1
-                });
-                render(data.student_id, data.student_name, data.student_paper, data.student_score);
-            } else {
-                alert("该份试题，暂时没有参加考试！")
-            }
+            render(data.student_id, data.student_name, data.student_paper, data.student_score);
         },
         error: function() {
             var data = {
                 "student_id": '201430560243',
                 "student_name": '廖晓娟',
                 "student_paper": [
-                    ['题目1-id', '题目1', '答案1', '5(分值)'],
+                    ['题目1-id', '题目1', '答案1', '5'],
                     ['题目2-id', '题目2', '答案2', '5']
                 ],
                 "student_score": 0
@@ -102,25 +131,17 @@ function getAnswerPaper(paper_id, index) {
             var result = [1, data];
             var num = result[0];
             var data = result[1];
-            if (num > 0) {
-                $('#pp').pagination({
-                    total: num, //代表该份试题参与学生人数
-                    pageList: [1],
-                    pageSize: 1
-                });
-                render(data.student_id, data.student_name, data.student_paper, data.student_score);
-            }
+            render(data.student_id, data.student_name, data.student_paper, data.student_score);
         }
     });
 }
-
 
 function render(student_id, student_name, paper, score) {
 
     $('#student_paper').html('');
     var $template1 = $("#template_info")[0].innerHTML.trim();
     var $template2;
-    $template1 = $template1.replace('{STUDENTNAME}', student_name).replace('{STUDENTSCORE}', score);
+    $template1 = $template1.replace('{STUDENTSCORE}', score);
     if (score > 0) {
         $('#student_paper button').attr('disabled', 'true');
         $('.question_score').attr('disabled', 'true');
@@ -134,7 +155,7 @@ function render(student_id, student_name, paper, score) {
     }
     //试卷加载完毕后，绑定按钮事件
     addTotalScore();
-    $(".operation_div>button").bind('click', function() {
+    $("#btn-submitScore").bind('click', function() {
         submitScore(student_id);
     });
 }
@@ -148,9 +169,9 @@ function addTotalScore() {
         var max = Number($(target).data('max'));
         var score = $(target).val();
         if (!/\d+/.test(score)) {
-            alert('请给一个合法的分数')
+            alertMsg('Warning', '请给一个合法的分数');
         } else if (Number(score) > max) {
-            alert('评分不可以超过这道题的分值哦~~·');
+            alertMsg('Warning', '评分不可以超过这道题的分值哦');
         } else {
             totalScore += Number(score);
             $('#sum-score').html(totalScore);
@@ -171,20 +192,39 @@ function addTotalScore() {
 }
 
 function submitScore(student_id) {
-    var paper_id = currentPaper;
+    var paper_id = currentPaperId;
     var totalScore = $('#sum-score').html();
+    var postdata = { 'paper_id': paper_id, 'student_id': student_id, 'score': totalScore };
     $.ajax({
         url: '提交评改成绩url',
         type: 'post',
-        data: { 'paper_id': paper_id, 'student_id': student_id, 'score': totalScore },
+        data: JSON.stringify(postdata),
         success: function(msg) {
             if (msg.success) {
-                alert('评分完成，请选择下一份试卷~~~~');
+                alertMsg('info', "评分完成，请选择下一份试卷~~~~");
+                $("#btn-submitScore").attr('disabled', 'true')
             } else {
                 //提示错误？？
             }
+        },
+        error: function() {
+            console.log('测试提交数据' + JSON.stringify(postdata));
+            $("#btn-submitScore").attr('disabled', 'true');
         }
     })
+}
+
+
+function alertMsg(
+    title, msg) {
+    var $template = $('#alert-template')[0].innerHTML;
+    var type;
+    if (title == 'Warning') { type = 'danger' } else if (title == 'Info') { type = 'warning' };
+    $template = $template.replace('{ALERTTYPE}', type).replace('{ALERTTITLE}', title).replace('{ALERTMSG}', msg);
+    $('#alertBox').append($template);
+    setTimeout(function() {
+        $('.alert').alert('close');
+    }, 1000);
 }
 
 

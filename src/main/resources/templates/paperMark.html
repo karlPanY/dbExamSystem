@@ -1,79 +1,144 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>班级管理</title>
-    <link rel="stylesheet" type="text/css" href="css/effect/easyui.css">
-    <link rel="stylesheet" type="text/css" href="css/effect/icon.css">
-    <link rel="stylesheet" type="text/css" href="css/teacher.css">
-    <link rel="stylesheet" type="text/css" href="css/paperMark.css">
-    <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
-    <script type="text/javascript" src="js/effects/jquery.easyui.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="dbSystem" />
+    <meta name="author" content="kasmine" />
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <title>管理员系统</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/effect/bootstrap.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
+    <!-- Custom styles for this template -->
+    <link href="css/paperMark.css" rel="stylesheet" />
 </head>
 
-<body class="easyui-layout">
-    <div data-options="region:'north',border:false" id="top">
-        <h2><a href="teacherIndex.html">教师管理系统</a><span>华南理工大学</span></h2>
-        <p id="teacher_info"><strong id="{TEACHERID}">{TEACHERNAME}</strong>&nbsp;教师，您好！</p>
-    </div>
-    <div data-options="region:'west',split:true,title:'信息管理'" id="west">
-        <ul class="main_menu">
-            <li><a href="classManagement.html">班级信息</a> </li>
-            <li><a href="paperManagement.html">试题管理</a> </li>
-            <li> <a href="paperMark.html" class="active">考卷评阅</a></li>
-            <li><a href="detailGrade.html">详细成绩</a></li>
-        </ul>
-    </div>
-    <div data-options="region:'center',split:true" title="" id="center">
-        <div class="center-left">
-            <div class="easyui-accordion" data-options="fit:true,border:false">
-                <div title="选择未评阅的考卷" style="padding:10px;" id="paper_list">
-                    <ul class="easyui-tree">
-                        <script type="text/template" id="template_paper_list">
-                            <li><a href="javascript:void(0)" id="{PAPERID}">{PAPERNAME}</a></li>
-                        </script>
+<body>
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse  navbar-right">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <p id="teacher_info"><strong id="{TEACHERID}">{TEACHERNAME}</strong>&nbsp;教师，您好！</p>
+                    </li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <nav class="navigation">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/classManagement.html" data-target='scroll_2'>
+                                <i></i>
+                                <span class="nav-label">班级管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/paperManagement.html" data-target='scroll_3'>
+                                <i></i>
+                                <span class="nav-label">试题管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="dLabel" data-target="#" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="active"><i></i>考卷评阅<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="paper_list">
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/detailGrade.html" data-target='scroll_5'>
+                                <i></i>
+                                <span class="nav-label">详细成绩</span>
+                            </a>
+                        </li>
+                        <li class="mouse">
+                            <div></div>
+                        </li>
                     </ul>
+                </nav>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">考卷评阅</h1>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <ul id="studentidList">
+                        </ul>
+                    </div>
+                    <div class="col-sm-8 col-sm-offset-3 col-md-9 col-md-offset-2 main-content" id="student_paper">
+                        <!-- template_info -->
+                        <!-- template_info end -->
+                        <!-- template_question -->
+                        <!-- template_question end -->
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="center-right">
-            <div class="easyui-panel">
-                <div class="easyui-pagination" data-option="total:0,pageSize:0" id="pp"></div>
-                <div id="student_paper">
-                    <!-- template_info -->
-                    <!-- template_question -->
-                    <!-- template_question end-->
+    </div>
+    <div id="alertBox">
+        <script type="text/template" id="alert-template">
+            <div class="alert alert-{ALERTTYPE} alert-dismissible fade in" role="alert">
+                <div>
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4>{ALERTTITLE}</h4>
+                    <p>{ALERTMSG}</p>
                 </div>
-                <span id="back-to-top"><a href="#student_id_paper"></a></span>
             </div>
-        </div>
+        </script>
     </div>
-    <div data-options="region:'south',split:false" title="" id="bottom">
-    </div>
+    <script src="js/effects/jquery-2.2.3.js"></script>
+    <script src="js/effects/bootstrap.js"></script>
+    <script type="text/javascript" src='js/paperMark.js'></script>
     <script type="text/template" id="template_info">
         <div class="info">
-            <span><strong>{STUDENTNAME}</strong>同学</span>
             <div class="operation_div">
-                <p>总分：<span id="sum-score">{STUDENTSCORE}</span></p>
-                <button>确定打分?</button>
+                总分：<span id="sum-score">{STUDENTSCORE}</span>
+                <button id='btn-submitScore' class="btn btn-danger">确定打分?</button>
             </div>
         </div>
     </script>
     <script type="text/template" id="template_question">
         <div class="question">
-            <div class="question_title">
-                <p>({QUESTIONSCORE}分){QUESTIONTITLE}
-                    <p>
-                        <input type="text" pattern=/\d{1,}/ id="{QUESTIONID}" size="3" data-max='{QUESTIONSCORE}'>
-                        <button data-target='#{QUESTIONID}' class="btn-score
-">打分</button>
-                        <button data-target='#{QUESTIONID}' class="btn-modify-score">修改</button>
+            <div class="panel-info">
+                <div class="panel-heading">
+                    <p>({QUESTIONSCORE}分) {QUESTIONTITLE}
+                        <span class="pull-right">
+                                    <input type="text" pattern="/\d{1,}/" id="{QUESTIONID}" size="3" data-max='{QUESTIONSCORE}'/>
+                                    <button data-target='#{QUESTIONID}' class="btn btn-danger btn-score">打分</button>
+                                    <button data-target='#{QUESTIONID}' class="btn btn-primary btn-modify-score">修改</button>
+                                    </span>
+                    </p>
+                </div>
+                <div class="panel-body  question_answer">
+                    {QUESTIONANSWER}
+                </div>
             </div>
-            <div class="question_answer">{QUESTIONANSWER}</div>
         </div>
     </script>
-    <script src="js/paperMark.js "></script>
+    <script type="text/template" id="paperListTemplate">
+        <li>
+            <a href="javascript:void(0)" id="{PAPERID}">{PAPERNAME}</a>
+        </li>
+    </script>
+    <script type="text/template" id="stuListTemplate">
+        <li>
+            <a href="javascript:void(0)" class="studentItem" onclick="getAnswerPaperByStuId(this)" id="{STUDENTID}">{STUDENTNAME}</a>
+        </li>
+    </script>
 </body>
 
 </html>

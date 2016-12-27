@@ -18,4 +18,10 @@ public interface PaperScoreRepository extends JpaRepository<PaperScore,PaperScor
 //    Project withNameAndRankAndDateQuery(@Param("name") String name, @Param("rank") String rank, @Param("date") Date date);
     @Query("select p from PaperScore p where p.id.paper.paperId=:paperId ")
     List<PaperScore> getAllPaperScoreByPaperId(@Param("paperId") Long paperId);
+
+    @Query("select p.id.student.id from PaperScore p where p.id.paper.paperId=:paperId ")
+    List<Long> getAllStudentIdByPaperId(@Param("paperId") Long paperId);
+
+    @Query("select p from PaperScore p where p.id.paper.paperId=:paperId and p.id.student.id=:studentId")
+    PaperScore getExactPaperScore(@Param("paperId") Long paperId,@Param("studentId")Long studentId);
 }

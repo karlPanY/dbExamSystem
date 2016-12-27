@@ -25,6 +25,8 @@ public class Paper implements Serializable {
 
     private Date paperEnd;//试卷结束时间
 
+    private Integer flag=0;//标记该试卷是否已经被评阅 0 未评阅 1 已评阅
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<Question> questions;
 
@@ -32,19 +34,20 @@ public class Paper implements Serializable {
     @JoinColumn(name = "teacherId",referencedColumnName = "teacherId")
     private Teacher teacherOf;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE})
     private Set<PaperScore> paperScoreSet;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE})
     private Set<QuestionScore> questionScoreSet;
 
     public Paper() {
     }
 
-    public Paper(String paperName, String paperStart, String paperEnd, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) throws ParseException {
+    public Paper(String paperName, String paperStart, String paperEnd,Integer flag, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) throws ParseException {
         this.paperName = paperName;
         this.paperStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperStart);
         this.paperEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperEnd);
+        this.flag=flag;
         this.questions = questions;
         this.teacherOf = teacherOf;
         this.paperScoreSet = paperScoreSet;
@@ -89,6 +92,14 @@ public class Paper implements Serializable {
 
     public void setPaperEnd(Date paperEnd) {
         this.paperEnd = paperEnd;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 
     public List<Question> getQuestions() {

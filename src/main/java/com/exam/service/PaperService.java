@@ -4,8 +4,7 @@ import com.exam.domain.Paper;
 import com.exam.domain.Question;
 import com.exam.web.request.ModifyQuestionRequest;
 import com.exam.web.request.SetPaperTimeRequest;
-import com.exam.web.response.GetAllPapers;
-import com.exam.web.response.GetPaperContent;
+import com.exam.web.response.*;
 
 import java.util.Set;
 
@@ -21,6 +20,12 @@ public interface PaperService {
     String setPaperTime(SetPaperTimeRequest request);
 
     String changeQuestion(ModifyQuestionRequest request);
+
+    GetMarkPapers getMarkPapersService(Long teacherId);
+
+    GetStudentIdListForMark getStuIdListForMark(Long paperId);
+
+    GetExactPaperAnswerToMark getExactPaperAnswerToMark(Long paperId, Long studentId);
 
     Question createtQeustion(String type,String title,String answer,Float score);//根据前面传来的具体内容生成试题
 

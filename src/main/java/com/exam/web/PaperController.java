@@ -3,8 +3,7 @@ package com.exam.web;
 import com.exam.service.PaperService;
 import com.exam.web.request.ModifyQuestionRequest;
 import com.exam.web.request.SetPaperTimeRequest;
-import com.exam.web.response.GetAllPapers;
-import com.exam.web.response.GetPaperContent;
+import com.exam.web.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +52,32 @@ public class PaperController {
             return paperService.changeQuestion(request);
         }
         return "false";
+    }
+
+    @RequestMapping(value = RequestUrls.getMarkPapers, method = RequestMethod.GET)
+    @ResponseBody
+    public GetMarkPapers getMarkPapers(HttpSession session) {
+        if (session.getAttribute("id") != null) {
+            return paperService.getMarkPapersService((Long) session.getAttribute("id"));
+        }
+        return null;
+    }
+
+    @RequestMapping(value = RequestUrls.getStudentIdListForMark,method = RequestMethod.GET)
+    @ResponseBody
+    public GetStudentIdListForMark getStudentIdListForMark(@PathVariable Long paper_id) {
+        if (paper_id != null) {
+            return paperService.getStuIdListForMark(paper_id);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = RequestUrls.getMarkingPaper,method = RequestMethod.GET)
+    @ResponseBody
+    public GetExactPaperAnswerToMark getExactPaperAnswerToMark(@PathVariable Long paper_id, @PathVariable Long student_id) {
+        if (paper_id != null &&student_id!=null) {
+            return paperService.getExactPaperAnswerToMark(paper_id, student_id);
+        }
+        return null;
     }
 }

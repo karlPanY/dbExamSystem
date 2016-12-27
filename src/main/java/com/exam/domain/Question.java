@@ -100,4 +100,14 @@ public class Question implements Serializable{
     public void setPaperOf(Paper paperOf) {
         this.paperOf = paperOf;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

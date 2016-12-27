@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
         if ((paper = paperRepository.findOne(Paperid)) != null&&((student = studentRepository.findOne(StudentId))!=null)) {
             //先存一个PaperScore
             PaperScoreId paperScoreId = new PaperScoreId(paper,student);
-            PaperScore paperScore = new PaperScore(paperScoreId,new Float(0));
+            PaperScore paperScore = new PaperScore();
             paperScoreRepository.save(paperScore);
 
             //在依次存QuestionScore
