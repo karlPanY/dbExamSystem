@@ -1,0 +1,183 @@
+body {
+    padding-top: 50px;
+}
+
+a,a:hover,a:focus,a:active{
+    text-decoration: none;
+}
+ul,li{
+    list-style:none;
+}
+/*重写boostrap*/
+.navbar-fixed-top {
+    background: rgb(12,126,217);
+    /* border-bottom: 1px solid rgb(179, 179, 179); */
+    top: 0;
+    color: rgb(38, 38, 38);
+    border-width: 0 0 1px;
+    padding: 3px 43px;
+}
+.navbar-brand {
+    background: url(../images/SCUT.png) no-repeat left center;
+    background-size: cover;
+    width: 200px;
+}
+.page-header{
+    margin:40px 10% 20px;
+}
+
+a.left.carousel-control, a.right.carousel-control {
+    background: none;
+}
+.navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-nav > li > a:hover{
+    background-color: hsla(0,0%,100%,0.3)
+}
+
+span.glyphicon {
+    color: rgb(0, 0, 255);
+}
+
+.carousel {
+    height: 100%;
+    display: flex;
+}
+.carousel .item{
+    height:80%;
+}
+
+
+
+.sidebar{
+    background-color: rgb(27,169,233);
+    padding: 0;
+    position: fixed;
+    height: 100%;
+    top: 50px;
+    left: 0px;
+    overflow: hidden;
+    outline: none;
+}
+
+.navigation {
+    margin: 50px 0px 20px;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.navigation>ul>li {
+    position: relative;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+li.mouse {
+    height: 52px;
+    /* background: rgb(255, 0, 0); */
+    /* background: linear-gradient(-45deg,rgba(0, 0, 0, 0) 18.4px,rgb(85, 136, 170) 0) bottom right,linear-gradient(-135deg,rgba(0, 0, 0, 0) 18.4px,rgb(85, 136, 170) 0) top right; */
+    background-size: 100% 50%;
+    overflow: hidden;
+    top: -260px;
+    z-index: -9999;
+}
+li.mouse>div {
+    width: 100%;
+    margin-top: -26px;
+    background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 36.8px, rgb(25, 152, 213) 0) bottom right, linear-gradient(-135deg, rgba(0, 0, 0, 0) 36.8px, rgb(25, 152, 213) 0) top right;
+    background-size: 100% 50%;
+    height: 200%;
+}
+
+
+.navigation ul li a i {
+    margin-right: 12px;
+    margin-top: 2px;
+    width: 20px;
+    float: left;
+    height: 19px;
+}
+
+.navigation ul li:nth-of-type(1) a i {
+    background: url(../images/logo.png);
+    background-size: contain;
+}
+
+.navigation ul li:nth-of-type(2) a i {
+    background: url(../images/0_info.ico);
+    background-size: contain;
+}
+
+.navigation ul li:nth-of-type(3) a i {
+    background: url(../images/paper.ico);
+    background-size: contain;
+}
+
+.navigation ul li:nth-of-type(4) a i {
+    background: url(../images/p_score.ico);
+    background-size: contain;
+}
+
+.navigation ul li:nth-of-type(5) a i {
+    background: url(../images/score0.ico);
+    background-size: contain;
+}
+
+.navigation>ul>li>a {
+    display: block;
+    padding: 15px 20%;
+    font-size: 16px;
+    color:#fff ;
+    text-decoration: none;
+    transition: all 0.45s;
+    -moz-transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    font-weight: 400;
+    outline: none !important;
+}
+
+
+div.main {
+    height: 88vh;
+    position: relative;
+    overflow: hidden;
+}
+
+section.content.scroll{
+    background: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.guide-content {
+    display: flex;
+    font-size: 16px;
+    padding: 40px 110px;
+    height: calc(100% - 60px);
+}
+div.guide-content{
+    float: left;
+}
+.friendly_lnk{
+    align-items: center;
+}
+
+
+.guide-content p {
+    margin: 25px;
+}
+.guide-content li{
+    flex:1;list-style: none;
+    text-align: center;
+    position: relative;
+}
+
+.guide-content li img {
+    width: 90%;
+    height: 220px;box-shadow: 7px 7px 7px -7px #000, -7px -7px 7px -7px #000;
+
+}
