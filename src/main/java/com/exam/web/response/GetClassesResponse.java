@@ -30,7 +30,8 @@ public class GetClassesResponse {
         List<SimpleClass> simpleClassList = new ArrayList<>();
         SimpleClass simpleClass;
         while (iterator.hasNext()){
-            simpleClass= new SimpleClass(iterator.next().getClassId(), iterator.next().getClassName());
+            StuClass stuClass=iterator.next();
+            simpleClass= new SimpleClass(stuClass.getClassId(), stuClass.getClassName());
             simpleClassList.add(simpleClass);
         }
         return simpleClassList;

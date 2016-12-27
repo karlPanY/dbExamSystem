@@ -12,14 +12,14 @@ import java.util.Set;
  */
 public class GetStuGradeResponse {
     private Integer total;
-    private List<StudentGrade> row;
+    private List<StudentGrade> rows;
 
     public GetStuGradeResponse() {
     }
 
-    public GetStuGradeResponse(Integer total, List<StudentGrade> studentGradeList) {
+    public GetStuGradeResponse(Integer total, List<StudentGrade> rows) {
         this.total = total;
-        this.row = studentGradeList;
+        this.rows = rows;
     }
 
     public class StudentGrade{
@@ -69,11 +69,11 @@ public class GetStuGradeResponse {
         this.total = total;
     }
 
-    public List<StudentGrade> getRow() {
-        return row;
+    public List<StudentGrade> getRows() {
+        return rows;
     }
 
-    public void setRow(List<StudentGrade> row) {
-        this.row = row;
+    public void setRows(List<StudentGrade> rows) {
+        this.rows = rows;
     }
 }

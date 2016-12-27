@@ -70,6 +70,8 @@ public class PaperServiceImpl implements PaperService {
             try {
                 paper.setPaperStart(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getPaper_start()));
                 paper.setPaperEnd(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getPaper_end()));
+//                paper.setPaperStart(request.getPaper_end());
+//                paper.setPaperEnd(request.getPaper_end());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
