@@ -27,14 +27,9 @@ public interface PaperService {
 
     GetExactPaperAnswerToMark getExactPaperAnswerToMark(Long paperId, Long studentId);
 
-    Question createtQeustion(String type,String title,String answer,Float score);//根据前面传来的具体内容生成试题
+    String setStudentNoneSelectScore(Long paperId, Long studentId, Float score);
 
-    Float updateAndGetScore(Long paperId,Long studentId); //统计某学生某试卷的总分数
+    GetAllMarkedPapersInfo getAllMarkedPapersInfo(Long teacherId);
 
-
-    Set<Paper> getPapersOfTeacher(Long teacherId);//通过老师id获得他发布的试卷
-
-    Float setQuestionScore(Long questionScoreId,Float score);//给题目判分
-
-
+    GetStudentScoreByPaperId getStudentScoreByPaperId(Long paperId);
 }

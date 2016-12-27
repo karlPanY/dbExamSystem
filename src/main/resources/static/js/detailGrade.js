@@ -41,6 +41,7 @@ $(function() {
 $(function() {
     //初始化
     init();
+    getPaperStuGrade(1);
     // 请求对应考卷信息
     $("#paper_list a").bind("click", function() {
         $("#paper_list a").removeClass('active');
@@ -52,15 +53,14 @@ $(function() {
 
 function init() {
     $.ajax({
-        url: null,
+        url: "/getAllMarkedPapers",
         type: "get",
-        data: null,
         success: function(result) {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result[0])
-                .replace('{TEACHERNAME}', result[1]);
-            $('#teacher_info').html($temp)
-            var data = result[2];
+            $temp = $temp.replace('{TEACHERID}', result['teacher_id'])
+                .replace('{TEACHERNAME}', result['teacher_name']);
+            $('#teacher_info').html($temp);
+            var data = result['data'];
             var $ul = $("#paper_list ul");
             $ul.find("li").remove();
             for (var i = 0; i < data.length; i++) {
@@ -101,11 +101,8 @@ function init() {
 
 function getPaperStuGrade(paperId) {
     $.ajax({
-        url: '根据paper_id请求对应学生成绩信息',
-        type: "post",
-        data: {
-            paper_id: paperId
-        },
+        url: '/getStudentScoreByPaperId/'+paperId,
+        type: "get",
         success: function(data) {
             $('#paper_grade_dg').datagrid('loadData', data);
         },

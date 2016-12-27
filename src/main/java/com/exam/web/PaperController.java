@@ -80,4 +80,30 @@ public class PaperController {
         }
         return null;
     }
+    @RequestMapping(value = RequestUrls.setStudentNoneSelectScore,method = RequestMethod.GET)
+    @ResponseBody
+    public String setStudentNoneSelectScore(@PathVariable Long paper_id, @PathVariable Long student_id,@PathVariable Float score) {
+        if (paper_id != null &&student_id!=null && score!=null) {
+            return paperService.setStudentNoneSelectScore(paper_id, student_id, score);
+        }
+        return "false";
+    }
+
+    @RequestMapping(value = RequestUrls.getAllMarkedPapers,method = RequestMethod.GET)
+    @ResponseBody
+    public GetAllMarkedPapersInfo getAllMarkedPapers(HttpSession session) {
+        if (session.getAttribute("id") != null) {
+            return paperService.getAllMarkedPapersInfo((Long) session.getAttribute("id"));
+        }
+        return null;
+    }
+    @RequestMapping(value = RequestUrls.getStudentScoreByPaperId,method = RequestMethod.GET)
+    @ResponseBody
+    public GetStudentScoreByPaperId getStudentScoreByPaperId(@PathVariable Long paper_id) {
+        if (paper_id != null) {
+            return paperService.getStudentScoreByPaperId(paper_id);
+        }
+        return null;
+    }
+
 }

@@ -2,7 +2,6 @@ var currentPaperId = null; //全局变量
 $(function() {
     //初始化
     init();
-    //getAnswerPaperByStuId();
     // 请求对应试题 学生答卷
     $("#paper_list a").bind("click", function() {
         $("#paper_list a").removeClass('active');
@@ -194,17 +193,15 @@ function addTotalScore() {
 function submitScore(student_id) {
     var paper_id = currentPaperId;
     var totalScore = $('#sum-score').html();
-    var postdata = { 'paper_id': paper_id, 'student_id': student_id, 'score': totalScore };
     $.ajax({
-        url: '提交评改成绩url',
-        type: 'post',
-        data: JSON.stringify(postdata),
+        url: '/setStudentNoneSelectScore/'+paper_id+"/"+student_id+"/"+totalScore,
+        type:'get',
         success: function(msg) {
-            if (msg.success) {
+            if (msg=='true') {
                 alertMsg('info', "评分完成，请选择下一份试卷~~~~");
                 $("#btn-submitScore").attr('disabled', 'true')
             } else {
-                //提示错误？？
+                //提示错误？？ msg=='false'
             }
         },
         error: function() {

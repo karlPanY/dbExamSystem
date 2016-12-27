@@ -45,7 +45,7 @@ function init() {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result["teacherId"])
                 .replace('{TEACHERNAME}', result["teacherName"]);
-            $('#teacher_info').html($temp)
+            $('#teacher_info').html($temp);
             var data = { "total": result['data'].length, 'rows': result['data'] };
             data.rows.forEach(function(item) {
                 paperStatus = item["paper_status"];

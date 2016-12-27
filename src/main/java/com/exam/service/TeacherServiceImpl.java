@@ -121,10 +121,10 @@ public class TeacherServiceImpl implements TeacherService {
         return studentGradeList;
     }
 
-    private int getRank(Float grade,List<PaperScore> allStuGrades){
+    public static int getRank(Float grade,List<PaperScore> allStuGrades){
         int rank=1;
         for (PaperScore paperScore : allStuGrades) {
-            if (grade < paperScore.getScore()) {
+            if (paperScore.getScore()!=null && grade < paperScore.getScore()) {
                 rank++;
             }
         }

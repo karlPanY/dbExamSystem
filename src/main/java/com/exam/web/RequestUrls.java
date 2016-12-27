@@ -23,6 +23,9 @@ public class RequestUrls {
     public static final String getMarkPapers= "/getMarkPapers";
     public static final String getMarkingPaper= "/getMarkingPaper/{paper_id}/{student_id}";
     public static final String getStudentIdListForMark= "/getStudentIdListForMark/{paper_id}";
+    public static final String setStudentNoneSelectScore= "/setStudentNoneSelectScore/{paper_id}/{student_id}/{score}";
+    public static final String getAllMarkedPapers= "/getAllMarkedPapers";
+    public static final String getStudentScoreByPaperId= "/getStudentScoreByPaperId/{paper_id}";
 
 
     public static final String admin = "/admin";
