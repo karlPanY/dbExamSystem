@@ -58,33 +58,6 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-    @Override
-    public boolean handUpPaper(Long StudentId, Long Paperid, List<Long> questionIdList, List<String> answerList) {
-        Iterator<Long> iteratorOfquestionId = questionIdList.iterator();
-        Iterator<String> iteratorOfanswer = answerList.iterator();
-        Paper paper;
-        Student student;
-
-        if ((paper = paperRepository.findOne(Paperid)) != null&&((student = studentRepository.findOne(StudentId))!=null)) {
-            //先存一个PaperScore
-            PaperScoreId paperScoreId = new PaperScoreId(paper,student);
-            PaperScore paperScore = new PaperScore();
-            paperScoreRepository.save(paperScore);
-
-            //在依次存QuestionScore
-            while (iteratorOfquestionId.hasNext() && iteratorOfanswer.hasNext()) {
-                Long questionId = iteratorOfquestionId.next();String answer = iteratorOfanswer.next();
-                Question question = questionRepository.findOne(questionId);
-                Float score = question.getAnswer().equalsIgnoreCase(answer)?question.getScore():0;//判断一下是否得分
-
-                QuestionScoreId questionScoreId = new QuestionScoreId(paper,student,question);
-                QuestionScore questionScore = new QuestionScore(questionScoreId,score,answer,paperScore);
-            }
-            return true;
-        }
-        else
-            return false;
-    }
 
     @Override
     public Student getStudent(long id) {

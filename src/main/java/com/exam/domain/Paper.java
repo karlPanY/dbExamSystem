@@ -37,13 +37,10 @@ public class Paper implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE})
     private Set<PaperScore> paperScoreSet;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.paper",cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE})
-    private Set<QuestionScore> questionScoreSet;
-
     public Paper() {
     }
 
-    public Paper(String paperName, String paperStart, String paperEnd,Integer flag, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) throws ParseException {
+    public Paper(String paperName, String paperStart, String paperEnd,Integer flag, List<Question> questions, Teacher teacherOf, Set<PaperScore> paperScoreSet) throws ParseException {
         this.paperName = paperName;
         this.paperStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperStart);
         this.paperEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(paperEnd);
@@ -51,16 +48,8 @@ public class Paper implements Serializable {
         this.questions = questions;
         this.teacherOf = teacherOf;
         this.paperScoreSet = paperScoreSet;
-        this.questionScoreSet = questionScoreSet;
     }
 
-    public Set<QuestionScore> getQuestionScoreSet() {
-        return questionScoreSet;
-    }
-
-    public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
-        this.questionScoreSet = questionScoreSet;
-    }
 
     public Long getPaperId() {
         return paperId;

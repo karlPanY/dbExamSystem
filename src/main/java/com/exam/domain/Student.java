@@ -27,19 +27,16 @@ public class Student implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.student",cascade = CascadeType.ALL)
     private Set<PaperScore> paperScoreSet;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.student",cascade = CascadeType.ALL)
-    private Set<QuestionScore> questionScoreSet;
 
     public Student() {
     }
 
-    public Student(Long id, String studentName, String password, StuClass stuClass, Set<PaperScore> paperScoreSet, Set<QuestionScore> questionScoreSet) {
+    public Student(Long id, String studentName, String password, StuClass stuClass, Set<PaperScore> paperScoreSet) {
         this.id = id;
         this.studentName = studentName;
         this.password = password;
         this.stuClass = stuClass;
         this.paperScoreSet = paperScoreSet;
-        this.questionScoreSet = questionScoreSet;
     }
 
     public StuClass getStuClass() {
@@ -56,14 +53,6 @@ public class Student implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<QuestionScore> getQuestionScoreSet() {
-        return questionScoreSet;
-    }
-
-    public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
-        this.questionScoreSet = questionScoreSet;
     }
 
     public String getStudentName() {

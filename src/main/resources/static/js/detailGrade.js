@@ -1,48 +1,9 @@
-$(function() {
-    $('#paper_grade_dg').datagrid({
-        remoteSort: false,
-        columns: [
-            [{
-                field: 'student_name',
-                title: '学生姓名',
-                width: 150,
-                align: 'center'
-            }, {
-                field: 'student_id',
-                title: '学号',
-                width: 120,
-                sortable: true,
-                align: 'center'
-            }, {
-                field: 'grade',
-                title: '成绩',
-                width: 120,
-                sortable: true,
-                align: 'center',
-                sorter: function(a, b) {
-                    return (a > b ? 1 : -1);
-                }
-            }, {
-                field: 'rank',
-                title: '排名',
-                width: 80,
-                align: 'center'
-            }]
-        ],
-        rowStyler: function(index, row) {
-            if (row.grade < 60) {
-                return 'color:red;';
-            }
-        }
-    });
-
-});
-
+var currentPaperId = null; //全局变量
 $(function() {
     //初始化
     init();
-
 });
+
 function bindBtn() {
     // 请求对应考卷信息
     $("#paper_list a").bind("click", function() {
@@ -54,60 +15,69 @@ function bindBtn() {
 }
 
 function init() {
+    // / 请求初始话paper数据 不需要参数
     $.ajax({
         url: "/getAllMarkedPapers",
+        cache:false,
         type: "get",
         success: function(result) {
+            // var result = ['登录教师id', '登录教师名', 'paperList内容'];
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result['teacher_id'])
-                .replace('{TEACHERNAME}', result['teacher_name']);
+            $temp = $temp.replace('{TEACHERID}', result['teacherId'])
+                .replace('{TEACHERNAME}', result['teacherName']);
             $('#teacher_info').html($temp);
-            var data = result['data'];
-            var $ul = $("#paper_list ul");
-            $ul.find("li").remove();
-            for (var i = 0; i < data.length; i++) {
-                var $template = $("#template_paper_list")[0].innerHTML.trim();
-                $template = $template.replace('{PAPERID}', data[i]['paper_id'])
-                    .replace('{PAPERNAME}', data[i]['paper_name']);
 
+            var $ul = $("ul#paper_list");
+            $ul.html('');
+            var paperList = result['papersMarkInfoList'];
+            for (var i = 0; i < paperList.length; i++) {
+                var $template = $('#paperListTemplate')[0].innerHTML;
+                var paperName = paperList[i]['paper_name'];
+                var paperId = paperList[i]['paper_id'];
+                $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
             bindBtn();
         },
         error: function() {
             //test
-            var data = [{
+            var paperList = [{
                 paper_id: "paper_id1",
                 paper_name: "数据库试题1"
             }, {
                 paper_id: "paper_id2",
                 paper_name: "数据库试题2"
             }];
-            var result = ['登录教师id', '登录教师名', data];
+            var result = ['登录教师id', '登录教师名', paperList];
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result[0])
                 .replace('{TEACHERNAME}', result[1]);
-            $('#teacher_info').html($temp)
-            var data = result[2];
-            var $ul = $("#paper_list ul");
-            $ul.find("li").remove();
-            for (var i = 0; i < data.length; i++) {
-                var $template = $("#template_paper_list")[0].innerHTML.trim();
-                $template = $template.replace('{PAPERID}', data[i]['paper_id'])
-                    .replace('{PAPERNAME}', data[i]['paper_name']);
+            $('#teacher_info').html($temp);
+            paperList = result[2];
 
+            var $ul = $("ul#paper_list");
+            for (var i = 0; i < paperList.length; i++) {
+                var $template = $('#paperListTemplate')[0].innerHTML;
+                var paperName = paperList[i].paper_name;
+                var paperId = paperList[i].paper_id;
+                $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
+            bindBtn();
         }
-    }); // ajax end
+    });
 }
 
 function getPaperStuGrade(paperId) {
+    console.log('get' + paperId);
     $.ajax({
-        url: '/getStudentScoreByPaperId/'+paperId,
+        url: '/getStudentScoreByPaperId/' + paperId,
+        cache:false,
         type: "get",
         success: function(data) {
-            $('#paper_grade_dg').datagrid('loadData', data);
+            //清空 装入数据
+            loadData(data['rows']);
+            checkScore();
         },
         error: function() {
             var data = {
@@ -129,8 +99,58 @@ function getPaperStuGrade(paperId) {
                     rank: "2"
                 }]
             };
-            $('#paper_grade_dg').datagrid('loadData', data);
+            //清空 装入数据
+            loadData(data['rows']);
+            checkScore();
         }
     }); // ajax end
 }
 // To-do:设置一个统计不及格人数
+
+function loadData(data) {
+    console.log(data)
+    $('#table').bootstrapTable({
+        columns: [{
+            field: 'student_name',
+            title: '姓名'
+        }, {
+            field: 'student_id',
+            title: '学号'
+        }, {
+            field: 'grade',
+            title: '成绩',
+            sortable: true,
+            formatter: gradeFormatter
+        }, {
+            field: 'rank',
+            title: 'Item ID',
+            sortable: true
+        }],
+        data: data
+    });
+}
+
+function Sorter(a, b) {
+
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+}
+
+function gradeFormatter(value) {
+    if (value < 60) {
+        return '<div  style="color: red">' + value + '<span class="glyphicon glyphicon-thumbs-down pull-right"></span></div>';
+    }
+    if (value > 90) {
+        return '<div>' + value + '<span class="glyphicon glyphicon-thumbs-up pull-right"></span></div>';
+    } else return value;
+}
+
+function alertMsg(
+    title, msg) {
+    var $template = $('#alert-template')[0].innerHTML;
+    var type;
+    if (title == 'Warning') { type = 'danger' } else if (title == 'Info') { type = 'warning' };
+    $template = $template.replace('{ALERTTYPE}', type).replace('{ALERTTITLE}', title).replace('{ALERTMSG}', msg);
+    $('#alertBox').append($template);
+}

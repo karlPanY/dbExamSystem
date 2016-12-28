@@ -32,9 +32,6 @@ public class Question implements Serializable{
     @JoinColumn(name = "paperId",referencedColumnName = "paperId")
     private Paper paperOf;//该考卷的题
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id.question",cascade = CascadeType.ALL)
-    private Set<QuestionScore> questionScoreSet;
-
     public Question() {
     }
 
@@ -45,13 +42,6 @@ public class Question implements Serializable{
         this.score = score;
     }
 
-    public Set<QuestionScore> getQuestionScoreSet() {
-        return questionScoreSet;
-    }
-
-    public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
-        this.questionScoreSet = questionScoreSet;
-    }
 
     public Long getQuestionId() {
         return questionId;
