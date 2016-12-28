@@ -104,6 +104,8 @@ public class StudentControler {
                     break;
                 case "判断题":
                     truefalseAnswer+=question_id+"#"+answer.getAnswer_text()+"$";
+                    if(rightAnswer.equals(answer.getAnswer_text()))
+                        selectScore+= score;
                     break;
             }
         }
