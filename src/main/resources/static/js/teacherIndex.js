@@ -10,7 +10,7 @@ $(function() {
         }
         var index = $(node).data('target').split('_')[1];
         var $top = Number($('.mouse').css('top').split('px')[0]);
-        $top = (index - 6) * 52;
+        $top = (index - 7) * 52;
         $('.mouse').css('top', $top + 'px');
         // if (index > 1 && currentIndex == 1) {
         //     $('.scroll:nth-of-type(1)').slideUp(1500);

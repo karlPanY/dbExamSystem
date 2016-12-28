@@ -6,10 +6,6 @@ var toolbar = [{
     text: '发布试卷',
     iconCls: 'icon-edit',
     handler: subscribePaper
-}, {
-    text: '编辑试卷',
-    iconCls: 'icon-edit',
-    handler: editPaper
 }];
 var toolbar2 = [{
     text: '查看/修改试题',

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="dbSystem" />
     <meta name="author" content="kasmine" />
+    <link rel="icon" href="favicon.ico" />
     <!-- <link rel="icon" href="../../favicon.ico"> -->
     <title>教师管理系统</title>
     <!-- Bootstrap core CSS -->
@@ -61,13 +62,19 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/paperMark" data-target='scroll_4'>
+                            <a href="/paperEdit" data-target='scroll_4'>
+                                <i></i>
+                                <span class="nav-label">试题编辑</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/paperMark" data-target='scroll_5'>
                                 <i></i>
                                 <span class="nav-label">考卷评阅</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/detailGrade" data-target='scroll_5'>
+                            <a href="/detailGrade" data-target='scroll_6'>
                                 <i></i>
                                 <span class="nav-label">详细成绩</span>
                             </a>
@@ -146,13 +153,41 @@
                     </div>
                 </section>
                 <section class="content scroll">
+                    <div class="">
+                        <div class="carousel slide" id="paperEdit-block" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <h1 class="page-header">功能预览</h1>
+                                    <img src="images/effects/paperEdit_1.png" alt="考卷评阅界面" />
+                                </div>
+                                <div class="item">
+                                    <h1 class="page-header">功能预览</h1>
+                                    <img src="images/effects/paperEdit_2.png" alt="考卷评阅界面" />
+                                </div>
+                                <div class="item">
+                                    <h1 class="page-header">功能预览</h1>
+                                    <img src="images/effects/paperEdit_3.png" alt="考卷评阅界面" />
+                                </div>
+                                <a class="left carousel-control" href="#paperEdit-block" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#paperEdit-block" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content scroll">
                     <h1 class="page-header">
                             功能预览
                         </h1>
                     <div class="guide-content">
-                        <img width="269" height="269" src="" alt="试题评阅界面" />
+                        <img width="469" height="319" src="images/effects/paperMark_1.png" alt="考卷评阅界面" />
                         <p>
-                            试题评阅·模块
+                            考卷评阅·模块
                         </p>
                     </div>
                 </section>
