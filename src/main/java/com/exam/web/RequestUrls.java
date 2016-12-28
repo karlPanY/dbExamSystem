@@ -11,6 +11,7 @@ public class RequestUrls {
     public static final String getPaperManagement = "/paperManagement";
     public static final String getDetailGrade = "/detailGrade";
     public static final String getPaperMark = "/paperMark";
+    public static final String getPaperEdit = "/paperEdit";
 
     public static final String getAllClasses = "/getAllClasses";
     public static final String getClassStu = "/getClassStu/{class_id}";
@@ -26,6 +27,7 @@ public class RequestUrls {
     public static final String setStudentNoneSelectScore= "/setStudentNoneSelectScore/{paper_id}/{student_id}/{score}";
     public static final String getAllMarkedPapers= "/getAllMarkedPapers";
     public static final String getStudentScoreByPaperId= "/getStudentScoreByPaperId/{paper_id}";
+    public static final String createPaper= "/createPaper";
 
 
     public static final String admin = "/admin";

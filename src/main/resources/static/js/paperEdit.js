@@ -3,10 +3,13 @@ $(function() {
         var target = $(event.target).data('target');
         var paperContainer = $('.paper-panel');
         var $template = $(target)[0].innerHTML.trim();
-        paperContainer.find('.containerType' + target.slice(-1)).append($template);
+        paperContainer.append($template);
         bindBtn();
     });
     $('#btn-submit').bind('click', function() {
+        if ($('#btn-submit').html() == '新添试题') {
+            $(".paper-panel").html("");
+        }
         $('#btn-submit').html('上传试题');
         $('.operation button').each(function(index, item) {
             item.disabled = false;
@@ -25,8 +28,10 @@ $(function() {
             console.log(JSON.stringify(postdata));
 
             $.ajax({
-                url: '上传编辑好的试卷url',
+                url: '/createPaper',
                 type: 'post',
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify(postdata),
                 success: function(msg) {
                     if (msg.success) {
                         alertMsg('Info', '上传成功');
@@ -39,10 +44,18 @@ $(function() {
                     }
                 },
                 error: function() {
-
                     alertMsg('Info', '上传成功');
                     $('#btn-submit').html('新添试题');
                     $('.operation button').each(function(index, item) {
+                        item.disabled = true;
+                    });
+                    $(".paper-panel button").each(function(index, item) {
+                        item.disabled = true;
+                    });
+                    $(".paper-panel input").each(function(index, item) {
+                        item.disabled = true;
+                    });
+                    $(".paper-panel textarea").each(function(index, item) {
                         item.disabled = true;
                     });
 
@@ -55,14 +68,11 @@ $(function() {
 
     $('#datetimepicker0').datetimepicker({
         // viewMode: 'years',
-        format: 'YYYY-MM-DD hh:mm',
-        disabledDates: [
-            moment(new Date())
-        ]
+        format: "YYYY-MM-DD HH:mm:ss"
     });
+    $('#datetimepicker0').data("DateTimePicker").minDate(new Date());
     $('#datetimepicker1').datetimepicker({
-        format: 'YYYY-MM-DD hh:mm',
-
+        format: 'YYYY-MM-DD HH:mm:ss'
     });
     $("#datetimepicker0").on("dp.change", function(e) {
         $('#datetimepicker1').data("DateTimePicker").minDate(e.date);
@@ -87,8 +97,9 @@ function getPaperContent() {
             var $titles = $forms[i].elements['questionTitle'];
 
             if (Object.prototype.toString.call($titles) === "[object RadioNodeList]") {
+                var label = ['', '#A.', '#B.', '#C.', '#D.'];
                 for (var j = 0, len = $titles.length; j < len; j++) {
-                    $questionTitle += $titles[j].value + "#";
+                    $questionTitle += label[j] + $titles[j].value;
                 }
             } else {
                 $questionTitle = $titles.value;
@@ -120,9 +131,13 @@ function bindBtn() {
     });
     $(".btn-save").bind("click", function(event) {
         $(event.target).closest('.panel-info').find('input').attr('disabled', 'true');
+        $(event.target).closest('.panel-info').find('textarea').attr('disabled', 'true');
     });
     $(".btn-modify").bind("click", function(event) {
         $(event.target).closest('.panel-info').find('input').each(function(index, item) {
+            item.disabled = false;
+        });
+        $(event.target).closest('.panel-info').find('textarea').each(function(index, item) {
             item.disabled = false;
         });
     });
