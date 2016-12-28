@@ -1,54 +1,40 @@
 $(function() {
 
     $.ajax({
-        url: null,
+        url: "/student/getPaper",
         type: "get",
+        cache:false,
+        dataType: 'json',
         success: function(result) {
+            var paperId = result["paper_id"];
+            var paperName = result["paper_name"];
+            var studentId = result["student_id"];
+            var studentName = result["student_name"];
+            var datas = result["datas"];
+
+            var paperTime = result["exam_second"];
+
 
             var $template = $('#student_info')[0].innerHTML.trim();
-            $template = $template.replace('{PAPERID}', result[0])
-                .replace('{PAPERNAME}', result[1]).
-            replace('{STUDENTID}', result[2]).
-            replace('{STUDENTNAME}', result[3]);
+            $template = $template.replace('{PAPERID}', paperId)
+                .replace('{PAPERNAME}', paperName).
+            replace('{STUDENTID}', studentId).
+            replace('{STUDENTNAME}', studentName);
             $('#student_info').html($template);
 
-            var datas = result[4];
+
             // data
             for (var i = 0; i < datas.length; i++) {
                 insertType(datas[i]);
             }
+            //计时器
+            var theCounter = new Counter("#timer", paperTime, 0);
+            theCounter.countDown();
 
-        },
-        error: function() {
-            //test
-            var result = ['试卷id', '数据库考试', '学生id', '廖晓娟', [
-                ['qusetionid1', '选择题', '题目#选项1#选项2#选项3#选项4'],
-                ['qusetionid2', '选择题', '题目#选项1#选项2#选项3#选项4'],
-                ['qusetionid3', '填空题', '题目'],
-                ['qusetionid4', '填空题', '题目'],
-                ['qusetionid5', '简单题', '题目']
-            ]];
-
-            var $template = $('#student_info')[0].innerHTML.trim();
-            $template = $template.replace('{PAPERID}', result[0])
-                .replace('{PAPERNAME}', result[1]).
-            replace('{STUDENTID}', result[2]).
-            replace('{STUDENTNAME}', result[3]);
-            $('#student_info').html($template);
-
-            var datas = result[4];
-            // data
-            for (var i = 0; i < datas.length; i++) {
-                insertType(datas[i]);
-            }
         }
     }); //ajax end
-
 });
 $(function() {
-    //计时器
-    var theCounter = new Counter("#timer", 5 * 1000, 0);
-    theCounter.countDown();
 
     //滚动效果
     scroll();
@@ -58,51 +44,55 @@ $(function() {
 });
 
 // 插入题目
-function insertType(data) {
+// 插入题目
+function insertType(question) {
 
-    var questionid = data[0];
-    var questiontype = data[1];
+    var questionId = question["question_id"];
+    var questionTitle = question["question_title"];
+    var questionType = question["question_type"];
     var questiontypeId, questiontypeIndex = 1;
-    switch (questiontype) {
+    switch (questionType) {
         case "选择题":
             questiontypeId = "#type1";
             questiontypeIndex = '1';
             break;
         case "判断题":
-            questiontypeId = "#type4";
-            questiontypeIndex = '4';
-            break;
-        case "填空题":
             questiontypeId = "#type2";
             questiontypeIndex = '2';
             break;
-        case "简答题":
+        case "填空题":
             questiontypeId = "#type3";
             questiontypeIndex = '3';
+            break;
+        case "简答题":
+            questiontypeId = "#type4";
+            questiontypeIndex = '4';
             break;
         default:
             questiontypeId = null;
             break;
     }
-    var questiontitle = data[2];
+
     var template = $("#template" + questiontypeIndex)[0].innerHTML.trim();
 
-    if (questiontype == '选择题') {
+    if (questionType == '选择题') {
         //插入选择题
-        var e = questiontitle.split('#');
+        var e = questionTitle.split('#');
         var q1 = e[0],
             q2 = e[1],
             q3 = e[2],
             q4 = e[3],
             q5 = e[4];
-        template = template.replace(/{QUESTIONTITLE}/g, q1).replace('{QUESTIONCONTENT1}', q2).replace('{QUESTIONCONTENT2}', q3).replace('{QUESTIONCONTENT3}', q4).replace('{QUESTIONCONTENT4}', q5).replace(/{QUESTIONID}/g, questionid);
+        template = template.replace(/{QUESTIONTITLE}/g, q1).replace('{QUESTIONCONTENT1}', q2).replace('{QUESTIONCONTENT2}', q3).replace('{QUESTIONCONTENT3}', q4).replace('{QUESTIONCONTENT4}', q5).replace(/{QUESTIONID}/g, questionId);
         $(questiontypeId).append(template);
     } else {
-        template = template.replace(/{QUESTIONTITLE}/g, questiontitle).replace(/{QUESTIONID}/g, questionid);
+        template = template.replace(/{QUESTIONTITLE}/g, questionTitle).replace(/{QUESTIONID}/g, questionId);
         $(questiontypeId).append(template);
     }
 
 }
+
+
 
 function submitPaper() {
 
@@ -113,31 +103,31 @@ function submitPaper() {
 
     var checkedInputs = $('#exam_body input:checked');
     for (var i = 0; i < checkedInputs.length; i++) {
-        answers.push([checkedInputs[i].name, $(checkedInputs[i]).val()]);
+        var answer = { "answer_id": checkedInputs[i].name, "answer_text": $(checkedInputs[i]).val() };
+        answers.push(answer);
     }
     var textareas = $('#exam_body textarea');
     for (var i = 0; i < textareas.length; i++) {
-        answers.push([textareas[i].name, $(textareas[i]).val()]);
+        var answer = { "answer_id": textareas[i].name, "answer_text": $(textareas[i]).val() };
+        answers.push(answer);
     }
     var postdata = { paper_id: paperId, student_id: studentId, answer: answers };
     postdata = JSON.stringify(postdata);
+    console.log(postdata);
     $.ajax({
         type: "post",
-        url: null,
+        url:"/student/upload",
         data: postdata,
         contentType: "application/json;charset=utf-8",
         success: function(data) {
             alertMsg("success", "考试结束，客观题成绩为" + data);
             window.history.back(-1);
-        },
-        error: function() {
-            //test
-            console.log('测试提交数据' + postdata)
         }
-
     })
 
 }
+
+
 
 
 
@@ -212,7 +202,7 @@ function scroll() {
         }
         var index = $(node).data('target').split('_')[1];
         var $top = Number($('.mouse').css('top').split('px')[0]);
-        $top = (index - 4) * 52;
+        $top = (index - 5) * 52;
         $('.mouse').css('top', $top + 'px');
     });
 

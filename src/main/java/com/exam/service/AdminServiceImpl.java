@@ -26,11 +26,10 @@ public class AdminServiceImpl implements AdminService {
     private StudentRepository studentRepository;
     @Autowired
     private PaperRepository paperRepository;
-    @Autowired
-    private QuestionRepository questionRepository;
 
     @Override
     public Set<Teacher> getTeacher() {
+
         Set set = new HashSet<>(teacherRepository.findAll());
         return set;
     }
@@ -68,8 +67,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Teacher getTeacherByName(String name) {
-        return teacherRepository.findByTeacherName(name);
+    public Teacher getTeacherByid(long teacher_id) {
+        return teacherRepository.findOne(teacher_id);
     }
 
     @Override
@@ -85,13 +84,29 @@ public class AdminServiceImpl implements AdminService {
         }
     }
     @Override
-    public boolean saveNewTeacher(Teacher teacher) {
-        if(teacherRepository.findOne(teacher.getId())!=null)
+    public boolean saveNewTeacher(Teacher teacher, String[] classNames) {
+        Teacher teacher1 = teacherRepository.findOne(teacher.getId());
+        if(teacher1!=null)
             return false;
         else
         {
-            teacherRepository.save(teacher);
-            return true;
+                Set<StuClass> new_class_set = new HashSet<>();
+                for (int i = 0; i < classNames.length; i++) {
+                    if (classNames[i]=="")
+                        break;
+                    StuClass stuClass = classRepository.findByClassName(classNames[i]);
+                    Teacher beforeTeacher = stuClass.getTeacher();
+                    if (beforeTeacher != null) {
+                        beforeTeacher.getClassSet().remove(stuClass);
+                        teacherRepository.save(beforeTeacher);
+                    }
+                    stuClass.setTeacher(teacher);
+                    classRepository.save(stuClass);
+                    new_class_set.add(stuClass);
+                }
+                teacher.setClassSet(new_class_set);
+                teacherRepository.save(teacher);
+                return true;
         }
     }
 

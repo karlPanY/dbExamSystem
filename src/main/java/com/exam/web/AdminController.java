@@ -33,6 +33,8 @@ public class AdminController {
     @ResponseBody
     public  ArrayList<Classes> init(HttpSession session)
     {
+        if(session.getAttribute("id")==null)
+            return null;
         Set<StuClass> classSet = adminService.getstuClass();
 
         ArrayList<Classes> classes = new ArrayList<>();
@@ -51,10 +53,12 @@ public class AdminController {
 
     @RequestMapping(value = RequestUrls.addClass,method = RequestMethod.POST,consumes = "application/json")
     @ResponseBody
-    public AddClassResponse addClass(@RequestBody AddClassRequest addClassRequest)
+    public AddClassResponse addClass(@RequestBody AddClassRequest addClassRequest,HttpSession session)
     {
-        String class_teacher = addClassRequest.getClass_teacher();
-        Teacher teacher = adminService.getTeacherByName(class_teacher);
+        if(session.getAttribute("id")==null)
+            return null;
+        long class_teacher = addClassRequest.getClass_teacher();
+        Teacher teacher = adminService.getTeacherByid(class_teacher);
         String class_name = addClassRequest.getClass_name();
         StuClass stuClass = new StuClass();
         stuClass.setClassName(class_name);
@@ -78,8 +82,10 @@ public class AdminController {
 
     @RequestMapping(value = RequestUrls.adminGetTea,method = RequestMethod.GET,produces = "application/json")
     @ResponseBody
-    public AdminGetTeacher getTeacher()
+    public AdminGetTeacher getTeacher(HttpSession session)
     {
+        if(session.getAttribute("id")==null)
+            return null;
         Set<Teacher> teacherSet = adminService.getTeacher();
         AdminGetTeacher tea = new AdminGetTeacher(teacherSet);
 
@@ -95,7 +101,7 @@ public class AdminController {
         new_student.setId(changeStudentRequest.getStudent_id());
         new_student.setPassword(changeStudentRequest.getPassword());
         new_student.setStudentName(changeStudentRequest.getStudent_name());
-        new_student.setStuClass(current_class);
+        new_student.setStuClass(adminService.getClassStu(changeStudentRequest.getClass_id()));
         if (changeStudentRequest.isNews())
             msg.setSuccess(adminService.saveNewStudent(new_student));
         else
@@ -116,7 +122,7 @@ public class AdminController {
         new_teacher.setTeacherName(changeTeacherRequest.getTeacher_name());
         String []classNames = changeTeacherRequest.getClass_name().split(",");
         if (changeTeacherRequest.isNews())
-            msg.setSuccess(adminService.saveNewTeacher(new_teacher));
+            msg.setSuccess(adminService.saveNewTeacher(new_teacher,classNames));
         else
         {
             msg.setSuccess(adminService.updateTeacher(new_teacher,classNames));

@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
                 for (Paper paper : paperSet) {
                     if (paper.getPaperStart() != null && paper.getPaperEnd() != null) {
                         papersSelectInfoList.add(new GetSelectPapersResponse().new papersSelectInfo(paper.getPaperId(), paper.getPaperName(),
-                                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getPaperStart()), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getPaperEnd())));
+                                new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(paper.getPaperStart()), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(paper.getPaperEnd())));
                     }
                 }
                 return new GetSelectPapersResponse(studentId, student.getStudentName(), papersSelectInfoList);
@@ -84,5 +84,20 @@ public class StudentServiceImpl implements StudentService {
         }
         else
             return false;
+    }
+
+    @Override
+    public Student getStudent(long id) {
+        return studentRepository.findOne(id);
+    }
+
+    @Override
+    public Question getQuestion(long question_id) {
+        return  questionRepository.findOne(question_id);
+    }
+
+    @Override
+    public void saveAnswer(PaperScore paperScore) {
+        paperScoreRepository.save(paperScore);
     }
 }

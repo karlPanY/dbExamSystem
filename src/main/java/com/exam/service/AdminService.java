@@ -19,11 +19,11 @@ public interface AdminService {
 
     AddClassResponse addClass(StuClass stuClass);//添加班级
 
-    Teacher getTeacherByName(String name);//根据名字获得老师
+    Teacher getTeacherByid(long teacher_id);//根据名字获得老师
 
     boolean saveNewStudent(Student student);//添加学生
 
-    boolean saveNewTeacher(Teacher teacher);//添加老师
+    boolean saveNewTeacher(Teacher teacher, String[] classNames);//添加老师
 
     boolean updateStudent(Student student);//更新学生
 

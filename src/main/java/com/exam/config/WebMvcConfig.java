@@ -24,5 +24,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController(RequestUrls.getPaperMark).setViewName("paperMark");
         registry.addViewController(RequestUrls.getPaperEdit).setViewName("paperEdit");
 
+        registry.addViewController(RequestUrls.exam).setViewName("exam");
     }
 }
