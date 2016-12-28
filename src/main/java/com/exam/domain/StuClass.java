@@ -16,7 +16,7 @@ public class StuClass implements Serializable {
 
     private String className;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacherId",referencedColumnName = "teacherId")
     private Teacher teacher;
 

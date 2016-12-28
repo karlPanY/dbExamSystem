@@ -1,5 +1,5 @@
 var handle1=function() {
-    var pattern = /\d{12}/;
+    var pattern = /\d{6}/;
     if (pattern.test($(this).val())) {
         $(this).siblings(".icon2").css("display", "inline-block");
         $(this).siblings(".icon1").css("display", "none");
@@ -9,6 +9,7 @@ var handle1=function() {
         $(this).siblings(".icon1").css("display", "inline-block");
     }
 };
+
 var handle2=function() {
     var pattern = /[0-9a-zA-Z]{6,}/;
     if (pattern.test($(this).val())) {

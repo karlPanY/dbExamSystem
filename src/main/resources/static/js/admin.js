@@ -49,26 +49,6 @@ function init() {
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
                 $ul.before($template);
             }
-        },
-        error: function() {
-            //test
-            var data = [{
-                class_id: "class_id1",
-                class_name: "网络工程"
-            }, {
-                class_id: "class_id2",
-                class_name: "信息安全"
-            }];
-
-            var $ul = $("ul#class_list .last");
-            var classes = data;
-            for (var i = 0; i < classes.length; i++) {
-                var $template = $('#classListTemplate')[0].innerHTML;
-                var className = classes[i].class_name;
-                var classId = classes[i].class_id;
-                $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                $ul.before($template);
-            }
         }
     });
 }
@@ -101,18 +81,8 @@ function addClass(classInfo) {
                     $('.alert').alert('close');
                 }, 500);
             }
-        },
-        error: function() {
-            //test
-            console.log('测试提交添加班级信息：' + postdata)
-            var classId = 'test.class_id';
-            var className = classInfo.class_name;
-            var $template = $('#classListTemplate')[0].innerHTML;
-            $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-            var $ul = $("ul#class_list .last");
-            $ul.before($template);
         }
-    }); //ajax end
+}); //ajax end
 }
 
 function getClass(target) {
@@ -127,27 +97,6 @@ function getClass(target) {
         data: { 'class_id': classId },
         dataType: 'json',
         success: function(data) {
-            datagrid('#student_dg', 'loadData', data['rows'][0]);
-            for (var i = 1, len = data['rows'].length; i < len; i++) {
-                datagrid('#student_dg', 'appendData', data['rows'][i]);
-            }
-        },
-        error: function() {
-            console.log('测试请求班级id：' + classId);
-            var data = {
-                'total': 2,
-                'rows': [{
-                    student_name: '廖晓娟',
-                    student_id: "201430560243",
-                    password: "123456",
-                    class_name: '网络工程'
-                }, {
-                    student_name: '要利娇',
-                    student_id: "201430560241",
-                    password: "123456",
-                    class_name: '网络工程'
-                }]
-            };
             datagrid('#student_dg', 'loadData', data['rows'][0]);
             for (var i = 1, len = data['rows'].length; i < len; i++) {
                 datagrid('#student_dg', 'appendData', data['rows'][i]);
@@ -168,26 +117,6 @@ function getTeacher() {
                 datagrid('#teacher_dg', 'appendData', data['rows'][i]);
             }
 
-        },
-        error: function() {
-            var data = {
-                'total': 2,
-                'rows': [{
-                    teacher_name: '董守玲',
-                    teacher_id: "111222333444",
-                    password: "123456",
-                    class_name: '网络工程'
-                }, {
-                    teacher_name: '贺小箭',
-                    teacher_id: "222333444555",
-                    password: "123456",
-                    class_name: '网络工程'
-                }]
-            };
-            datagrid('#teacher_dg', 'loadData', data['rows'][0]);
-            for (var i = 1, len = data['rows'].length; i < len; i++) {
-                datagrid('#teacher_dg', 'appendData', data['rows'][i]);
-            }
         }
     }); // ajax end
 }
@@ -319,21 +248,8 @@ function saverow(target) {
                         newAppend = false;
                         editIndex = undefined;
                     } else {
-                        alertMsg('Warning', '请检查新添成员是否已经存在');
+                        alertMsg('Warning', '请检查新添成员是否已经存在,班级名是否正确');
                     }
-                },
-                error: function() {
-                    //test
-                    var inputs = $(target).closest('tr').find('input:text');
-                    for (var i = 0, len = inputs.length; i < len; i++) {
-                        inputs[i].disabled = true;
-                    }
-                    $(target).get(0).disabled = true;
-                    $(target).closest('td').find('button:nth-child(2)').get(0).disabled = true;
-                    $(target).closest('td').find('button:nth-child(4)').get(0).disabled = false;
-                    newAppend = false;
-                    editIndex = undefined;
-                    console.log('here 提交新添数据' + postdata);
                 }
             }); //ajax end
         } else {

@@ -12,12 +12,13 @@ import java.util.Set;
 public class GetStudentPaper {
     private long paper_id;
 
-    public GetStudentPaper(long paper_id, String paper_name, long student_id, String student_name, Set<Question> questions) {
+    public GetStudentPaper(long paper_id, String paper_name, long student_id, String student_name, Set<Question> questions,long exam_second) {
         this.paper_id = paper_id;
         this.paper_name = paper_name;
         this.student_id = student_id;
         this.student_name = student_name;
         this.datas = new ArrayList<>();
+        this.exam_second=exam_second;
 
         Iterator iterator = questions.iterator();
         while(iterator.hasNext())
@@ -75,6 +76,16 @@ public class GetStudentPaper {
     private long student_id;
     private String student_name;
     private ArrayList<Data> datas;
+
+    public long getExam_second() {
+        return exam_second;
+    }
+
+    public void setExam_second(long exam_second) {
+        this.exam_second = exam_second;
+    }
+
+    private long exam_second;
 
 
     class Data

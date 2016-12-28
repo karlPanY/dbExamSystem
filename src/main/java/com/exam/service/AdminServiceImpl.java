@@ -90,22 +90,23 @@ public class AdminServiceImpl implements AdminService {
             return false;
         else
         {
-            Set<StuClass> new_class_set = new HashSet<>();
-            for (int i =0 ; i<classNames.length;i++)
-            {
-                StuClass stuClass = classRepository.findByClassName(classNames[i]);
-                Teacher beforeTeacher=stuClass.getTeacher();
-                if(beforeTeacher!=null) {
-                    beforeTeacher.getClassSet().remove(stuClass);
-                    teacherRepository.save(beforeTeacher);
+                Set<StuClass> new_class_set = new HashSet<>();
+                for (int i = 0; i < classNames.length; i++) {
+                    if (classNames[i]=="")
+                        break;
+                    StuClass stuClass = classRepository.findByClassName(classNames[i]);
+                    Teacher beforeTeacher = stuClass.getTeacher();
+                    if (beforeTeacher != null) {
+                        beforeTeacher.getClassSet().remove(stuClass);
+                        teacherRepository.save(beforeTeacher);
+                    }
+                    stuClass.setTeacher(teacher);
+                    classRepository.save(stuClass);
+                    new_class_set.add(stuClass);
                 }
-                stuClass.setTeacher(teacher1);
-                classRepository.save(stuClass);
-                new_class_set.add(stuClass);
-            }
-            teacher1.setClassSet(new_class_set);
-            teacherRepository.save(teacher1);
-            return true;
+                teacher.setClassSet(new_class_set);
+                teacherRepository.save(teacher);
+                return true;
         }
     }
 

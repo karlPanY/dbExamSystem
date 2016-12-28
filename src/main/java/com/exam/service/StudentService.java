@@ -1,6 +1,10 @@
 package com.exam.service;
 
 import com.exam.domain.Paper;
+import com.exam.domain.PaperScore;
+import com.exam.domain.Question;
+import com.exam.domain.Student;
+import com.exam.web.response.GetSelectPapersResponse;
 
 import java.util.List;
 import java.util.Set;

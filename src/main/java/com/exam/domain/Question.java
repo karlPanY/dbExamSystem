@@ -20,10 +20,10 @@ public class Question implements Serializable{
     private String type;
 
     @Column(nullable = false,columnDefinition = "TEXT")
-    private String title;//数据库用Text类型;ABCD选项也放里面
+    private String title;//题目#A#B#C#D
 
     @Column(nullable = false)
-    private String answer;//字母选项或者填空题答案或简答答案
+    private String answer;//字母选项或者填空题答案
 
     @Column(nullable = false)
     private Float score;//每到试题的分数

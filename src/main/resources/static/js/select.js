@@ -2,6 +2,8 @@ $(function() {
     $.ajax({
         url: '/getSelectPapers',
         type: "get",
+        cache:false,
+        dataType: 'json',
         success: function(result) {
 
             var studentName = result['student_name'];

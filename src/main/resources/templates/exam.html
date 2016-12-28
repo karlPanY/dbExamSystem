@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>考试系统</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css"/>
-    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/com.css" />
+    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/exam.css" />
 </head>
 
@@ -45,11 +45,17 @@
                         <li>
                             <a href="#type2" data-target='scroll_2' class="scroll">
                                 <i></i>
-                                <span class="nav-label">填空题</span>
+                                <span class="nav-label">判断题</span>
                             </a>
                         </li>
                         <li>
                             <a href="#type3" data-target='scroll_3' class="scroll">
+                                <i></i>
+                                <span class="nav-label">填空题</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#type4" data-target='scroll_4' class="scroll">
                                 <i></i>
                                 <span class="nav-label">简答题</span>
                             </a>
@@ -66,11 +72,15 @@
                     <div class="content" id="type1">
                         <!-- 放置模板1 -->
                     </div>
-                    <h3>二、填空题</h3>
+                    <h3>二、判断题</h3>
                     <div class="content" id="type2">
+                        <!-- 放置模板1 -->
                     </div>
-                    <h3>三、简答题</h3>
+                    <h3>三、填空题</h3>
                     <div class="content" id="type3">
+                    </div>
+                    <h3>四、简答题</h3>
+                    <div class="content" id="type4">
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 ">
@@ -113,6 +123,23 @@
         </div>
     </script>
     <script type="text/template" id="template2">
+        <div class="question" id="{QUESTIONID}">
+            <div class="title">{QUESTIONTITLE}</div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="T" />T
+                    </label>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>
+                        <input type="radio" name='{QUESTIONID}' value="F" />F
+                    </label>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template3">
         <div class="question">
             <div class="title">{QUESTIONTITLE}</div>
             <div class="row">
@@ -120,7 +147,7 @@
             </div>
         </div>
     </script>
-    <script type="text/template" id="template3">
+    <script type="text/template" id="template4">
         <div class="question" id="{QUESTIONID}">
             <div class="title">{QUESTIONTITLE}</div>
             <div class="row">
