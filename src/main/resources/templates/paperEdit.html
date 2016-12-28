@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="dbSystem" />
+    <meta name="author" content="kasmine" />
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <title>管理员系统</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/effect/bootstrap.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
+    <!-- Custom styles for this template -->
+    <link href="css/paperEdit.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse  navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <nav class="navigation">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="/classManagement" data-target='scroll_2'>
+                                <i></i>
+                                <span class="nav-label">班级管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/paperManagement" data-target='scroll_3'>
+                                <i></i>
+                                <span class="nav-label">试题管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/paperEdit" data-target='scroll_4' class="active">
+                                <i></i>
+                                <span class="nav-label">试题编辑</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/paperMark" data-target='scroll_5'>
+                                <i></i>
+                                <span class="nav-label">考卷评阅</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/detailGrade" data-target='scroll_6'>
+                                <i></i>
+                                <span class="nav-label">详细成绩</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">试题编辑                </h1>
+                <div class="row">
+                    <div class="affix">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">在线编辑试题</div>
+                            <div class="panel-body" id="primaryPaperInfo">
+                                <div class="form-group">
+                                    <label for="paperTitle" class="control-label">试题名称</label>
+                                    <input type="text" class="form-control" name="paperName" placeholder="paperName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="paperStart" class=" control-label">发布时间
+                                    </label>
+                                    <div class='input-group date' id='datetimepicker0'>
+                                        <input type='text' class="form-control" name="paperEnd" placeholder="paperStart" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="paperEnd" class=" control-label">结束时间
+                                    </label>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' class="form-control" name="paperEnd" placeholder="paperEnd" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="operation">
+                                    <button class="btn btn-sm btn-success" data-target="#template-type1" disabled="">选择题</button>
+                                    <button class="btn btn-sm btn-success" data-target="#template-type2" disabled="">判断题</button>
+                                    <button class="btn btn-sm btn-success" data-target="#template-type3" disabled="">填空题</button>
+                                    <button class="btn btn-sm btn-success" data-target="#template-type4" disabled="">简答题</button>
+                                </div>
+                                <button class="btn btn-danger pull-right" id="btn-submit">新添试题</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="paper-panel">
+                        <div class="containerType1"></div>
+                        <div class="containerType2"></div>
+                        <div class="containerType3"></div>
+                        <div class="containerType4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alertBox">
+        <script type="text/template" id="alert-template">
+            <div class="alert alert-{ALERTTYPE} alert-dismissible fade in" role="alert">
+                <div>
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4>{ALERTTITLE}</h4>
+                    <p>{ALERTMSG}</p>
+                </div>
+            </div>
+        </script>
+    </div>
+    <script src="js/effects/jquery-2.2.3.js"></script>
+    <script src="js/effects/bootstrap.js"></script>
+    <script type="text/javascript" src='js/paperEdit.js'></script>
+    <script type="text/javascript" src='js/effects/moment-with-locales.js'></script>
+    <script type="text/javascript" src='js/effects/bootstrap-datetimepicker.js'></script>
+    <!-- 选择题模板 -->
+    <script type="text/template" id="template-type1">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">选择题</h3>
+                <span>
+                 <button class="btn btn-danger pull-left btn-sm btn-del"  rel="nofollow">
+                <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                <button class="btn btn-success btn-sm btn-save"><span class="glyphicon glyphicon-floppy-save"></span>Save
+                </button>
+                <button class="btn btn-success btn-sm btn-modify"><span class="glyphicon glyphicon-floppy-edit"></span>Modify
+                </button>
+                </span>
+            </div>
+            <div class="panel-body container-fluid">
+                <form class="form-horizontal" role="form" data-type="选择题">
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">题目</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name='questionTitle' placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">选项A</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name='questionTitle' placeholder="选项A">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">选项B</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name='questionTitle' placeholder="选项B">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">选项C</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name='questionTitle' placeholder="选项C ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">选项D</label>
+                        <div class="col-sm-10 ">
+                            <input type="text " class="form-control " name='questionTitle' placeholder="选项D ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="questionAnswer " class="col-sm-2 control-label ">答案</label>
+                        <div class="col-sm-10 ">
+                            <select class="form-control " name="questionAnswer">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="questionScore " class="col-sm-2 control-label ">分值</label>
+                        <div class="col-sm-10 ">
+                            <input type="number" class="form-control " name='questionScore' placeholder="Score ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- 选择题模板 end-->
+    <!-- 判断题模板 -->
+    <script type="text/template " id="template-type2">
+        <div class="panel panel-info ">
+            <div class="panel-heading ">
+                <h3 class="panel-title ">判断题</h3>
+                <span>
+                 <button class="btn btn-danger pull-left btn-sm btn-del "  rel="nofollow ">
+                <span class="glyphicon glyphicon-trash "></span> Delete</button>
+                <button class="btn btn-success btn-sm btn-save "><span class="glyphicon glyphicon-floppy-save "></span>Save
+                </button>
+                <button class="btn btn-success btn-sm btn-modify "><span class="glyphicon glyphicon-floppy-edit "></span>Modify
+                </button>
+                </span>
+            </div>
+            <div class="panel-body container-fluid ">
+                <form class="form-horizontal " role="form" data-type="判断题">
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">题目</label>
+                        <div class="col-sm-10 ">
+                            <input type="text " class="form-control" name='questionTitle' placeholder="Title ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="questionAnswer" class="col-sm-2 control-label ">答案</label>
+                        <div class="col-sm-10 ">
+                            <select class="form-control " name="questionAnswer">
+                                <option>true</option>
+                                <option>false</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">分值</label>
+                        <div class="col-sm-10 ">
+                            <input type="number " class="form-control " name="questionScore" placeholder="Score ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- 判断题模板 end-->
+    <!-- 填空题模板 -->
+    <script type="text/template " id="template-type3">
+        <div class="panel panel-info ">
+            <div class="panel-heading ">
+                <h3 class="panel-title ">填空题</h3>
+                <span>
+                 <button class="btn btn-danger pull-left btn-sm btn-del "  rel="nofollow ">
+                <span class="glyphicon glyphicon-trash "></span> Delete</button>
+                <button class="btn btn-success btn-sm btn-save "><span class="glyphicon glyphicon-floppy-save "></span>Save
+                </button>
+                <button class="btn btn-success btn-sm btn-modify "><span class="glyphicon glyphicon-floppy-edit "></span>Modify
+                </button>
+                </span>
+            </div>
+            <div class="panel-body container-fluid ">
+                <form class="form-horizontal " role="form " data-type="填空题">
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">题目</label>
+                        <div class="col-sm-10 ">
+                            <input type="text " class="form-control " name='questionTitle' placeholder="Title ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">答案</label>
+                        <div class="col-sm-10 ">
+                            <input type=" " class="form-control " name='questionAnswer' placeholder="Answer ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">分值</label>
+                        <div class="col-sm-10 ">
+                            <input type="number " class="form-control " name='questionScore' placeholder="Score ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- 填空题模板 end-->
+    <!-- 简答题模板 -->
+    <script type="text/template " id="template-type4">
+        <div class="panel panel-info ">
+            <div class="panel-heading ">
+                <h3 class="panel-title ">简答题</h3>
+                <span>
+                 <button class="btn btn-danger pull-left btn-sm btn-del "  rel="nofollow ">
+                <span class="glyphicon glyphicon-trash "></span> Delete</button>
+                <button class="btn btn-success btn-sm btn-save "><span class="glyphicon glyphicon-floppy-save "></span>Save
+                </button>
+                <button class="btn btn-success btn-sm btn-modify "><span class="glyphicon glyphicon-floppy-edit "></span>Modify
+                </button>
+                </span>
+            </div>
+            <div class="panel-body container-fluid ">
+                <form class="form-horizontal " role="form " data-type="简答题">
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">题目</label>
+                        <div class="col-sm-10 ">
+                            <input type="text " class="form-control " name='questionTitle' placeholder="Title ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">答案</label>
+                        <div class="col-sm-10 ">
+                            <input type="password " class="form-control " name='questionAnswer' placeholder="Answer ">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for=" " class="col-sm-2 control-label ">分值</label>
+                        <div class="col-sm-10 ">
+                            <input type="number " class="form-control " name='questionScore' placeholder="Score ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- 简答题模板 end-->
+</body>
+
+</html>
+<!-- ============================================================================================================ -->
