@@ -26,7 +26,12 @@ $(function() {
                 if (new Date(paperStart).getTime() - Date.now() < 0) {
                     paperStatus = "考试开始...";
                     paperHide = '';
-                } else {
+                }
+                if (new Date(paperEnd).getTime() - Date.now() < 0) {
+                    paperStatus = "考试结束...";
+                    paperHide = 'btn-hide';
+                }
+                if (new Date(paperStart).getTime() - Date.now() > 0) {
                     paperStatus = "等待考试...";
                     paperHide = 'btn-hide';
                 }

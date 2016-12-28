@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by NeilHY on 2016/11/17.
@@ -53,7 +50,7 @@ public class StudentControler {
         Paper paper = studentService.getPaper(paperId);
         Student student = studentService.getStudent(studentId);
         Set<Question> questions = new HashSet<>(paper.getQuestions());
-        long exam_second = paper.getPaperEnd().getTime()-paper.getPaperStart().getTime();
+        long exam_second = paper.getPaperEnd().getTime()-new Date().getTime();
 
         GetStudentPaper getStudentPaper = new GetStudentPaper(paperId,paper.getPaperName(),studentId,student.getStudentName(),questions,exam_second);
 
