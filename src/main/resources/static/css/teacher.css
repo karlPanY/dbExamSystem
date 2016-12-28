@@ -16,9 +16,13 @@ body {
 
 #top {
     height: 60px;
-    background: #B3DFDA;
+
+    background: url(../images/SCUT.png) no-repeat left center;
+    background-size: contain;
+    background-position-x: 30px;
     padding: 10px;
-    overflow: hidden
+    overflow: hidden;
+    background-color:rgb(33, 130, 243);
 }
 
 #west {
@@ -63,13 +67,12 @@ a, a:link, a:focus, a:visited {
 
 ul.main_menu {
     list-style: none;
-    background: rgb(207, 236, 235);
+    background: rgba(27, 169, 233, 0.92);
     margin: -10px;
     padding: 0;
     padding-top: 20px;
     text-align: center;
     height: 100%;
-    /* width: 100%; */
 }
 
 li>a {
@@ -133,3 +136,13 @@ a.active {
 #msgTipBox .close:hover {
     background: rgba(128, 128, 128, .3);
 }
+.panel-header {
+    background: rgba(27, 169, 233, 0.92);
+    border-color: rgb(158, 158, 158);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF, endColorstr=#E0ECFF, GradientType=0);
+}
+.datagrid-toolbar, .datagrid-pager ,.datagrid-header, .datagrid-td-rownumber{
+    background: rgba(27, 169, 233, 0.55);
+}.datagrid-header, .datagrid-toolbar, .datagrid-pager, .datagrid-footer-inner {
+     border-color: rgb(158, 158, 158);
+ }
