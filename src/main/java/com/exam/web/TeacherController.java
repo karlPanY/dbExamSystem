@@ -1,16 +1,15 @@
 package com.exam.web;
 
 import com.exam.service.TeacherService;
+import com.exam.web.request.CreatePaper;
+import com.exam.web.request.LoginRequest;
 import com.exam.web.response.GetAllPapers;
 import com.exam.web.response.GetClassStudents;
 import com.exam.web.response.GetClassesResponse;
 import com.exam.web.response.GetStuGradeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -55,5 +54,12 @@ public class TeacherController {
         }
         return null;
     }
-
+    @RequestMapping(value = RequestUrls.createPaper, method = RequestMethod.POST,consumes = "application/json")
+    @ResponseBody
+    public String createPaper(@RequestBody CreatePaper createPaper, HttpSession session) {
+        if (session.getAttribute("id") != null && createPaper.getPaperName() != null) {
+            return teacherService.createPaper((Long) session.getAttribute("id"), createPaper);
+        }
+        return null;
+    }
 }
