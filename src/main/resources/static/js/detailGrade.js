@@ -146,7 +146,7 @@ function loadData() {
             formatter: gradeFormatter
         }, {
             field: 'rank',
-            title: 'Item ID',
+            title: '排名',
             sortable: true
         }],
         data: [{
