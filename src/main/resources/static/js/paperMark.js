@@ -145,11 +145,11 @@ function render(student_id, student_name, paper, score) {
     $('#student_paper').html('');
     var $template1 = $("#template_info")[0].innerHTML.trim();
     var $template2;
-    $template1 = $template1.replace('{STUDENTSCORE}', score);
-    if (score > 0) {
-        $('#student_paper button').attr('disabled', 'true');
-        $('.question_score').attr('disabled', 'true');
+    if(score==null){
+        score=0;
     }
+    $template1 = $template1.replace('{STUDENTSCORE}', score);
+
     $('#student_paper').append($template1);
     for (var i = 0, len = paper.length; i < len; i++) {
         $template2 = $("#template_question")[0].innerHTML.trim();
@@ -159,9 +159,12 @@ function render(student_id, student_name, paper, score) {
         var questionAnswer = question["question_answer"];
         var questionScore = question["question_score"];
 
-
         $template2 = $template2.replace('{QUESTIONTITLE}', questionTitle).replace('{QUESTIONANSWER}', questionAnswer).replace(/{QUESTIONSCORE}/g, questionScore).replace(/{QUESTIONID}/g, questionId);
         $('#student_paper').append($template2);
+    }
+    if (score > 0) {
+        $('#student_paper button').attr('disabled', 'true');
+        $('.question_score').attr('disabled', 'true');
     }
     //试卷加载完毕后，绑定按钮事件
     addTotalScore();
