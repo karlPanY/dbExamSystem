@@ -28,7 +28,7 @@
                 <b id="{STUDENTID}">{STUDENTNAME}</b>&nbsp;同学，您好!
             </p>
             <div>&nbsp; 您有<b class="paper_num">{PAPERNUM}</b>份试卷需要参与考试
-                <span><a href="login.html" class="blue-text">退出考试</a></span>
+                <span><a href="/login" class="blue-text">退出考试</a></span>
             </div>
         </div>
         <div class="panel-body">
@@ -43,14 +43,13 @@
             <b>试卷信息{PAPERINDEX}</b>
             <p>试卷名称：<span class="paper-name">{PAPERNAME}</span></p>
             <p class="paper-time">考试时间：<span class="paper-start">{PAPERSTART}</span> ～ <span class="paper-end">{PAPEREND}</span></p>
-            <p>考试进程：<span class="exam-status green-text">等待考试...</span></p>
+            <p>考试进程：<span class="exam-status green-text">{PAPERSTATUS}</span></p>
             <div>
-                <input type="button" class="btn btn-primary btn-sm ok-btn" value="进入考试" id="{PAPERID}" />
-                <input type="button" class="btn btn-primary btn-sm next-btn pull-right" value="下一份" />
+                <input type="button" class="btn btn-primary btn-sm ok-btn {BTNHIDE}" value="进入考试" id="{PAPERID}" />
+                <input type="button" class="btn btn-primary btn-sm next-btn pull-right" id="nextbtn" value="下一份" />
                 <input type="button" class="btn btn-primary btn-sm prev-btn pull-right" value="上一份" />
             </div>
         </div>
     </script>
 </body>
-
 </html>

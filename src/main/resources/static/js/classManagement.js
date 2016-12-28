@@ -11,15 +11,18 @@ var dd_buttons = [{
 $(function() {
 
     init();
-    getClassStu(1);
-    // getStuGrade();
     // 绑定事件，根据class_id请求对应班级信息
+
+
+});
+
+function bindBtn() {
     $("#class_list a").bind("click", function() {
         var class_id = $(this).attr("id");
         getClassStu(class_id);
     });
 
-});
+}
 
 
 function init() {
@@ -28,16 +31,17 @@ function init() {
         type: "get",
         success: function(result) {
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result[0])
-                .replace('{TEACHERNAME}', result[1]);
+            $temp = $temp.replace('{TEACHERID}', result['teacherId'])
+                .replace('{TEACHERNAME}', result['teacherName']);
             $('#teacher_info').html($temp);
-            var data = result[2];
+            var data = result['classList'];
             var $ul = $("#class_list ul");
             for (var i = 0; i < data.length; i++) {
                 var $template = $("#template_class_list")[0].innerHTML;
-                $template = $template.replace('{CLASSID}', data[i].class_id).replace('{CLASSNAME}', data[i].class_name);
+                $template = $template.replace('{CLASSID}', data[i]['classId']).replace('{CLASSNAME}', data[i]['className']);
                 $ul.append($template);
             }
+            bindBtn();
         },
         error: function() {
             //test
@@ -54,6 +58,7 @@ function init() {
                 $template = $template.replace('{CLASSID}', data[i].class_id).replace('{CLASSNAME}', data[i].class_name);
                 $ul.append($template);
             }
+            bindBtn();
         }
     }); //ajax结束
 }
@@ -71,7 +76,7 @@ function getClassStu(classId) {
 
 
     $.ajax({
-        url: '/getClassStu/'+classId,
+        url: '/getClassStu/' + classId,
         type: "get",
         success: function(data) {
             $('#class_student_dg').datagrid('loadData', data);
@@ -90,7 +95,7 @@ function getClassStu(classId) {
 }
 
 function getStuGrade() {
-    $("#east strong").html(currentRow.student_name);
+    $("#east strong").html(currentRow['student_name']);
     var teacher_id = $("#top strong").attr("id");
     var student_id = currentRow.student_id;
     // 根据teacher_id，student_id请求学生成绩
@@ -98,7 +103,7 @@ function getStuGrade() {
     // var student_id=201430561000;
     // alert('开始！！！'+student_id);
     $.ajax({
-        url: '/getStuGrade/'+teacher_id+"/"+student_id,
+        url: '/getStuGrade/' + teacher_id + "/" + student_id,
         type: "get",
         success: function(data) {
             $("#student_grade_dg").datagrid('loadData', data);

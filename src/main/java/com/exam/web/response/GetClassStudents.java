@@ -19,41 +19,41 @@ public class GetClassStudents {
     }
 
     public class StuInfo{
-        private String studentName;
-        private Long studentId;
-        private String className;
+        private String student_name;
+        private Long student_id;
+        private String class_name;
 
         public StuInfo() {
         }
 
-        public StuInfo(String studentName, Long studentId, String className) {
-            this.studentName = studentName;
-            this.studentId = studentId;
-            this.className = className;
+        public StuInfo(String student_name, Long student_id, String class_name) {
+            this.student_name = student_name;
+            this.student_id = student_id;
+            this.class_name = class_name;
         }
 
-        public String getStudentName() {
-            return studentName;
+        public String getStudent_name() {
+            return student_name;
         }
 
-        public void setStudentName(String studentName) {
-            this.studentName = studentName;
+        public void setStudent_name(String student_name) {
+            this.student_name = student_name;
         }
 
-        public Long getStudentId() {
-            return studentId;
+        public Long getStudent_id() {
+            return student_id;
         }
 
-        public void setStudentId(Long studentId) {
-            this.studentId = studentId;
+        public void setStudent_id(Long student_id) {
+            this.student_id = student_id;
         }
 
-        public String getClassName() {
-            return className;
+        public String getClass_name() {
+            return class_name;
         }
 
-        public void setClassName(String className) {
-            this.className = className;
+        public void setClass_name(String class_name) {
+            this.class_name = class_name;
         }
     }
 

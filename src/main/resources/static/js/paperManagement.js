@@ -184,7 +184,7 @@ function subscribePaper() {
     if (currentRow === undefined) {
         msgTipBox("请选择一份试题")
     } else {
-        var paperName = currentRow.paper_name;
+        var paperId = currentRow.paper_id;
         //根据试题名称 发布试题
         $('#dd').dialog({
             closed: false,
@@ -198,24 +198,19 @@ function subscribePaper() {
                 msgTipBox("时间不能为空");
             } else {
                 var postdata = {
-                    paper_id: paperName,
-                    paper_start: paperStart,
-                    paper_end: paperEnd
+                    paper_id: paperId,
+                    paper_start: transformDate(paperStart),
+                    paper_end: transformDate(paperEnd)
                 };
                 //TODO 根据试题id 发布试题
-                var postdata = {
-                    paper_id: 4,
-                    paper_start: "2016-9-9 10:00:00",
-                    paper_end: "2016-9-9 23:59:59"
-                };
                 $.ajax({
                     url: '/setPaperTime',
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(postdata),
                     success: function(msg) {
-                        data["paper_status"] = "发布中";
-                        if (msg.success) {
+                        alert(msg=='true');
+                        if (msg=='true') {
                             //提示发布成功
                             msgTipBox("发布成功,请关闭窗口");
                             $('#dd').dialog({
@@ -223,13 +218,13 @@ function subscribePaper() {
                             });
                             $("#paper_dg").datagrid('updateRow', {
                                 index: currentIndex,
-                                row: data
+                                row: postdata
                             });
                         }
                     },
                     error: function() {
                         //test
-                        msgTipBox("发布成功,请关闭窗口");
+                        msgTipBox("发布失败,请关闭窗口");
                         $('#dd').dialog({
                             closed: true,
                         });
@@ -251,6 +246,7 @@ function subscribePaper() {
         });
     }
 }
+
 // 修改试题
 function modifyQuestion() {
     if (currentRow2 === undefined) {
@@ -362,4 +358,12 @@ function msgTipBox(message) {
     $("#msgTipBox .close").bind("click", function() {
         $("#msgTipBox").css("display", "none");
     });
+}
+function transformDate(date1) {
+    // var date1="12/21/2016 21:55:03"
+    // var date2="2016-01-01 11:59:59"
+    var part1 = date1.split(" ")[0].split('/');
+    var part2 = date1.split(" ")[1];
+    var date2 = part1[2] + '-' + part1[0] + '-' + part1[1] + " " + part2;
+    return date2;
 }
