@@ -33,7 +33,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 data:JSON.stringify(postdata),
                 success: function(msg) {
-                    if (msg.success) {
+                    if (msg=='true') {
                         alertMsg('Info', '上传成功');
                         $('#btn-submit').html('新添试题');
                         $('.operation button').each(function(index, item) {

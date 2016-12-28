@@ -181,8 +181,6 @@ function addTotalScore() {
         var target = $(event.target).data('target');
         var max = Number($(target).data('max'));
         var score = $(target).val();
-        console.log(score);
-        console.log(max);
         if (!/\d+/.test(score)) {
             alertMsg('Warning', '请给一个合法的分数');
         } else if (Number(score) > max) {

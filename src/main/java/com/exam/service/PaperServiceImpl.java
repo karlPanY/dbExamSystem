@@ -70,8 +70,6 @@ public class PaperServiceImpl implements PaperService {
             try {
                 paper.setPaperStart(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getPaper_start()));
                 paper.setPaperEnd(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(request.getPaper_end()));
-//                paper.setPaperStart(request.getPaper_end());
-//                paper.setPaperEnd(request.getPaper_end());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -167,9 +165,15 @@ public class PaperServiceImpl implements PaperService {
             if(!str.equals("") && str.contains("#")){
                 String[] idAndAnswer = str.split("#");
                 Long questionId= Long.valueOf(idAndAnswer[0].trim());
+                String strAnswer;
+                if(idAndAnswer.length==1){
+                    strAnswer = "";
+                }else{
+                    strAnswer=idAndAnswer[1];
+                }
                 Question question;
                 if((question= questionRepository.findOne(questionId))!=null){
-                    paperAnswerList.add(new GetExactPaperAnswerToMark().new paperAnswer(questionId, question.getTitle(), idAndAnswer[1], question.getScore()));
+                    paperAnswerList.add(new GetExactPaperAnswerToMark().new paperAnswer(questionId, question.getTitle(), strAnswer, question.getScore()));
                 }
             }
         }

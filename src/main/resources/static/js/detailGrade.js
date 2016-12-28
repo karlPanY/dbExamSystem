@@ -41,7 +41,9 @@ $(function() {
 $(function() {
     //初始化
     init();
-    getPaperStuGrade(1);
+
+});
+function bindBtn() {
     // 请求对应考卷信息
     $("#paper_list a").bind("click", function() {
         $("#paper_list a").removeClass('active');
@@ -49,7 +51,7 @@ $(function() {
         var paper_id = $(this).attr("id");
         getPaperStuGrade(paper_id);
     });
-});
+}
 
 function init() {
     $.ajax({
@@ -70,6 +72,7 @@ function init() {
 
                 $ul.append($template);
             }
+            bindBtn();
         },
         error: function() {
             //test
