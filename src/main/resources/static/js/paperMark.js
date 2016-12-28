@@ -2,6 +2,10 @@ var currentPaperId = null; //全局变量
 $(function() {
     //初始化
     init();
+
+});
+
+function bindBtn() {
     // 请求对应试题 学生答卷
     $("#paper_list a").bind("click", function() {
         $("#paper_list a").removeClass('active');
@@ -11,8 +15,7 @@ $(function() {
         // 获取试题
         getstudentidList(currentPaperId);
     });
-
-});
+}
 
 function init() {
     // / 请求初始话paper数据 不需要参数
@@ -22,13 +25,13 @@ function init() {
         success: function(result) {
             // var result = ['登录教师id', '登录教师名', 'paperList内容'];
             var $temp = $('#teacher_info')[0].innerHTML.trim();
-            $temp = $temp.replace('{TEACHERID}', result.teacherId)
-                .replace('{TEACHERNAME}', result.teacherName);
+            $temp = $temp.replace('{TEACHERID}', result['teacherId'])
+                .replace('{TEACHERNAME}', result['teacherName']);
             $('#teacher_info').html($temp);
 
             var $ul = $("ul#paper_list");
             $ul.html('');
-            var paperList = result.papersMarkInfoList;
+            var paperList = result['papersMarkInfoList'];
             for (var i = 0; i < paperList.length; i++) {
                 var $template = $('#paperListTemplate')[0].innerHTML;
                 var paperName = paperList[i]['paper_name'];
@@ -36,6 +39,7 @@ function init() {
                 $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
+            bindBtn();
         },
         error: function() {
             //test
@@ -61,6 +65,7 @@ function init() {
                 $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
+            bindBtn();
         }
     });
 }
@@ -69,7 +74,7 @@ function init() {
 function getstudentidList(paperId) {
     console.log(paperId);
     $.ajax({
-        url: "/getstudentIdListForMark/" + paperId,
+        url: "/getStudentIdListForMark/" + paperId,
         type: 'get',
         success: function(result) {
             var studentidList = result["student_id_list"];
@@ -107,30 +112,31 @@ function getAnswerPaperByStuId(target) {
     $('a.studentItem').removeClass('active');
     $(event.target).addClass('active');
     console.log([currentPaperId, studentId]);
-    currentPaperId=1;
-    studentId=201430561000;
     $.ajax({
         url: '/getMarkingPaper/' + currentPaperId + '/' + studentId,
         type: 'get',
-        success: function(result) {
-            var num = result[0];
-            var data = result[1];
-            render(data.student_id, data.student_name, data.student_paper, data.student_score);
+        success: function(data) {
+
+            render(data["student_id"], data["student_name"], data["student_paper"], data["student_score"]);
         },
         error: function() {
             var data = {
-                "student_id": '201430560243',
-                "student_name": '廖晓娟',
-                "student_paper": [
-                    ['题目1-id', '题目1', '答案1', '5'],
-                    ['题目2-id', '题目2', '答案2', '5']
-                ],
-                "student_score": 0
+                "student_id": 201430561000,
+                "student_name": "小白",
+                "student_paper": [{
+                    "question_id": 3,
+                    "question_title": "testing11",
+                    "question_answer": "爱国主义",
+                    "question_score": 4.0
+                }, {
+                    "question_id": 6,
+                    "question_title": "你哈哈哈哈哈哈哈哈哈哈哈",
+                    "question_answer": "这是个问答题的答案",
+                    "question_score": 4.0
+                }],
+                "student_score": null
             };
-            var result = [1, data];
-            var num = result[0];
-            var data = result[1];
-            render(data.student_id, data.student_name, data.student_paper, data.student_score);
+            render(data["student_id"], data["student_name"], data["student_paper"], data["student_score"]);
         }
     });
 }
@@ -140,17 +146,26 @@ function render(student_id, student_name, paper, score) {
     $('#student_paper').html('');
     var $template1 = $("#template_info")[0].innerHTML.trim();
     var $template2;
-    $template1 = $template1.replace('{STUDENTSCORE}', score);
-    if (score > 0) {
-        $('#student_paper button').attr('disabled', 'true');
-        $('.question_score').attr('disabled', 'true');
+    if (score == null) {
+        score = 0;
     }
+    $template1 = $template1.replace('{STUDENTSCORE}', score);
+
     $('#student_paper').append($template1);
     for (var i = 0, len = paper.length; i < len; i++) {
         $template2 = $("#template_question")[0].innerHTML.trim();
         var question = paper[i];
-        $template2 = $template2.replace('{QUESTIONTITLE}', question[1]).replace('{QUESTIONANSWER}', question[2]).replace(/{QUESTIONSCORE}/g, question[3]).replace(/{QUESTIONID}/g, question[0]);
+        var questionId = question["question_id"];
+        var questionTitle = question["question_title"];
+        var questionAnswer = question["question_answer"];
+        var questionScore = question["question_score"];
+
+        $template2 = $template2.replace('{QUESTIONTITLE}', questionTitle).replace('{QUESTIONANSWER}', questionAnswer).replace(/{QUESTIONSCORE}/g, questionScore).replace(/{QUESTIONID}/g, questionId);
         $('#student_paper').append($template2);
+    }
+    if (score > 0) {
+        $('#student_paper button').attr('disabled', 'true');
+        $('.question_score').attr('disabled', 'true');
     }
     //试卷加载完毕后，绑定按钮事件
     addTotalScore();
@@ -167,6 +182,11 @@ function addTotalScore() {
         var target = $(event.target).data('target');
         var max = Number($(target).data('max'));
         var score = $(target).val();
+
+        console.log(score);
+        console.log(/\d+/.test(score));
+
+
         if (!/\d+/.test(score)) {
             alertMsg('Warning', '请给一个合法的分数');
         } else if (Number(score) > max) {
@@ -194,10 +214,10 @@ function submitScore(student_id) {
     var paper_id = currentPaperId;
     var totalScore = $('#sum-score').html();
     $.ajax({
-        url: '/setStudentNoneSelectScore/'+paper_id+"/"+student_id+"/"+totalScore,
-        type:'get',
+        url: '/setStudentNoneSelectScore/' + paper_id + "/" + student_id + "/" + totalScore,
+        type: 'get',
         success: function(msg) {
-            if (msg=='true') {
+            if (msg == 'true') {
                 alertMsg('info', "评分完成，请选择下一份试卷~~~~");
                 $("#btn-submitScore").attr('disabled', 'true')
             } else {

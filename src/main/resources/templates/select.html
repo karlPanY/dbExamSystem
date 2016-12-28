@@ -3,61 +3,53 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/effect/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/select.css" />
     <title>选择试卷</title>
 </head>
 
 <body>
-    <div class="log-panel">
-        <div class="log-inner">
-            <div class="log-test">
-                <div class="student-info">
-                    <b th:id="${student_id}" th:text="${student_name}">廖晓娟
-</b>&nbsp;同学，您好! 您有<b class="paper_num">{PAPERNUM}</b>份试卷需要参与考试
-                    <span><a href="login.html" class="blue-text">退出考试</a></span>
-                </div>
-                <!-- 试卷信息 -->
-                <div class="paper-info" id="paperinfo-1">
-                    <b>试卷信息1</b>
-                    <p>试卷名称：<span class="paper-name"></span></p>
-                    <p class="paper-time">考试时间：<span class="paper-start">2016-12-08 15:00:00</span> ～ <span class="paper-end">2016-12-08 15:00:00</span></p>
-                    <p>考试进程：<span class="exam-status green-text">等待考试...</span></p>
-                    <p>
-                        <input type="button" class="ok-btn" value="进入考试" id="paperId"/>
-                        <input type="button" class="next-btn" value="下一份"/>
-                        <input type="button" class="prev-btn" value="上一份"/>
-                    </p>
-                </div>
-                <div class="paper-info hide" id="paperinfo-2">
-                    <b>试卷信息2</b>
-                    <p>试卷名称：<span class="paper-name">{PAPERNAME}</span></p>
-                    <p class="paper-time">考试时间：<span class="paper-start">{PAPERSTART}</span> ～ <span class="paper-end">{PAPEREND}</span></p>
-                    <p>考试进程：<span class="exam-status green-text">等待考试...</span></p>
-                    <p>
-                        <input type="button" class="ok-btn" value="进入考试" id="paperId"/>
-                        <input type="button" class="next-btn" value="下一份"/>
-                        <input type="button" class="prev-btn" value="上一份"/>
-                    </p>
-                </div>
-                <div class="paper-info hide" id="paperinfo-3">
-                    <b>试卷信息3</b>
-                    <p>试卷名称：<span class="paper-name"></span></p>
-                    <p class="paper-time">考试时间：<span class="paper-start">2016-12-08 15:00:00</span> ～ <span class="paper-end">2016-12-08 15:00:00</span></p>
-                    <p>考试进程：<span class="exam-status green-text">等待考试...</span></p>
-                    <p>
-                        <input type="button" class="ok-btn" value="进入考试" id="paperId"/>
-                        <input type="button" class="next-btn" value="下一份"/>
-                        <input type="button" class="prev-btn" value="上一份"/>
-                    </p>
-                </div>
-                <!-- 试卷信息 end -->
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
             </div>
         </div>
-        <!-- log-inner end -->
+    </nav>
+    <div class="panel-info">
+        <div class="panel-heading">
+            <p class="student-info">
+                <b id="{STUDENTID}">{STUDENTNAME}</b>&nbsp;同学，您好!
+            </p>
+            <div>&nbsp; 您有<b class="paper_num">{PAPERNUM}</b>份试卷需要参与考试
+                <span><a href="/login" class="blue-text">退出考试</a></span>
+            </div>
+        </div>
+        <div class="panel-body">
+            <!-- 试卷信息 -->
+        </div>
     </div>
     <script src="js/effects/jquery-2.2.3.js"></script>
     <script src="js/effects/bootstrap.js"></script>
     <script src="js/select.js"></script>
+    <script type="text/template" id="paperInfoTempalte">
+        <div class="paper-info">
+            <b>试卷信息{PAPERINDEX}</b>
+            <p>试卷名称：<span class="paper-name">{PAPERNAME}</span></p>
+            <p class="paper-time">考试时间：<span class="paper-start">{PAPERSTART}</span> ～ <span class="paper-end">{PAPEREND}</span></p>
+            <p>考试进程：<span class="exam-status green-text">{PAPERSTATUS}</span></p>
+            <div>
+                <input type="button" class="btn btn-primary btn-sm ok-btn {BTNHIDE}" value="进入考试" id="{PAPERID}" />
+                <input type="button" class="btn btn-primary btn-sm next-btn pull-right" id="nextbtn" value="下一份" />
+                <input type="button" class="btn btn-primary btn-sm prev-btn pull-right" value="上一份" />
+            </div>
+        </div>
+    </script>
 </body>
-
 </html>

@@ -5,47 +5,85 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>考试系统</title>
-    <link rel="stylesheet" type="text/css" href="css/com.css">
-    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/com.css"/>
+    <link rel="stylesheet" type="text/css" href="css/effect/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/exam.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <div class="navbar-header" id="exam-nav-header">
-                <a class="navbar-brand" href="#">考试系统</a>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
             </div>
             <div class="pull-right">
                 <div class="timer">考试时间：<span id="timer"></span></div>
             </div>
         </div>
     </nav>
-    <div class="wrapper">
-        <div class="sideBar">
-            <div id="student_info">
-                <p><b class="student_id" id="{STUDENTID}">{STUDENTNAME}</b>&nbsp;同学，您好!</p>
-                <p>欢迎参加<b class="paper_id" id="{PAPERID}">{PAPERNAME}</b>考试</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <div id="student_info">
+                    <p><b class="student_id" id="{STUDENTID}">{STUDENTNAME}</b>&nbsp;同学，您好!</p>
+                    <p>欢迎参加<b class="paper_id" id="{PAPERID}">{PAPERNAME}</b>考试</p>
+                </div>
+                <nav class="navigation">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#type1" data-target='scroll_1' class="scroll">
+                                <i></i>
+                                <span class="nav-label">选择题</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#type2" data-target='scroll_2' class="scroll">
+                                <i></i>
+                                <span class="nav-label">填空题</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#type3" data-target='scroll_3' class="scroll">
+                                <i></i>
+                                <span class="nav-label">简答题</span>
+                            </a>
+                        </li>
+                        <li class="mouse">
+                            <div></div>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </div>
-        <div class="main">
-            <div id="exam_body">
-                <h3>一、选择题</h3>
-                <div class="content" id="type1">
-                    <!-- 放置模板1 -->
-                </div>
-                <h3>二、填空题</h3>
-                <div class="content" id="type2">
-                </div>
-                <h3>三、简答题</h3>
-                <div class="content" id="type3">
-                </div>
-                <div class="row">
-                    <button class="btn btn-success" id="submit">提交</button>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div id="exam_body">
+                    <h3>一、选择题</h3>
+                    <div class="content" id="type1">
+                        <!-- 放置模板1 -->
+                    </div>
+                    <h3>二、填空题</h3>
+                    <div class="content" id="type2">
+                    </div>
+                    <h3>三、简答题</h3>
+                    <div class="content" id="type3">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <button class="btn btn-success pull-right" id="submit">提交</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <footer>
+        <a href="#" id="back-to-top" style="display: block;"></a>
+    </footer>
     <script type="text/javascript" src="js/effects/jquery-2.2.3.js"></script>
     <script type="text/template" id="template1">
         <div class="question" id="{QUESTIONID}">
@@ -53,22 +91,22 @@
             <div class="row radio">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <label>
-                        <input type="radio" name='{QUESTIONID}' value="A" />{QUESIONCONTENT1}
+                        <input type="radio" name='{QUESTIONID}' value="A" />{QUESTIONCONTENT1}
                     </label>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <label>
-                        <input type="radio" name='{QUESTIONID}' value="B" />{QUESIONCONTENT2}
+                        <input type="radio" name='{QUESTIONID}' value="B" />{QUESTIONCONTENT2}
                     </label>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <label>
-                        <input type="radio" name='{QUESTIONID}' value="C" />{QUESIONCONTENT3}
+                        <input type="radio" name='{QUESTIONID}' value="C" />{QUESTIONCONTENT3}
                     </label>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <label>
-                        <input type="radio" name='{QUESTIONID}' value="D" />{QUESIONCONTENT4}
+                        <input type="radio" name='{QUESTIONID}' value="D" />{QUESTIONCONTENT4}
                     </label>
                 </div>
             </div>
@@ -76,17 +114,17 @@
     </script>
     <script type="text/template" id="template2">
         <div class="question">
-            <div class="title">{QUESIONTITLE}</div>
+            <div class="title">{QUESTIONTITLE}</div>
             <div class="row">
                 <textarea name="{QUESTIONID}" rows="1"></textarea>
             </div>
         </div>
     </script>
     <script type="text/template" id="template3">
-        <div class="question">
+        <div class="question" id="{QUESTIONID}">
             <div class="title">{QUESTIONTITLE}</div>
             <div class="row">
-                <textarea name="{QUESIONID}" rows="5"></textarea>
+                <textarea name="{QUESTIONID}" rows="5"></textarea>
             </div>
         </div>
     </script>
