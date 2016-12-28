@@ -1,7 +1,7 @@
-var currentPaperId = null; //全局变量
 $(function() {
     //初始化
     init();
+    loadData();
 });
 
 function bindBtn() {
@@ -18,10 +18,10 @@ function init() {
     // / 请求初始话paper数据 不需要参数
     $.ajax({
         url: "/getAllMarkedPapers",
-        cache:false,
         type: "get",
+        cache:false,
         success: function(result) {
-            // var result = ['登录教师id', '登录教师名', 'paperList内容'];
+            // var result = {'teacherId':'登录教师id','teacherName':'登录教师名','papersMarkInfoList': 'paperList内容'};
             var $temp = $('#teacher_info')[0].innerHTML.trim();
             $temp = $temp.replace('{TEACHERID}', result['teacherId'])
                 .replace('{TEACHERNAME}', result['teacherName']);
@@ -69,18 +69,19 @@ function init() {
 }
 
 function getPaperStuGrade(paperId) {
-    console.log('get' + paperId);
+
     $.ajax({
         url: '/getStudentScoreByPaperId/' + paperId,
-        cache:false,
         type: "get",
+        cache:false,
         success: function(data) {
             //清空 装入数据
-            loadData(data['rows']);
-            checkScore();
+
+            $('#table').bootstrapTable('load', data['rows']);
+
         },
         error: function() {
-            var data = {
+            var data1 = {
                 'total': 3,
                 'rows': [{
                     student_name: '廖晓娟',
@@ -99,16 +100,38 @@ function getPaperStuGrade(paperId) {
                     rank: "2"
                 }]
             };
-            //清空 装入数据
-            loadData(data['rows']);
-            checkScore();
+            var data2 = {
+                'total': 3,
+                'rows': [{
+                    student_name: '廖晓娟',
+                    student_id: "201430560243",
+                    grade: '99',
+                    rank: "1"
+                }, {
+                    student_name: '邹浩阳',
+                    student_id: "201430560241",
+                    grade: '96',
+                    rank: "1"
+                }, {
+                    student_name: '要利娇',
+                    student_id: "201430560240",
+                    grade: '44',
+                    rank: "60"
+                }]
+            };
+            if (paperId == 'paper_id1') {
+
+                $('#table').bootstrapTable('load', data1['rows']);
+            } else {
+                $('#table').bootstrapTable('load', data2['rows']);
+            }
+
         }
     }); // ajax end
 }
 // To-do:设置一个统计不及格人数
+function loadData() {
 
-function loadData(data) {
-    console.log(data)
     $('#table').bootstrapTable({
         columns: [{
             field: 'student_name',
@@ -126,9 +149,15 @@ function loadData(data) {
             title: 'Item ID',
             sortable: true
         }],
-        data: data
+        data: [{
+            student_name: '',
+            student_id: "",
+            grade: '',
+            rank: ""
+        }]
     });
 }
+
 
 function Sorter(a, b) {
 
