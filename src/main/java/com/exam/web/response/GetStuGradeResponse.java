@@ -23,25 +23,25 @@ public class GetStuGradeResponse {
     }
 
     public class StudentGrade{
-        private String papar_name;
+        private String paper_name;
         private Float grade;
         private Integer rank;
 
         public StudentGrade() {
         }
 
-        public StudentGrade(String papar_name, Float grade, Integer rank) {
-            this.papar_name = papar_name;
+        public StudentGrade(String paper_name, Float grade, Integer rank) {
+            this.paper_name = paper_name;
             this.grade = grade;
             this.rank = rank;
         }
 
-        public String getPapar_name() {
-            return papar_name;
+        public String getPaper_name() {
+            return paper_name;
         }
 
-        public void setPapar_name(String papar_name) {
-            this.papar_name = papar_name;
+        public void setPaper_name(String paper_name) {
+            this.paper_name = paper_name;
         }
 
         public Float getGrade() {
