@@ -80,31 +80,28 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public String changeQuestion(ModifyQuestionRequest request) {
-        ModifyQuestionRequest.questionInfo[] questionInfoList=request.getQuestionList();
         String flag="false";
-        for (ModifyQuestionRequest.questionInfo questionInfo : questionInfoList) {
-            if (questionInfo.getQuestion_id() != null) {
-                Question question = questionRepository.findOne(questionInfo.getQuestion_id());
-                if (questionInfo.getQuestion_answer() != null) {
-                    question.setAnswer(questionInfo.getQuestion_answer());
+            if (request.getQuestion_id() != null) {
+                Question question = questionRepository.findOne(request.getQuestion_id());
+                if (request.getQuestion_answer() != null) {
+                    question.setAnswer(request.getQuestion_answer());
                 }
-                if (questionInfo.getQuestion_score() != null) {
-                    question.setScore(questionInfo.getQuestion_score());
+                if (request.getQuestion_score() != null) {
+                    question.setScore(request.getQuestion_score());
                 }
-                if (questionInfo.getQuestion_title() != null) {
-                    question.setTitle(questionInfo.getQuestion_title());
+                if (request.getQuestion_title() != null) {
+                    question.setTitle(request.getQuestion_title());
                 }
-                if (questionInfo.getType() != null) {
-                    question.setType(questionInfo.getType());
+                if (request.getType() != null) {
+                    question.setType(request.getType());
                 }
                 if(questionRepository.save(question) == null){
                     flag = "false";
-                    break;
                 }else{
                     flag = "true";
                 }
             }
-        }
+
         return flag;
     }
 

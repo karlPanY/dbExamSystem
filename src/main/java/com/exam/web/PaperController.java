@@ -48,7 +48,7 @@ public class PaperController {
     @RequestMapping(value = RequestUrls.changeQuestions, method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public String changeQuestions(@RequestBody ModifyQuestionRequest request) {
-        if (request != null && request.getQuestionList() != null) {
+        if (request != null && request.getQuestion_id() != null) {
             return paperService.changeQuestion(request);
         }
         return "false";

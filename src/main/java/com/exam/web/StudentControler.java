@@ -115,7 +115,6 @@ public class StudentControler {
         paperScore.setSelectAnswer(selectAnswer);
         paperScore.setTrueFalseAnswer(truefalseAnswer);
         paperScore.setSelectScore(selectScore);
-        paperScore.setScore(selectScore);
 
         studentService.saveAnswer(paperScore);
 

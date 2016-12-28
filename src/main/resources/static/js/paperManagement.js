@@ -284,12 +284,19 @@ function modifyQuestion() {
                 row[$item.attr("name")] = $item.val();
             });
             // 添加选项里的信息
+            var textareaNum=1;
+            if(currentRow2.question_type==="选择题"){
+                textareaNum=5;
+            }
             var textareas = $("#paper_detail_dd").find("textarea");
-            textareas.each(function(index, item) {
-                var $item = $(item);
-                row['question_title'] += $item.val() + "#";
-            });
-            console.log(row['question_title'])
+            for(var i=0;i<textareaNum;i++) {
+                var $item = $(textareas[i]);
+                if(i!=textareaNum-1)
+                    row['question_title'] += $item.val() + "#";
+                else
+                    row['question_title'] += $item.val();
+            }
+            console.log(row['question_title']);
             row['type'] = currentRow2.question_type;
 
             // var postdata={
@@ -307,7 +314,7 @@ function modifyQuestion() {
                 data: postdata,
                 contentType: "application/json; charset=utf-8",
                 success: function(msg) {
-                    if (msg.success) {
+                    if (msg=='true') {
                         $('#dd').dialog({
                             closed: true,
                         });
