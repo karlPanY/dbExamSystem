@@ -27,7 +27,7 @@ public class Paper implements Serializable {
 
     private Integer flag=0;//标记该试卷是否已经被评阅 0 未评阅 1 已评阅
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<Question> questions;
 
     @ManyToOne(fetch = FetchType.EAGER)

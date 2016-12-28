@@ -12,36 +12,36 @@ import java.util.Set;
  */
 public class GetStuGradeResponse {
     private Integer total;
-    private List<StudentGrade> row;
+    private List<StudentGrade> rows;
 
     public GetStuGradeResponse() {
     }
 
-    public GetStuGradeResponse(Integer total, List<StudentGrade> studentGradeList) {
+    public GetStuGradeResponse(Integer total, List<StudentGrade> rows) {
         this.total = total;
-        this.row = studentGradeList;
+        this.rows = rows;
     }
 
     public class StudentGrade{
-        private String papar_name;
+        private String paper_name;
         private Float grade;
         private Integer rank;
 
         public StudentGrade() {
         }
 
-        public StudentGrade(String papar_name, Float grade, Integer rank) {
-            this.papar_name = papar_name;
+        public StudentGrade(String paper_name, Float grade, Integer rank) {
+            this.paper_name = paper_name;
             this.grade = grade;
             this.rank = rank;
         }
 
-        public String getPapar_name() {
-            return papar_name;
+        public String getPaper_name() {
+            return paper_name;
         }
 
-        public void setPapar_name(String papar_name) {
-            this.papar_name = papar_name;
+        public void setPaper_name(String paper_name) {
+            this.paper_name = paper_name;
         }
 
         public Float getGrade() {
@@ -69,11 +69,11 @@ public class GetStuGradeResponse {
         this.total = total;
     }
 
-    public List<StudentGrade> getRow() {
-        return row;
+    public List<StudentGrade> getRows() {
+        return rows;
     }
 
-    public void setRow(List<StudentGrade> row) {
-        this.row = row;
+    public void setRows(List<StudentGrade> rows) {
+        this.rows = rows;
     }
 }

@@ -20,14 +20,8 @@ $(function() {
         console.log(['测试', JSON.stringify(data)]);
         addClass(data);
     });
-    $("#class_list a").bind("click", function(event) {
-        $('#class_list a').removeClass('active');
-        $(event.target).addClass('active');
+    $("#class_list").bind("click", function(event) {
         getClass(event.target);
-    });
-    $('.mainLnk').bind('click', function(event) {
-        $('.mainLnk').removeClass('active');
-        $(event.target).addClass('active');
     });
 });
 
@@ -35,18 +29,18 @@ $(function() {
 function init() {
     // / 请求初始化班级数据 不需要参数
     $.ajax({
-        url: "/admin/init",
+        url:"/admin/init",
         type: "get",
         dataType: 'json',
         success: function(data) {
-            var $ul = $("ul#class_list .last");
+            var $ul = $("ul#class_list");
             var classes = data;
             for (var i = 0; i < classes.length; i++) {
                 var $template = $('#classListTemplate')[0].innerHTML;
                 var className = classes[i].class_name;
                 var classId = classes[i].class_id;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                $ul.before($template);
+                $ul.append($template);
             }
         },
         error: function() {
@@ -59,14 +53,14 @@ function init() {
                 class_name: "信息安全"
             }];
 
-            var $ul = $("ul#class_list .last");
+            var $ul = $("ul#class_list");
             var classes = data;
             for (var i = 0; i < classes.length; i++) {
                 var $template = $('#classListTemplate')[0].innerHTML;
                 var className = classes[i].class_name;
                 var classId = classes[i].class_id;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                $ul.before($template);
+                $ul.append($template);
             }
         }
     });
@@ -88,8 +82,8 @@ function addClass(classInfo) {
                 alertMsg('info', "添加班级成功");
                 var $template = $('#classListTemplate')[0].innerHTML;
                 $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-                var $ul = $("ul#class_list .last");
-                $ul.before($template);
+                var $ul = $("ul#class_list");
+                $ul.append($template);
                 setTimeout(function() {
                     $('.alert').alert('close');
                 }, 500);
@@ -107,8 +101,8 @@ function addClass(classInfo) {
             var className = classInfo.class_name;
             var $template = $('#classListTemplate')[0].innerHTML;
             $template = $template.replace('{CLASSID}', classId).replace('{CLASSNAME}', className);
-            var $ul = $("ul#class_list .last");
-            $ul.before($template);
+            var $ul = $("ul#class_list");
+            $ul.append($template);
         }
     }); //ajax end
 }
@@ -116,12 +110,12 @@ function addClass(classInfo) {
 function getClass(target) {
 
     editIndex = undefined;
-    var classId = $(target).attr("id");
-
+    var class_id = $(target).attr("id");
+    currentClass= $(target).html();
     $.ajax({
-        url: "/admin/getClassStu",
+        url:"/admin/getClassStu",
         type: "get",
-        data: { 'class_id': classId },
+        data:{'class_id':class_id},
         dataType: 'json',
         success: function(data) {
             datagrid('#student_dg', 'loadData', data['rows'][0]);
@@ -130,7 +124,7 @@ function getClass(target) {
             }
         },
         error: function() {
-            console.log('测试请求班级id：' + classId);
+            console.log('测试请求班级id：' + class_id);
             var data = {
                 'total': 2,
                 'rows': [{
@@ -199,6 +193,7 @@ function openPanel(type) {
 }
 
 
+
 // ========datagrid=======
 
 function getRowIndex(target) {
@@ -254,8 +249,10 @@ function append(dgId) {
         var $template = $($(dgId + '_template').html());
         $(dgId).find('tbody').append($template);
 
-        var currentClassName = $("#class_list").find('a.active').html();
-        $(dgId).find('tbody tr:nth-of-type(' + editIndex + ')').find("input[name='class_name']").val(currentClassName);
+
+
+        $(dgId).find('tbody tr:nth-of-type(' + editIndex + ')').find("input[name='class_name']").val(currentClass);
+
 
         var $inputs = $(dgId).find('tbody tr:nth-of-type(' + editIndex + ')').find('input:text');
         for (var i = 0, len = $inputs.length; i < len; i++) {
@@ -280,7 +277,6 @@ function saverow(target) {
         var _dg = $(target).closest('table').attr("id");
 
         var row = datagrid('#' + _dg, 'getRows', editIndex);
-        var currentClassId = $("#class_list").find('a.active').attr('id');
         row['news'] = newAppend;
         row['class_id'] = currentClassId;
         var postdata = JSON.stringify(row);
@@ -295,7 +291,6 @@ function saverow(target) {
             RowName = row.teacher_name;
             url = "/admin/addTeacher";
         }
-
         if (/\d{6,}/.test(RowId) && /\S{1,}/.test(RowName)) {
             $.ajax({
                 url: url,
@@ -328,7 +323,7 @@ function saverow(target) {
                     $(target).closest('td').find('button:nth-child(4)').get(0).disabled = false;
                     newAppend = false;
                     editIndex = undefined;
-                    console.log('here 提交新添数据' + postdata);
+                    console.log(postdata)
                 }
             }); //ajax end
         } else {
@@ -371,13 +366,13 @@ function cancelrow(target) {
 
 function editrow(target) {
     var _flag = $(target).closest('table').attr("id") == "student_dg" ? 0 : 1;
-
+    console.log('edit: ' + [_flag, flag]);
     if (endEditing()) {
         $(target).closest('td').find('button:nth-child(2)').get(0).disabled = false;
         $(target).closest('td').find('button:nth-child(1)').get(0).disabled = false;
         editIndex = getRowIndex(target);
         var inputs = $(target).closest('tr').find('input:text');
-        for (var i = 1, len = inputs.length; i < len; i++) {
+        for (var i = 0, len = inputs.length; i < len; i++) {
             inputs[i].disabled = false;
         }
     } else {
@@ -397,15 +392,17 @@ function deleterow(target) {
     var postdata = JSON.stringify(row);
     var url;
     if ($(_dg).attr("id") == "student_dg") {
-        url = "删除学生请求路径";
+        url = "/admin/deleteStudent";
     } else {
-        url = "删除教师请求路径";
+        url = "/admin/deleteTeacher";
     }
+    console.log(postdata);
     // 提交信息：{"student_id":"201430560243","student_name":"廖晓娟","password":"123456","new":false}
     $.ajax({
         url: url,
         type: "post",
-        data: postdata,
+        data: postdata,   
+        contentType: "application/json; charset=utf-8",
         success: function(msg) {
             if (msg.success) {
                 alertMsg('Info', '删除成功');

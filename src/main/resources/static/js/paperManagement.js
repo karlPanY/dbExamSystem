@@ -6,6 +6,10 @@ var toolbar = [{
     text: '发布试卷',
     iconCls: 'icon-edit',
     handler: subscribePaper
+}, {
+    text: '编辑试卷',
+    iconCls: 'icon-edit',
+    handler: editPaper
 }];
 var toolbar2 = [{
     text: '查看/修改试题',
@@ -205,8 +209,8 @@ function subscribePaper() {
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(postdata),
                     success: function(msg) {
-                        alert(msg == 'true');
-                        if (msg == 'true') {
+                        alert(msg=='true');
+                        if (msg=='true') {
                             //提示发布成功
                             msgTipBox("发布成功,请关闭窗口");
                             $('#dd').dialog({
@@ -355,7 +359,6 @@ function msgTipBox(message) {
         $("#msgTipBox").css("display", "none");
     });
 }
-
 function transformDate(date1) {
     // var date1="12/21/2016 21:55:03"
     // var date2="2016-01-01 11:59:59"

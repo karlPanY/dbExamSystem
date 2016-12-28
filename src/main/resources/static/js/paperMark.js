@@ -3,8 +3,8 @@ $(function() {
     //初始化
     init();
 
-});
 
+});
 function bindBtn() {
     // 请求对应试题 学生答卷
     $("#paper_list a").bind("click", function() {
@@ -65,7 +65,6 @@ function init() {
                 $template = $template.replace('{PAPERID}', paperId).replace('{PAPERNAME}', paperName);
                 $ul.append($template);
             }
-            bindBtn();
         }
     });
 }
@@ -134,7 +133,7 @@ function getAnswerPaperByStuId(target) {
                     "question_answer": "这是个问答题的答案",
                     "question_score": 4.0
                 }],
-                "student_score": null
+                "student_score": 88.0
             };
             render(data["student_id"], data["student_name"], data["student_paper"], data["student_score"]);
         }
@@ -146,8 +145,8 @@ function render(student_id, student_name, paper, score) {
     $('#student_paper').html('');
     var $template1 = $("#template_info")[0].innerHTML.trim();
     var $template2;
-    if (score == null) {
-        score = 0;
+    if(score==null){
+        score=0;
     }
     $template1 = $template1.replace('{STUDENTSCORE}', score);
 
@@ -182,11 +181,8 @@ function addTotalScore() {
         var target = $(event.target).data('target');
         var max = Number($(target).data('max'));
         var score = $(target).val();
-
         console.log(score);
-        console.log(/\d+/.test(score));
-
-
+        console.log(max);
         if (!/\d+/.test(score)) {
             alertMsg('Warning', '请给一个合法的分数');
         } else if (Number(score) > max) {
@@ -214,10 +210,10 @@ function submitScore(student_id) {
     var paper_id = currentPaperId;
     var totalScore = $('#sum-score').html();
     $.ajax({
-        url: '/setStudentNoneSelectScore/' + paper_id + "/" + student_id + "/" + totalScore,
-        type: 'get',
+        url: '/setStudentNoneSelectScore/'+paper_id+"/"+student_id+"/"+totalScore,
+        type:'get',
         success: function(msg) {
-            if (msg == 'true') {
+            if (msg=='true') {
                 alertMsg('info', "评分完成，请选择下一份试卷~~~~");
                 $("#btn-submitScore").attr('disabled', 'true')
             } else {

@@ -15,12 +15,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController(RequestUrls.HomeUrl).setViewName("login");
         registry.addViewController(RequestUrls.LoginUrl).setViewName("login");
         registry.addViewController(RequestUrls.select).setViewName("select");
+        registry.addViewController(RequestUrls.exam).setViewName("exam");
         registry.addViewController(RequestUrls.admin).setViewName("admin");
         registry.addViewController(RequestUrls.teacherIndex).setViewName("teacherIndex");
         registry.addViewController(RequestUrls.getClassManagement).setViewName("classManagement");
         registry.addViewController(RequestUrls.getPaperManagement).setViewName("paperManagement");
         registry.addViewController(RequestUrls.getDetailGrade).setViewName("detailGrade");
         registry.addViewController(RequestUrls.getPaperMark).setViewName("paperMark");
+        registry.addViewController(RequestUrls.getPaperEdit).setViewName("paperEdit");
 
     }
 }

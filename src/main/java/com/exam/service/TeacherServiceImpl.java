@@ -2,12 +2,14 @@ package com.exam.service;
 
 import com.exam.domain.*;
 import com.exam.domain.dao.*;
+import com.exam.web.request.CreatePaper;
 import com.exam.web.response.GetClassStudents;
 import com.exam.web.response.GetClassesResponse;
 import com.exam.web.response.GetStuGradeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -138,6 +140,31 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Set<QuestionScore> getStudentAnswer(Long studentId, Long Paperid) {
+        return null;
+    }
+
+    @Override
+    public String createPaper(Long teacherId, CreatePaper createPaper) {
+        Teacher teacher;
+        if ((teacher = teacherRepository.findOne(teacherId)) != null) {
+            List<CreatePaper.paperContent> paperContentList;
+            if ((paperContentList = createPaper.getPaperContentList()) != null) {
+                List<Question> questionList = new ArrayList<>();
+                for(CreatePaper.paperContent paperContent:paperContentList){
+                    Question question = questionRepository.save(new Question(paperContent.getQuestionType(),
+                            paperContent.getQuestionTitle(), paperContent.getQuestionAnswer(), paperContent.getQuestionScore()));
+                    questionList.add(question);
+                }
+                try {
+                    Paper paper = new Paper(createPaper.getPaperName(), createPaper.getPaperStart(), createPaper.getPaperEnd(), 0, questionList, teacher, null, null);
+                    teacher.getPaperSet().add(paperRepository.save(paper));
+                    teacher.getQuestionSet().addAll(questionList);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return teacherRepository.save(teacher)!=null?"true":"false";
+            }
+        }
         return null;
     }
 }
