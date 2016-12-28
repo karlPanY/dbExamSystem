@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="dbSystem" />
     <meta name="author" content="kasmine" />
-    <!-- <link rel="icon" href="../../favicon.ico"> -->
-    <title>管理员系统</title>
+    <link rel="icon" href="favicon.ico">
+    <title>考卷评阅</title>
     <!-- Bootstrap core CSS -->
     <link href="css/effect/bootstrap.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css"> -->
-    <!-- Custom styles for this template -->
+    <link href="css/common.css" rel="stylesheet" />
     <link href="css/paperMark.css" rel="stylesheet" />
 </head>
 
@@ -56,18 +55,21 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/paperEdit" data-target='scroll_4'>
+                                <i></i>
+                                <span class="nav-label">试题编辑</span>
+                            </a>
+                        </li>
+                        <li>
                             <a id="dLabel" data-target="#" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="active"><i></i>考卷评阅<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="paper_list">
                             </ul>
                         </li>
                         <li>
-                            <a href="/detailGrade" data-target='scroll_5'>
+                            <a href="/detailGrade" data-target='scroll_6'>
                                 <i></i>
                                 <span class="nav-label">详细成绩</span>
                             </a>
-                        </li>
-                        <li class="mouse">
-                            <div></div>
                         </li>
                     </ul>
                 </nav>

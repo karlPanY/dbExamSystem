@@ -81,7 +81,7 @@ li.mouse {
     /* background: linear-gradient(-45deg,rgba(0, 0, 0, 0) 18.4px,rgb(85, 136, 170) 0) bottom right,linear-gradient(-135deg,rgba(0, 0, 0, 0) 18.4px,rgb(85, 136, 170) 0) top right; */
     background-size: 100% 50%;
     overflow: hidden;
-    top: -260px;
+    top: -312px;
     z-index: -9999;
 }
 li.mouse>div {
@@ -117,11 +117,16 @@ li.mouse>div {
 }
 
 .navigation ul li:nth-of-type(4) a i {
+    background: url(../images/subscribe.ico);
+    background-size: contain;
+}
+
+.navigation ul li:nth-of-type(5) a i{
     background: url(../images/p_score.ico);
     background-size: contain;
 }
 
-.navigation ul li:nth-of-type(5) a i {
+.navigation ul li:nth-of-type(6) a i{
     background: url(../images/score0.ico);
     background-size: contain;
 }
@@ -182,4 +187,9 @@ div.guide-content{
 }
 .guide-content img:hover {
     box-shadow: 7px 7px 7px -7px #000, -7px -7px 7px -7px #000;
+}
+#paperEdit-block img {
+    width: 80%;
+    overflow-y: hidden;
+    margin: auto;
 }
