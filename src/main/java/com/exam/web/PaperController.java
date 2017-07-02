@@ -93,7 +93,8 @@ public class PaperController {
     @ResponseBody
     public GetAllMarkedPapersInfo getAllMarkedPapers(HttpSession session) {
         if (session.getAttribute("id") != null) {
-            return paperService.getAllMarkedPapersInfo((Long) session.getAttribute("id"));
+            GetAllMarkedPapersInfo getAllMarkedPapersInfo =  paperService.getAllMarkedPapersInfo((Long) session.getAttribute("id"));
+            return  getAllMarkedPapersInfo;
         }
         return null;
     }

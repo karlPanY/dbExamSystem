@@ -138,10 +138,6 @@ public class TeacherServiceImpl implements TeacherService {
         return null;
     }
 
-    @Override
-    public Set<QuestionScore> getStudentAnswer(Long studentId, Long Paperid) {
-        return null;
-    }
 
     @Override
     public String createPaper(Long teacherId, CreatePaper createPaper) {
@@ -156,7 +152,7 @@ public class TeacherServiceImpl implements TeacherService {
                     questionList.add(question);
                 }
                 try {
-                    Paper paper = new Paper(createPaper.getPaperName(), createPaper.getPaperStart(), createPaper.getPaperEnd(), 0, questionList, teacher, null, null);
+                    Paper paper = new Paper(createPaper.getPaperName(), createPaper.getPaperStart(), createPaper.getPaperEnd(), questionList, teacher, null);
                     teacher.getPaperSet().add(paperRepository.save(paper));
                     teacher.getQuestionSet().addAll(questionList);
                 } catch (ParseException e) {

@@ -30,13 +30,10 @@ public class PaperScore implements Serializable{
     @Column(length = 8000)
     private String trueFalseAnswer;//判断题id#判断题答案$判断题id#判断题答案$
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<QuestionScore> questionScoreSet;
-
     public PaperScore() {
     }
 
-    public PaperScore(PaperScoreId id, Float score, Float selectScore, Float qestionScore, String selectAnswer, String fillAnswer, String questionAnswer, String trueFalseAnswer, Set<QuestionScore> questionScoreSet) {
+    public PaperScore(PaperScoreId id, Float score, Float selectScore, Float qestionScore, String selectAnswer, String fillAnswer, String questionAnswer, String trueFalseAnswer) {
         this.id = id;
         this.score = score;
         this.selectScore = selectScore;
@@ -45,16 +42,9 @@ public class PaperScore implements Serializable{
         this.fillAnswer = fillAnswer;
         this.questionAnswer = questionAnswer;
         this.trueFalseAnswer = trueFalseAnswer;
-        this.questionScoreSet = questionScoreSet;
     }
 
-    public Set<QuestionScore> getQuestionScoreSet() {
-        return questionScoreSet;
-    }
 
-    public void setQuestionScoreSet(Set<QuestionScore> questionScoreSet) {
-        this.questionScoreSet = questionScoreSet;
-    }
 
     public Float getSelectScore() {
         return selectScore;
@@ -64,9 +54,6 @@ public class PaperScore implements Serializable{
         this.selectScore = selectScore;
     }
 
-    public Float getQestionScore() {
-        return qestionScore;
-    }
 
     public void setQestionScore(Float qestionScore) {
         this.qestionScore = qestionScore;

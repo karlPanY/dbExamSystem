@@ -18,7 +18,6 @@ public interface StudentService {
 
     GetSelectPapersResponse getSelectPapers(Long StudentId);  //通过学生id获得该学生的老师发布的试卷id列表
 
-    boolean handUpPaper(Long StudentId, Long Paperid, List<Long> questionId, List<String>answer);    //学生答题完上传考卷答案
 
     Student getStudent(long id);//获得学生
 

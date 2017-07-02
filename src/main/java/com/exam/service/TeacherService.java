@@ -28,7 +28,5 @@ public interface TeacherService {
 
     PaperScore getStudentPaperGrade(Long StudentId,Long PaperId);//获得某学生某试卷成绩
 
-    Set<QuestionScore> getStudentAnswer(Long studentId, Long Paperid);//获得某学生某试卷答案
-
     String createPaper(Long teacherId, CreatePaper createPaper);
 }

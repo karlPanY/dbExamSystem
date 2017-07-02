@@ -6,18 +6,46 @@ import java.util.List;
  * Created by NeilHY on 2016/12/27.
  */
 public class GetAllMarkedPapersInfo {
-    private Long teacher_id;
-    private String teacher_name;
-    private List<paperInfo> data;
+    private Long teacherId;
+
+    public GetAllMarkedPapersInfo(Long teacherId, String teacherName, List<paperInfo> papersMarkInfoList) {
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
+        this.papersMarkInfoList = papersMarkInfoList;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    private String teacherName;
+
+    public List<paperInfo> getPapersMarkInfoList() {
+        return papersMarkInfoList;
+    }
+
+    public void setPapersMarkInfoList(List<paperInfo> papersMarkInfoList) {
+        this.papersMarkInfoList = papersMarkInfoList;
+    }
+
+    private List<paperInfo> papersMarkInfoList;
 
     public GetAllMarkedPapersInfo() {
     }
 
-    public GetAllMarkedPapersInfo(Long teacher_id, String teacher_name, List<paperInfo> data) {
-        this.teacher_id = teacher_id;
-        this.teacher_name = teacher_name;
-        this.data = data;
-    }
+
 
     public class paperInfo{
         private Long paper_id;
@@ -48,27 +76,5 @@ public class GetAllMarkedPapersInfo {
         }
     }
 
-    public Long getTeacher_id() {
-        return teacher_id;
-    }
 
-    public void setTeacher_id(Long teacher_id) {
-        this.teacher_id = teacher_id;
-    }
-
-    public String getTeacher_name() {
-        return teacher_name;
-    }
-
-    public void setTeacher_name(String teacher_name) {
-        this.teacher_name = teacher_name;
-    }
-
-    public List<paperInfo> getData() {
-        return data;
-    }
-
-    public void setData(List<paperInfo> data) {
-        this.data = data;
-    }
 }

@@ -100,6 +100,8 @@ public class AdminServiceImpl implements AdminService {
                         beforeTeacher.getClassSet().remove(stuClass);
                         teacherRepository.save(beforeTeacher);
                     }
+                    teacher.setClassSet(new_class_set);
+                    teacherRepository.save(teacher);
                     stuClass.setTeacher(teacher);
                     classRepository.save(stuClass);
                     new_class_set.add(stuClass);

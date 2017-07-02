@@ -121,7 +121,9 @@ function submitPaper() {
         contentType: "application/json;charset=utf-8",
         success: function(data) {
             alertMsg("success", "考试结束，客观题成绩为" + data);
-            window.history.back(-1);
+            setTimeout(function () {
+                window.history.back(-1)
+            },2000)
         }
     })
 
